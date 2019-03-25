@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="My Cross Fit App"
+             BackgroundColor="#BDBDBD"
+             x:Class="Xamarin.ToDoITem.MainTabbedPage">
+    <ContentPage Title="WoDs" BackgroundColor="#F5F5F5">
+        <StackLayout Orientation="Vertical">
+            <ListView x:Name="ItemsListView" ItemTapped="ItemsListView_OnItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding Text}" FontSize="Medium" FontFamily="Roboto-Light.ttf#Roboto-Light" Margin="10"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <!--<StackLayout BackgroundColor="#2196F3" HeightRequest="2"/>-->
+            <Grid HeightRequest="150" BackgroundColor="#9E9E9E">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Entry Grid.Row="0" x:Name="TaskEntry" PlaceholderColor="White" Placeholder="Νέο Πρόγραμμα" FontSize="Medium" VerticalOptions="Center" HorizontalTextAlignment="Center" BackgroundColor="Transparent" TextColor="White" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" VerticalOptions="Center" Margin="10" BackgroundColor="Transparent" Clicked="NewWoD_OnClicked"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage>
+    <ContentPage Title="Infos" BackgroundColor="#F5F5F5">
+        <StackLayout Orientation="Vertical">
+            <ListView x:Name="InfosListView" ItemTapped="InfoListView_OnItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding Text}" FontSize="Medium" FontFamily="Roboto-Light.ttf#Roboto-Light" Margin="10"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid BackgroundColor="#9E9E9E" HeightRequest="150">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Entry Grid.Row="0" x:Name="InfoTaskEntry" PlaceholderColor="White" Placeholder="Νέα Πληροφορία" FontSize="Medium" VerticalOptions="Center" HorizontalTextAlignment="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" BackgroundColor="Transparent"/>
+                <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" VerticalOptions="Center" Margin="10" BackgroundColor="Transparent" Clicked="NewInfo_OnClicked"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage>
+    <ContentPage Title="Records" BackgroundColor="#F5F5F5">
+        <StackLayout Orientation="Vertical">
+            <ListView x:Name="RecordsListView" ItemTapped="RecordsListView_OnItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding Text}" FontSize="Medium" FontFamily="Roboto-Light.ttf#Roboto-Light" Margin="10"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid BackgroundColor="#9E9E9E" HeightRequest="150">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Entry x:Name="RecordEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέο Record" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="Transparent"/>
+                <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="NewRecord_OnClicked"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage>
+</TabbedPage>
