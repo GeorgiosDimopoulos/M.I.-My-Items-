@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
-using Xamarin.ToDoITem.SQLite;
+using MyCrossFitApp.SQLite;
 
-namespace Xamarin.ToDoITem
+namespace MyCrossFitApp
 {
 	public partial class App : Application
 	{

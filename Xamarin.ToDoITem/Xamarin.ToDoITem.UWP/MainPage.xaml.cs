@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace Xamarin.ToDoITem.UWP
+namespace MyCrossFitApp.UWP
 {
     public sealed partial class MainPage
     {
@@ -21,7 +21,7 @@ namespace Xamarin.ToDoITem.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new Xamarin.ToDoITem.App());
+            LoadApplication(new MyCrossFitApp.App());
         }
     }
 }

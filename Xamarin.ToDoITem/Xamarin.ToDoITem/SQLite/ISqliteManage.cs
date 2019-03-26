@@ -1,4 +1,4 @@
-﻿namespace Xamarin.ToDoITem.SQLite
+﻿namespace MyCrossFitApp.SQLite
 {
     public interface ISqliteManage
     {

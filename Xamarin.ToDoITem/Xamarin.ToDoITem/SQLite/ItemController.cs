@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using SQLite;
 
-namespace Xamarin.ToDoITem.SQLite
+namespace MyCrossFitApp.SQLite
 {
     public class ItemController
     {

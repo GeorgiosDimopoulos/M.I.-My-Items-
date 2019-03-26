@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace Xamarin.ToDoITem
+namespace MyCrossFitApp
 {
     public class Task
     {

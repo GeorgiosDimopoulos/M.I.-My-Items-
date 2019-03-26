@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace Xamarin.ToDoITem.iOS
+namespace MyCrossFitApp.iOS
 {
     public class Application
     {

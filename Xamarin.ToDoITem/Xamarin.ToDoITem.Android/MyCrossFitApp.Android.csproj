@@ -112,9 +112,9 @@
     <AndroidResource Include="Resources\drawable\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.ToDoITem\Xamarin.ToDoITem.csproj">
+    <ProjectReference Include="..\Xamarin.ToDoITem\MyCrossFitApp.csproj">
       <Project>{733b08a6-d968-4916-b4ee-9204fd456c4b}</Project>
-      <Name>Xamarin.ToDoITem</Name>
+      <Name>MyCrossFitApp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

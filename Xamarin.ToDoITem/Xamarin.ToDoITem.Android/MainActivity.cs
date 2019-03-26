@@ -3,7 +3,8 @@ using System.IO;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Xamarin.ToDoITem.SQLite;
+using MyCrossFitApp;
+using MyCrossFitApp.SQLite;
 
 namespace Xamarin.ToDoITem.Droid
 {

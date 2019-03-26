@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Xamarin.ToDoITem
+namespace MyCrossFitApp
 {
 	public partial class MainPage : ContentPage
 	{

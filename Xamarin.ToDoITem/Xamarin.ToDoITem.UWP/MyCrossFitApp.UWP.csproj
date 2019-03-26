@@ -152,12 +152,12 @@
       <Version>1.5.231</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.1" />
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.6" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.ToDoITem\Xamarin.ToDoITem.csproj">
+    <ProjectReference Include="..\Xamarin.ToDoITem\MyCrossFitApp.csproj">
       <Project>{733B08A6-D968-4916-B4EE-9204FD456C4B}</Project>
-      <Name>Xamarin.ToDoITem</Name>
+      <Name>MyCrossFitApp</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
