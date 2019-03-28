@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
+  <style name="MyTheme.Splash" parent ="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:windowBackground">@drawable/splashScreen</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowFullscreen">true</item>
+  </style>
+  <style name="MyTheme.Base" parent="Theme.AppCompat.Light">
+  </style>
+  <style name="MyTheme" parent="MyTheme.Base">
+  </style>
+  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+  </style>
   <style name="MainTheme" parent="MainTheme.Base">
   </style>
   <style name="MainTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -9,8 +23,8 @@
     <item name="windowActionBar">false</item>
      Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette 
      colorPrimary is used for the default action bar background 
-    <item name="colorPrimary">#BDBDBD</item>
-    <item name="colorPrimaryDark">#616161</item>
+    <item name="colorPrimary">#455A64</item>
+    <item name="colorPrimaryDark">#607D8B</item>
     <item name="colorAccent">#000000</item>
      You can also set colorControlNormal, colorControlActivated
          colorControlHighlight and colorSwitchThumbNormal. 

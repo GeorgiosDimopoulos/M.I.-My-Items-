@@ -11,21 +11,21 @@ using Xamarin.Forms.Xaml;
 namespace MyCrossFitApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainTabbedPage : TabbedPage
+    public partial class WodsPage : TabbedPage
     {
         public ObservableCollection<Task> myList;
 
-        public MainTabbedPage()
+        public WodsPage()
         {
             try
             {
                 InitializeComponent();
+                NavigationPage.SetHasBackButton(this, false);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);                
+                DisplayAlert("WodsPage Constructor Error", e.Message, "Yes");
             }
-            
         }
 
         protected override async void OnAppearing()
@@ -34,54 +34,77 @@ namespace MyCrossFitApp
             {
                 var list = await App.ItemController.GetTasks();
                 myList = new ObservableCollection<Task>(list);
-
-                //ItemsListView.ItemsSource = myList;
-                RecordsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2)); //.Where(x => x.Type == 1)
-                ItemsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(1)); //.Where(x => x.Type == 0)
-                InfosListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(0)); //.Where(x => x.Type == 2)                
+                RecordsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2));
+                ItemsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(1));
+                InfosListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(0));
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Console.WriteLine(e);
+                await DisplayAlert("OnAppearing Error", exception.Message, "Yes");
             }
         }
         
         private async void ItemsListView_OnItemTapped(object sender, ItemTappedEventArgs e)
         {
-            var task = (Task)ItemsListView.SelectedItem;
-            ItemsListView.SelectedItem = null;
-
-            if (await DisplayAlert(null, "Delete selected task?", "Yes", "No"))
+            try
             {
-                myList.Remove(task);
-                await App.ItemController.DeleteTask(task);
-                ItemsListView.ItemsSource = myList;
+                var task = (Task)ItemsListView.SelectedItem;
+                ItemsListView.SelectedItem = null;
+
+                if (await DisplayAlert(null, "Διαγραφή WoD?", "ΟΚ", "Όχι"))
+                {
+                    myList.Remove(task);
+                    await App.ItemController.DeleteTask(task);                    
+                    await DisplayAlert(null, "Διαγράφηκε το WoD", "ΟΚ");
+                    ItemsListView.ItemsSource = null;
+                    ItemsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(0));
+                }
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("WodsListView_OnItemTapped Error", exception.Message, "Yes");
             }
         }
 
         private async void InfoListView_OnItemTapped(object sender, ItemTappedEventArgs e)
         {
-            var task = (Task)InfosListView.SelectedItem;
-            InfosListView.SelectedItem = null;
-
-            if (await DisplayAlert(null, "Delete selected task?", "Yes", "No"))
+            try
             {
-                myList.Remove(task);
-                await App.ItemController.DeleteTask(task);
-                InfosListView.ItemsSource = myList;
+                var task = (Task)InfosListView.SelectedItem;
+                InfosListView.SelectedItem = null;
+                if (await DisplayAlert(null, "Διαγραφή info?", "OK", "Όχι"))
+                {
+                    myList.Remove(task);
+                    await App.ItemController.DeleteTask(task);
+                    await DisplayAlert(null, "Διαγράφηκε το info", "ΟΚ");
+                    InfosListView.ItemsSource = null;
+                    InfosListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(0));
+                }
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("InfoListView_OnItemTapped Error", exception.Message, "Yes");
             }
         }
 
         private async void RecordsListView_OnItemTapped(object sender, ItemTappedEventArgs e)
         {
-            var task = (Task)RecordsListView.SelectedItem;
-            RecordsListView.SelectedItem = null;
-
-            if (await DisplayAlert(null, "Delete selected task?", "Yes", "No"))
+            try
             {
-                myList.Remove(task);
-                await App.ItemController.DeleteTask(task);
-                RecordsListView.ItemsSource = myList;
+                var task = (Task)RecordsListView.SelectedItem;
+                RecordsListView.SelectedItem = null;
+                if (await DisplayAlert(null, "Διαγραφή Record?", "ΟΚ", "Όχι"))
+                {
+                    myList.Remove(task);
+                    await App.ItemController.DeleteTask(task); //RecordsListView.ItemsSource = myList;
+                    await DisplayAlert(null, "Διαγράφηκε το Record", "ΟΚ");
+                    RecordsListView.ItemsSource = null;
+                    RecordsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2));
+                }
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("RecordsListView_OnItemTapped Error", exception.Message, "Yes");
             }
         }
 
@@ -91,7 +114,7 @@ namespace MyCrossFitApp
             {
                 if (string.IsNullOrEmpty(TaskEntry.Text))
                 {
-                    await DisplayAlert(null, "Cannot add empty task!", "OK");
+                    await DisplayAlert(null, "Γράψτε κάτι για WoD!", "OK");
                     return;
                 }
 
@@ -120,7 +143,7 @@ namespace MyCrossFitApp
             {
                 if (string.IsNullOrEmpty(InfoTaskEntry.Text))
                 {
-                    await DisplayAlert(null, "Cannot add empty task!", "OK");
+                    await DisplayAlert(null, "Γράψτε κάτι για Info!", "OK");
                     return;
                 }
 
@@ -149,7 +172,7 @@ namespace MyCrossFitApp
             {
                 if (string.IsNullOrEmpty(RecordEntry.Text))
                 {
-                    await DisplayAlert(null, "Cannot add empty task!", "OK");
+                    await DisplayAlert(null, "Γράψτε κάτι για ρεκόρ!", "OK");
                     return;
                 }
 
@@ -171,6 +194,19 @@ namespace MyCrossFitApp
             {
                 Console.WriteLine(exception);                
             }
+        }
+
+        private async void MenuItem_OnClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                await Navigation.PopAsync();
+                await Navigation.PushAsync(new MainPage(), true); //Environment.Exit(1);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }            
         }
     }
 }

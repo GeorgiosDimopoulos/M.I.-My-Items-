@@ -16,7 +16,7 @@ namespace MyCrossFitApp
 		    ItemDatabase = new ItemDatabase(SqliteManage.DatabaseFolder());
 		    ItemController = new ItemController();
 
-            MainPage = new NavigationPage(new MainTabbedPage()); //AddItem
+            MainPage = new NavigationPage(new MainPage()); //MainTabbedPage
         }
 
 	    public static void Init(ISqliteManage sqliteManage)

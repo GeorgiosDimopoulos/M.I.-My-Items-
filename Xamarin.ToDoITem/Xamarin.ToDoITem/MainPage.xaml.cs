@@ -5,40 +5,75 @@ namespace MyCrossFitApp
 {
 	public partial class MainPage : ContentPage
 	{
-	    string default_name = "admin";
-	    string default_password = "admin";
-
         public MainPage()
-		{
-			InitializeComponent();
-		    NavigationPage.SetHasNavigationBar(this, false);
-		}
-
-        protected override void OnAppearing()
-        {
-            Username.Text = "";
-            Password.Text = "";
-        }
-
-        private async void Login_Clicked(object sender, EventArgs e)
-        {
-            if (Username.Text == default_name && Password.Text == default_password || Username.Text == "")
-                await Navigation.PushAsync(new AddItem());
-            else
-                await DisplayAlert(null, "Wrong username or password!", "OK");
-        }
-
-        private async void Login_Clicked2(object sender, EventArgs e)
         {
             try
             {
-                await Navigation.PushAsync(new MainTabbedPage());
+                InitializeComponent();
+                NavigationPage.SetHasNavigationBar(this, false);
+                TapRecognizers();
             }
-            catch (Exception exception)
+            catch (Exception e)
             {
-                Console.WriteLine(exception);                
+                DisplayAlert("MainPage Constructor", e.Message, "OK");
             }
+        }
 
+        private void TapRecognizers()
+        {
+            try
+            {
+                TapGestureRecognizer dutiessTap = new TapGestureRecognizer();
+                TapGestureRecognizer marketsTap = new TapGestureRecognizer();
+                TapGestureRecognizer workoutsstap = new TapGestureRecognizer();
+                TapGestureRecognizer expensessTap = new TapGestureRecognizer();
+
+                expensessTap.Tapped += (object sender, EventArgs e) =>
+                {
+                    Navigation.PushAsync(new ExpensesPage(), true);
+                };
+                workoutsstap.Tapped += (object sender, EventArgs e) =>
+                {
+                    Navigation.PushAsync(new WodsPage(), true);
+                };
+                marketsTap.Tapped += (object sender, EventArgs e) =>
+                {
+                    Navigation.PushAsync(new MarketPage(), true);
+                };
+                dutiessTap.Tapped += (object sender, EventArgs e) =>
+                {
+                    Navigation.PushAsync(new DutiesPage(), true); //PushModalAsync
+                };
+
+                DutiessGrid.GestureRecognizers.Add(dutiessTap);
+                MarketsGrid.GestureRecognizers.Add(marketsTap);
+                ExpensessGrid.GestureRecognizers.Add(expensessTap);
+                WorkOutsGrid.GestureRecognizers.Add(workoutsstap);
+
+            }
+            catch (Exception e)
+            {
+                DisplayAlert("TapRecognizers", e.Message, "OK");
+            }
+        }
+
+        protected override void OnAppearing()
+        {
+            //((MainViewModel)BindingContext).DatabaseService.NetworkConnect();
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            Environment.Exit(0);
+            //Device.BeginInvokeOnMainThread(async () =>
+            //{
+            //    if (await DisplayAlert(null, "Σίγουρη Έξοδος", "ΝΑΙ", "ΟΧΙ"))
+            //    {
+            //        Environment.Exit(0);
+            //        //await Navigation.PushModalAsync(new LogPage(), true);
+            //    }
+            //});
+            return true;
         }
     }
 }

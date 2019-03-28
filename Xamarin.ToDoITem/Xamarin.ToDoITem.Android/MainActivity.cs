@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Acr.UserDialogs;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
@@ -8,7 +9,7 @@ using MyCrossFitApp.SQLite;
 
 namespace Xamarin.ToDoITem.Droid
 {
-    [Activity(Label = "MyCrossfFitApp", Icon = "@drawable/icon",  MainLauncher = true, Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "MCFA", Icon = "@drawable/icons8barbell",  MainLauncher = false, Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : Forms.Platform.Android.FormsAppCompatActivity, ISqliteManage
     {
         protected override void OnCreate(Bundle bundle)
@@ -20,7 +21,7 @@ namespace Xamarin.ToDoITem.Droid
                 ToolbarResource = Resource.Layout.Toolbar;
                 Forms.Forms.Init(this, bundle);
                 SQLitePCL.Batteries_V2.Init();
-
+                UserDialogs.Init(this);
                 App.Init(this);
                 LoadApplication(new App());
             }

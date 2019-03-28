@@ -28,5 +28,10 @@ namespace MyCrossFitApp.SQLite
         {
             return database.DeleteAsync(task);
         }
+
+        public Task<int> UpdateTask(Task task)
+        {
+            return database.UpdateAsync(task);
+        }
     }
 }

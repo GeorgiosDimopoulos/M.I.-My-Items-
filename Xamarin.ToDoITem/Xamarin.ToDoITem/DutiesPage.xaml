@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Υποχρεώσεις"
+             x:Class="MyCrossFitApp.DutiesPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="MenuItem_OnClicked"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout BackgroundColor="#CFD8DC">
+        <ScrollView Orientation="Vertical">
+        <ListView x:Name="DutiesListView" ItemTapped="ItemsListView_OnItemTapped" VerticalOptions="StartAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="{Binding Text}" FontSize="Medium" TextColor="#212121" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </ScrollView>
+        <!--<Button Clicked="AddDutyButton_OnClicked" Text="+" FontSize="40" VerticalOptions="End" BackgroundColor="#455A64" TextColor="#FFFFFF" FontFamily="Roboto-Light.ttf#Roboto-Light"/>-->
+        <Grid BackgroundColor="#455A64" HeightRequest="150">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Entry x:Name="ExpenseEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέα Υποχρέωση" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+            <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="AddDutyButton_OnClicked"/>
+        </Grid>
+        <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="DutyChoicesPicker" SelectedIndexChanged="DutyChoicesPicker_SelectedIndexChanged" IsVisible="False" />
+    </StackLayout>
+</ContentPage>
