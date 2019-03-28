@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MyCrossFitApp
+namespace MyItems
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AddItem : ContentPage

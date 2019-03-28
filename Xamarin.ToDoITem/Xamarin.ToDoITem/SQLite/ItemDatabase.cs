@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace MyCrossFitApp.SQLite
+namespace MyItems.SQLite
 {
     public class ItemDatabase
     {

@@ -123,9 +123,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.ToDoITem\MyCrossFitApp.csproj">
+    <ProjectReference Include="..\Xamarin.ToDoITem\MyItems.csproj">
       <Project>{733B08A6-D968-4916-B4EE-9204FD456C4B}</Project>
-      <Name>MyCrossFitApp</Name>
+      <Name>MyItems</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

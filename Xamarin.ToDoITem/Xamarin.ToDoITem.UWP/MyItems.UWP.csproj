@@ -155,9 +155,9 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.6" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.ToDoITem\MyCrossFitApp.csproj">
+    <ProjectReference Include="..\Xamarin.ToDoITem\MyItems.csproj">
       <Project>{733B08A6-D968-4916-B4EE-9204FD456C4B}</Project>
-      <Name>MyCrossFitApp</Name>
+      <Name>MyItems</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

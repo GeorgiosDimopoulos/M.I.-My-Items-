@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace MyCrossFitApp.UWP
+namespace MyItems.UWP
 {
     public sealed partial class MainPage
     {
@@ -21,7 +21,7 @@ namespace MyCrossFitApp.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new MyCrossFitApp.App());
+            LoadApplication(new MyItems.App());
         }
     }
 }

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="My Cross Fit App"
              BackgroundColor="#BDBDBD"
-             x:Class="MyCrossFitApp.WodsPage">
+             x:Class="MyItems.WodsPage">
     <TabbedPage.ToolbarItems>
         <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="MenuItem_OnClicked"/>
         <!--<ToolbarItem Order="Primary" Icon="Xamarin.png" Text="Item 2" Priority="1" />-->

@@ -9,7 +9,7 @@ using Acr.UserDialogs;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MyCrossFitApp
+namespace MyItems
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MarketPage : ContentPage
@@ -68,7 +68,7 @@ namespace MyCrossFitApp
                 {
                     if (string.IsNullOrEmpty(ProductEntry.Text))
                     {
-                        await DisplayAlert(null, "Cannot add empty task!", "OK");
+                        await DisplayAlert(null, "Γράψτε κάτι!", "OK");
                         return;
                     }
 
@@ -82,9 +82,7 @@ namespace MyCrossFitApp
                     MarketListView.ItemsSource = null;
                     MarketListView.ItemsSource = myMarketList.ToList().Where(x => x.Type.Equals(3));
                     ProductEntry.Text = "";
-                    await DisplayAlert("DONE", "Νέο WoD προστέθηκε", "OK");
-                    //ItemsListView.ItemsSource = null;
-                    //ItemsListView.ItemsSource = myList;
+                    //await DisplayAlert("DONE", "Νέο Προϊόν προστέθηκε", "OK");
             }
             catch (Exception ex)
             {

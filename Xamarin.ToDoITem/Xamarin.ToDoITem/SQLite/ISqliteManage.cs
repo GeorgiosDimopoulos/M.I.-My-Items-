@@ -1,4 +1,4 @@
-﻿namespace MyCrossFitApp.SQLite
+﻿namespace MyItems.SQLite
 {
     public interface ISqliteManage
     {

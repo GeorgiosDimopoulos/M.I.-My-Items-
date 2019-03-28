@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace MyCrossFitApp
+namespace MyItems
 {
     public class Task
     {

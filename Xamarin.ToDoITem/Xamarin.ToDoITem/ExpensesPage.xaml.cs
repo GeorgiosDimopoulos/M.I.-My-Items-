@@ -8,7 +8,7 @@ using Acr.UserDialogs;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MyCrossFitApp
+namespace MyItems
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ExpensesPage : ContentPage

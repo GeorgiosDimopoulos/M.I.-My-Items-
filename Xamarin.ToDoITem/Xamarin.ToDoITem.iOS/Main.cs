@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace MyCrossFitApp.iOS
+namespace MyItems.iOS
 {
     public class Application
     {

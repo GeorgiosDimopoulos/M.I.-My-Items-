@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyCrossFitApp", "Xamarin.ToDoITem\Xamarin.ToDoITem\MyCrossFitApp.csproj", "{733B08A6-D968-4916-B4EE-9204FD456C4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyItems", "Xamarin.ToDoITem\Xamarin.ToDoITem\MyItems.csproj", "{733B08A6-D968-4916-B4EE-9204FD456C4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCrossFitApp.iOS", "Xamarin.ToDoITem\Xamarin.ToDoITem.iOS\MyCrossFitApp.iOS.csproj", "{D7BD0D25-C071-4912-883D-49C6531D6107}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyItems.iOS", "Xamarin.ToDoITem\Xamarin.ToDoITem.iOS\MyItems.iOS.csproj", "{D7BD0D25-C071-4912-883D-49C6531D6107}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCrossFitApp.Android", "Xamarin.ToDoITem\Xamarin.ToDoITem.Android\MyCrossFitApp.Android.csproj", "{41327749-C1C1-4025-BDE2-AEB1EEDFE37B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyItems.Android", "Xamarin.ToDoITem\Xamarin.ToDoITem.Android\MyItems.Android.csproj", "{41327749-C1C1-4025-BDE2-AEB1EEDFE37B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCrossFitApp.UWP", "Xamarin.ToDoITem\Xamarin.ToDoITem.UWP\MyCrossFitApp.UWP.csproj", "{42899FA3-AD6B-47B7-9998-3BF6C499C2D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyItems.UWP", "Xamarin.ToDoITem\Xamarin.ToDoITem.UWP\MyItems.UWP.csproj", "{42899FA3-AD6B-47B7-9998-3BF6C499C2D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

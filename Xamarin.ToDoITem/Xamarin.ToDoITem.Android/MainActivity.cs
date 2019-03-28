@@ -4,12 +4,12 @@ using Acr.UserDialogs;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using MyCrossFitApp;
-using MyCrossFitApp.SQLite;
+using MyItems;
+using MyItems.SQLite;
 
 namespace Xamarin.ToDoITem.Droid
 {
-    [Activity(Label = "MCFA", Icon = "@drawable/icons8barbell",  MainLauncher = false, Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Mi", Icon = "@drawable/icons8barbell",  MainLauncher = false, Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : Forms.Platform.Android.FormsAppCompatActivity, ISqliteManage
     {
         protected override void OnCreate(Bundle bundle)

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using SQLite;
 
-namespace MyCrossFitApp.SQLite
+namespace MyItems.SQLite
 {
     public class ItemController
     {

@@ -113,9 +113,9 @@
     <AndroidResource Include="Resources\drawable\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.ToDoITem\MyCrossFitApp.csproj">
+    <ProjectReference Include="..\Xamarin.ToDoITem\MyItems.csproj">
       <Project>{733b08a6-d968-4916-b4ee-9204fd456c4b}</Project>
-      <Name>MyCrossFitApp</Name>
+      <Name>MyItems</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +162,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\workout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\list_white.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

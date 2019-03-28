@@ -14,9 +14,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using MyCrossFitApp.SQLite;
+using MyItems.SQLite;
 
-namespace MyCrossFitApp.UWP
+namespace MyItems.UWP
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

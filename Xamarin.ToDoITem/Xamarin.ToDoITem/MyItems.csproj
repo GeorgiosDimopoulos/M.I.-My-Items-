@@ -54,10 +54,22 @@
     <None Update="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Update="DutiesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="ExpensesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <None Update="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="MainTabbedPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="MarketPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="WodsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>
