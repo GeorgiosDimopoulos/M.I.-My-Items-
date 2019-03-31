@@ -8,7 +8,7 @@ using Acr.UserDialogs;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MyItems
+namespace MyItems.OLD
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class DutiesPage : ContentPage
@@ -22,6 +22,7 @@ namespace MyItems
             {
                 InitializeComponent();
                 NavigationPage.SetHasNavigationBar(this, true);
+                NavigationPage.SetHasBackButton(this, false);
                 DutyChoicesPicker.Items.Clear();
                 DutyChoicesPicker.Items.Add("Διαγραφή");
                 DutyChoicesPicker.Items.Add("Μετονομασία");

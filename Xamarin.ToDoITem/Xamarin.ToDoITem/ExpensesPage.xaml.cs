@@ -1,18 +1,19 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Acr.UserDialogs;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MyItems
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ExpensesPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ExpensesPage : TabbedPage
+    {
         public ObservableCollection<Task> myExpensesList;
         private Task currentTask;
 
@@ -21,8 +22,16 @@ namespace MyItems
             try
             {
                 InitializeComponent();
+                NavigationPage.SetHasNavigationBar(this, true);
+                NavigationPage.SetHasBackButton(this, false);
+                OldExpenseChoicesPicker.Items.Clear();
+                OldExpenseChoicesPicker.Items.Add("Διαγραφή");
+                OldExpenseChoicesPicker.Items.Add("Μετονομασία");
+                OldExpenseChoicesPicker.Items.Add("Ενεργοποίηση");
+                ExpenseChoicesPicker.Items.Clear();
                 ExpenseChoicesPicker.Items.Add("Διαγραφή");
                 ExpenseChoicesPicker.Items.Add("Μετονομασία");
+                ExpenseChoicesPicker.Items.Add("Απενεργοποίηση");
                 ExpenseChoicesPicker.IsVisible = false;
                 NavigationPage.SetHasNavigationBar(this, true);
             }
@@ -48,35 +57,50 @@ namespace MyItems
 
         private async void AddExpenseButton_OnClicked(object sender, EventArgs e)
         {
-                try
+            try
+            {
+                if (string.IsNullOrEmpty(ExpenseEntry.Text))
                 {
-                    if (string.IsNullOrEmpty(ExpenseEntry.Text))
-                    {
-                        await DisplayAlert(null, "Γράψτε κάτι για προσθήκη!", "OK");
-                        return;
-                    }
+                    await DisplayAlert(null, "Γράψτε κάτι για προσθήκη!", "OK");
+                    return;
+                }
 
-                    var task = new Task
-                    {
-                        Text = ExpenseEntry.Text,
-                        Type = 5
-                    };
-                    myExpensesList.Add(task);
-                    await App.ItemController.InsertTask(task);
-                    ExpensesListView.ItemsSource = null;
-                    ExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(5));
-                    ExpenseEntry.Text = "";
-                    await DisplayAlert("Προσθήκη", "Νέο Έξοδο προστέθηκε", "OK");
-                    //ItemsListView.ItemsSource = null;
-                    //ItemsListView.ItemsSource = myList;
-                }
-                catch (Exception exception)
+                var task = new Task
                 {
-                    Console.WriteLine(exception);
-                }
+                    Text = ExpenseEntry.Text,
+                    Type = 5
+                };
+                myExpensesList.Add(task);
+                await App.ItemController.InsertTask(task);
+                ExpensesListView.ItemsSource = null;
+                ExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(5));
+                ExpenseEntry.Text = "";
+                await DisplayAlert("Προσθήκη", "Νέο Έξοδο προστέθηκε", "OK");
+                //ItemsListView.ItemsSource = null;
+                //ItemsListView.ItemsSource = myList;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
 
         }
-
+        
+        private async void OldItemsListView_OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            try
+            {
+                var task = (Task)ExpensesListView.SelectedItem;
+                currentTask = task;
+                OldExpensesListView.SelectedItem = null;
+                OldExpenseChoicesPicker.IsVisible = true;
+                OldExpenseChoicesPicker.Focus();
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("OldItemsListView_OnItemTapped", ex.Message, "OK");
+            }
+        }
         private async void ItemsListView_OnItemTapped(object sender, ItemTappedEventArgs e)
         {
             try
@@ -125,6 +149,51 @@ namespace MyItems
             }
         }
 
+        private async void OldExpenseChoicesPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (OldExpenseChoicesPicker.SelectedIndex == 0) // delete task
+                {
+                    myExpensesList.Remove(currentTask);
+                    await App.ItemController.DeleteTask(currentTask);
+                    OldExpensesListView.ItemsSource = null;
+                    OldExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(5));
+                    await DisplayAlert(null, "Επιτυχής Διαγραφή!", "OK");
+                }
+                else if (OldExpenseChoicesPicker.SelectedIndex == 1) // rename task
+                {
+                    var result = await UserDialogs.Instance.PromptAsync("Μετονομασία", null, "Μετονομασία Εξόδου", "Ακυρο", currentTask.Text, inputType: InputType.Default);
+                    if (string.IsNullOrEmpty(result.Text))
+                    {
+                        await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
+                        return;
+                    }
+                    currentTask.Text = result.Text;
+                    await App.ItemController.UpdateTask(currentTask);
+                    OldExpensesListView.ItemsSource = null;
+                    OldExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(5));
+                    await DisplayAlert(null, "Επιτυχής Προσθήκη!", "OK");
+                }
+                else if (OldExpenseChoicesPicker.SelectedIndex == 2) // enable task
+                {
+                    currentTask.Type = 5;
+                    await App.ItemController.UpdateTask(currentTask);
+                    OldExpensesListView.ItemsSource = null;
+                    ExpensesListView.ItemsSource = null;
+                    OldExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(8));
+                    ExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(5));
+                    await DisplayAlert(null, "Επιτυχής Ενεργοποίηση!", "OK");
+                }
+                OldExpenseChoicesPicker.IsVisible = false;
+                OldExpenseChoicesPicker.IsVisible = false;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+        }
+        
         private async void ExpenseChoicesPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -150,6 +219,16 @@ namespace MyItems
                     ExpensesListView.ItemsSource = null;
                     ExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(5));
                     await DisplayAlert(null, "Επιτυχής Προσθήκη!", "OK");
+                }
+                else if (ExpenseChoicesPicker.SelectedIndex == 2) // enable task
+                {
+                    currentTask.Type = 8;
+                    await App.ItemController.UpdateTask(currentTask);
+                    OldExpensesListView.ItemsSource = null;
+                    ExpensesListView.ItemsSource = null;
+                    OldExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(8));
+                    ExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(5));
+                    await DisplayAlert(null, "Επιτυχής Ενεργοποίηση!", "OK");
                 }
                 ExpenseChoicesPicker.IsVisible = false;
                 ExpenseChoicesPicker.Unfocus();

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Έξοδα"
+             x:Class="MyItems.OLD.ExpensesPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="MenuItem_OnClicked"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout BackgroundColor="#CFD8DC">
+        <ScrollView Orientation="Vertical">
+        <ListView x:Name="ExpensesListView" ItemTapped="ItemsListView_OnItemTapped" VerticalOptions="StartAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="{Binding Text}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </ScrollView>
+        <!--<Button Grid.Row="1" Clicked="AddExpenseButton_OnClicked" Text="+" HeightRequest="80" VerticalOptions="End" FontSize="40" BackgroundColor="#455A64" TextColor="#FFFFFF" FontFamily="Roboto-Light.ttf#Roboto-Light"/>-->
+        <Grid BackgroundColor="#455A64" HeightRequest="150">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Entry x:Name="ExpenseEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέο Έξοδο" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+            <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="AddExpenseButton_OnClicked"/>
+        </Grid>
+        <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="ExpenseChoicesPicker" SelectedIndexChanged="ExpenseChoicesPicker_SelectedIndexChanged" IsVisible="False" />
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Super Market"
+             x:Class="MyItems.OLD.MarketPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="MenuItem_OnClicked"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout BackgroundColor="#CFD8DC">
+        <ScrollView Orientation="Vertical">
+            <ListView x:Name="MarketListView" ItemTapped="ItemsListView_OnItemTapped" VerticalOptions="Fill">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label x:Name="MarketProduct" Text="{Binding Text}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                            <!--<Button x:Name="MarketProduct" Text="{Binding Text}" FontSize="Medium" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>-->
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+        <!--<Button Clicked="AddProductButton_OnClicked" Text="+" VerticalOptions="End" HeightRequest="66" FontSize="Medium" BackgroundColor="#455A64" TextColor="#FFFFFF" FontFamily="Roboto-Light.ttf#Roboto-Light"/>-->
+        <Grid BackgroundColor="#455A64" HeightRequest="150">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Entry x:Name="ProductEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέο Προϊόν" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+            <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="AddProductButton_OnClicked"/>
+        </Grid>
+        <Picker HorizontalOptions="Center" x:Name="ProductChoicesPicker" VerticalOptions="End" HeightRequest="66" Unfocused="ProductChoicesPicker_OnUnfocused" SelectedIndexChanged="ProductChoicesPicker_SelectedIndexChanged" IsVisible="False" />
+    </StackLayout>
+</ContentPage>

@@ -38,11 +38,11 @@ namespace MyItems
                 };
                 marketsTap.Tapped += (object sender, EventArgs e) =>
                 {
-                    Navigation.PushAsync(new MarketPage(), true);
+                    Navigation.PushAsync(new MarketPage(), true); //PushModalAsync
                 };
                 dutiessTap.Tapped += (object sender, EventArgs e) =>
                 {
-                    Navigation.PushAsync(new DutiesPage(), true); //PushModalAsync
+                    Navigation.PushAsync(new ToDoPage(), true); //DutiesPage
                 };
 
                 DutiessGrid.GestureRecognizers.Add(dutiessTap);
