@@ -9,7 +9,7 @@ using MyItems.SQLite;
 
 namespace Xamarin.ToDoITem.Droid
 {
-    [Activity(Label = "Mi", Icon = "@drawable/icons8barbell",  MainLauncher = false, Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Mi", Icon = "@drawable/todo",  MainLauncher = false, Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : Forms.Platform.Android.FormsAppCompatActivity, ISqliteManage
     {
         protected override void OnCreate(Bundle bundle)

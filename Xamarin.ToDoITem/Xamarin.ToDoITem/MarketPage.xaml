@@ -7,7 +7,7 @@
         <ContentPage.ToolbarItems>
             <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="MenuItem_OnClicked"/>
         </ContentPage.ToolbarItems>
-        <StackLayout BackgroundColor="#CFD8DC">
+        <StackLayout BackgroundColor="#F5F5F5">
             <ScrollView Orientation="Vertical">
                 <ListView x:Name="MarketListView" ItemTapped="ItemsListView_OnItemTapped" VerticalOptions="Fill">
                     <ListView.ItemTemplate>

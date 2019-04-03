@@ -23,6 +23,8 @@ namespace MyItems
             {
                 InitializeComponent();
                 NavigationPage.SetHasNavigationBar(this, true);
+                //BarBackgroundColor = Color.FromHex("#ff3030"); 
+                //BarTextColor = Color.White
                 NavigationPage.SetHasBackButton(this, false);
                 OldExpenseChoicesPicker.Items.Clear();
                 OldExpenseChoicesPicker.Items.Add("Διαγραφή");
@@ -173,7 +175,7 @@ namespace MyItems
                     await App.ItemController.UpdateTask(currentTask);
                     OldExpensesListView.ItemsSource = null;
                     OldExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(5));
-                    await DisplayAlert(null, "Επιτυχής Προσθήκη!", "OK");
+                    //await DisplayAlert(null, "Επιτυχής Προσθήκη!", "OK");
                 }
                 else if (OldExpenseChoicesPicker.SelectedIndex == 2) // enable task
                 {
@@ -183,7 +185,7 @@ namespace MyItems
                     ExpensesListView.ItemsSource = null;
                     OldExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(8));
                     ExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(5));
-                    await DisplayAlert(null, "Επιτυχής Ενεργοποίηση!", "OK");
+                    //await DisplayAlert(null, "Επιτυχής Ενεργοποίηση!", "OK");
                 }
                 OldExpenseChoicesPicker.IsVisible = false;
                 OldExpenseChoicesPicker.IsVisible = false;
@@ -218,7 +220,7 @@ namespace MyItems
                     await App.ItemController.UpdateTask(currentTask);
                     ExpensesListView.ItemsSource = null;
                     ExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(5));
-                    await DisplayAlert(null, "Επιτυχής Προσθήκη!", "OK");
+                    //await DisplayAlert(null, "Επιτυχής Προσθήκη!", "OK");
                 }
                 else if (ExpenseChoicesPicker.SelectedIndex == 2) // enable task
                 {
@@ -228,10 +230,11 @@ namespace MyItems
                     ExpensesListView.ItemsSource = null;
                     OldExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(8));
                     ExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(5));
-                    await DisplayAlert(null, "Επιτυχής Ενεργοποίηση!", "OK");
+                    //await DisplayAlert(null, "Επιτυχής Ενεργοποίηση!", "OK");
                 }
                 ExpenseChoicesPicker.IsVisible = false;
                 ExpenseChoicesPicker.Unfocus();
+                ExpenseChoicesPicker.SelectedItem = null;
                 //await Navigation.PopAsync();
                 //await Navigation.PushModalAsync(new MainPage(), true);
             }

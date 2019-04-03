@@ -195,8 +195,8 @@ namespace MyItems
                 OldProductChoicesPicker.IsVisible = false;
                 OldProductChoicesPicker.Unfocus();
                 OldMarketListView.SelectedItem = null;
-                await Navigation.PopAsync();
-                await Navigation.PushModalAsync(new MainPage(), true);
+                //await Navigation.PopAsync();
+                //await Navigation.PushModalAsync(new MainPage(), true);
             }
             catch (Exception exception)
             {
@@ -241,9 +241,8 @@ namespace MyItems
             }
             ProductChoicesPicker.IsVisible = false;
             ProductChoicesPicker.Unfocus();
+            ProductChoicesPicker.SelectedItem = null;
             MarketListView.SelectedItem = null;
-            //await Navigation.PopAsync();
-            //await Navigation.PushModalAsync(new MainPage(), true);
         }
 
         private void ProductChoicesPicker_OnUnfocused(object sender, FocusEventArgs e)

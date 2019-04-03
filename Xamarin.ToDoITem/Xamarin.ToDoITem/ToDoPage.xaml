@@ -8,7 +8,7 @@
         <ContentPage.ToolbarItems>
             <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="MenuItem_OnClicked"/>
         </ContentPage.ToolbarItems>
-        <StackLayout BackgroundColor="#CFD8DC">
+        <StackLayout BackgroundColor="#F5F5F5">
             <ScrollView Orientation="Vertical">
                 <ListView x:Name="DutiesListView" ItemTapped="ItemsListView_OnItemTapped" VerticalOptions="StartAndExpand">
                     <ListView.ItemTemplate>
@@ -38,8 +38,8 @@
         </ContentPage.ToolbarItems>
         <StackLayout BackgroundColor="#CFD8DC">
             <ListView x:Name="OldDutiesListView" ItemTapped="OldItemsListView_OnItemTapped" VerticalOptions="StartAndExpand">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
                             <ViewCell>
                                 <Label Text="{Binding Text}" FontSize="Medium" TextColor="#212121" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
                             </ViewCell>
