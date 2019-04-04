@@ -4,7 +4,34 @@
              Title="ΥΠΟΧΡΕΩΣΕΙΣ"
              BackgroundColor="#BDBDBD"
              x:Class="MyItems.ToDoPage">
-    <ContentPage Title="ΝΕΕΣ" BackgroundColor="#F5F5F5">
+    <ContentPage Title="ΑΜΕΣΕΣ" BackgroundColor="#F5F5F5">
+        <ContentPage.ToolbarItems>
+            <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
+        </ContentPage.ToolbarItems>
+        <StackLayout BackgroundColor="#F5F5F5">
+            <ScrollView Orientation="Vertical">
+                <ListView x:Name="TodayDutiesListView" ItemTapped="TodayItemsListView_OnItemTapped" VerticalOptions="StartAndExpand" Unfocused="TodayDutiesListView_OnUnfocused">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding Text}" FontSize="Medium" TextColor="#212121" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+            <Grid BackgroundColor="#455A64" HeightRequest="150">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Entry x:Name="TodayExpenseEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέα Σημερινή Υποχρέωση" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+                <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="AddTodayDutyButton_OnClicked"/>
+            </Grid>
+            <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="TodayDutyChoicesPicker" SelectedIndexChanged="TodayDutyChoicesPicker_SelectedIndexChanged" IsVisible="False" />
+        </StackLayout>
+    </ContentPage>
+    <ContentPage Title="ΓΕΝΙΚΕΣ" BackgroundColor="#F5F5F5">
         <ContentPage.ToolbarItems>
             <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="MenuItem_OnClicked"/>
         </ContentPage.ToolbarItems>

@@ -93,11 +93,11 @@ namespace MyItems
             {
                 var task = (Task)RecordsListView.SelectedItem;
                 RecordsListView.SelectedItem = null;
-                if (await DisplayAlert(null, "Διαγραφή Record?", "ΟΚ", "Όχι"))
+                if (await DisplayAlert(null, "Διαγραφή WoD?", "ΟΚ", "Όχι"))
                 {
                     myList.Remove(task);
                     await App.ItemController.DeleteTask(task); //RecordsListView.ItemsSource = myList;
-                    await DisplayAlert(null, "Διαγράφηκε το Record", "ΟΚ");
+                    await DisplayAlert(null, "Διαγράφηκε το WoD", "ΟΚ");
                     RecordsListView.ItemsSource = null;
                     RecordsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2));
                 }
@@ -172,7 +172,7 @@ namespace MyItems
             {
                 if (string.IsNullOrEmpty(RecordEntry.Text))
                 {
-                    await DisplayAlert(null, "Γράψτε κάτι για ρεκόρ!", "OK");
+                    await DisplayAlert(null, "Γράψτε κάτι για άλλο WoD!", "OK");
                     return;
                 }
 
@@ -187,7 +187,7 @@ namespace MyItems
                 RecordsListView.ItemsSource = null;
                 RecordsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2));
                 RecordEntry.Text = "";
-                await DisplayAlert("DONE", "Νέο ρεκόρ προστέθηκε", "OK");
+                await DisplayAlert("DONE", "Νέο άλλο WoD προστέθηκε", "OK");
                 //await Navigation.PopAsync();
             }
             catch (Exception exception)

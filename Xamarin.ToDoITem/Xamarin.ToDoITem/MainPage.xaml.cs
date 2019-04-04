@@ -1,4 +1,5 @@
 ﻿using System;
+using Acr.UserDialogs;
 using Xamarin.Forms;
 
 namespace MyItems
@@ -19,6 +20,18 @@ namespace MyItems
             }
         }
 
+        public void kindsOfIndicators()
+        {
+            //App.Indicator.Start();
+            //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ");
+            //UserDialogs.Instance.ShowLoading();
+
+            //UserDialogs.Instance.Alert("BYE","CLOSE").Dispose(); //dlg.Dispose();
+            //App.Indicator.Stop();
+            //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Dispose();
+            //UserDialogs.Instance.HideLoading();
+        }
+
         private void TapRecognizers()
         {
             try
@@ -30,19 +43,44 @@ namespace MyItems
 
                 expensessTap.Tapped += (object sender, EventArgs e) =>
                 {
+                    //App.Indicator.Start();
+                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ");
+                    //UserDialogs.Instance.ShowLoading();
                     Navigation.PushAsync(new ExpensesPage(), true);
+                    //UserDialogs.Instance.Alert("BYE","CLOSE").Dispose(); //dlg.Dispose();
+                    //App.Indicator.Stop();
+                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Dispose();
+                    //UserDialogs.Instance.HideLoading();
                 };
                 workoutsstap.Tapped += (object sender, EventArgs e) =>
                 {
+                    //App.Indicator.Start();
+                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ");
+                    //UserDialogs.Instance.ShowLoading();
                     Navigation.PushAsync(new WodsPage(), true);
+                    //App.Indicator.Stop();
+                    //UserDialogs.Instance.HideLoading();
+                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Dispose();
                 };
                 marketsTap.Tapped += (object sender, EventArgs e) =>
                 {
+                    //App.Indicator.Start();
+                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ");
+                    //UserDialogs.Instance.ShowLoading();
                     Navigation.PushAsync(new MarketPage(), true); //PushModalAsync
+                    //App.Indicator.Stop();
+                    //UserDialogs.Instance.HideLoading();
+                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Dispose();
                 };
                 dutiessTap.Tapped += (object sender, EventArgs e) =>
                 {
-                    Navigation.PushAsync(new ToDoPage(), true); //DutiesPage
+                    //App.Indicator.Start();
+                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ");
+                    //UserDialogs.Instance.ShowLoading();
+                    Navigation.PushAsync(new ToDoPage(), true);
+                    //App.Indicator.Stop();
+                    //UserDialogs.Instance.HideLoading();
+                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Dispose();
                 };
 
                 DutiessGrid.GestureRecognizers.Add(dutiessTap);

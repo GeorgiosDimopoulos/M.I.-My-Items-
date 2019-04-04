@@ -181,16 +181,14 @@ namespace MyItems
                 }
                 else if (OldProductChoicesPicker.SelectedIndex == 2) // enable task
                 {
-                    var result = await UserDialogs.Instance.PromptAsync("Ενεργοποίηση", null, "Ενεργοποίηση Προϊόντος", "Ακυρο", currentTask.Text, inputType: InputType.Default);
-                    if (string.IsNullOrEmpty(result.Text))
+                    if (await DisplayAlert(null, "Ενεργοποίηση προϊόντος;", "NAI", "OXI"))
                     {
-                        await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
-                        return;
+                        currentTask.Type = 3;
+                        await App.ItemController.UpdateTask(currentTask);
+                        await DisplayAlert(null, "Επιτυχής Ενεργοποίηση!", "OK");
+                        OldMarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(7));
+                        MarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(3));
                     }
-                    currentTask.Type = 7;
-                    await App.ItemController.UpdateTask(currentTask);
-                    await DisplayAlert(null, "Επιτυχής Ενεργοποίηση!", "OK");
-                    OldMarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(7));
                 }
                 OldProductChoicesPicker.IsVisible = false;
                 OldProductChoicesPicker.Unfocus();

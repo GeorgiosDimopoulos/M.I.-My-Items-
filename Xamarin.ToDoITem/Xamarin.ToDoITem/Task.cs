@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using System;
+using SQLite;
 
 namespace MyItems
 {
@@ -8,6 +9,7 @@ namespace MyItems
         [AutoIncrement]
         public int Id { get; set; }
         public int Type { get; set; }
+        public DateTime Date{ get; set; }
         public string Text { get; set; }
     }
 }

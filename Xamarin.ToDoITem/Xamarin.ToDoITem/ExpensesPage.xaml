@@ -5,7 +5,7 @@
              x:Class="MyItems.ExpensesPage">
     <ContentPage Title="ΤΩΡΙΝΑ">
         <ContentPage.ToolbarItems>
-            <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="MenuItem_OnClicked"/>
+            <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
         </ContentPage.ToolbarItems>
         <StackLayout BackgroundColor="#F5F5F5">
             <ScrollView Orientation="Vertical">

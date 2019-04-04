@@ -25,12 +25,18 @@ namespace MyItems
                 NavigationPage.SetHasBackButton(this, false);
                 DutyChoicesPicker.Items.Clear();
                 OldDutyChoicesPicker.Items.Clear();
+                TodayDutyChoicesPicker.Items.Clear();
+                TodayDutyChoicesPicker.Items.Add("Διαγραφή");
+                TodayDutyChoicesPicker.Items.Add("Μετονομασία");
+                TodayDutyChoicesPicker.Items.Add("Γενική Ενεργοποίηση");
                 OldDutyChoicesPicker.Items.Add("Διαγραφή");
-                OldDutyChoicesPicker.Items.Add("Ενεργοποίηση");
+                OldDutyChoicesPicker.Items.Add("Γενική Ενεργοποίηση");                
+                OldDutyChoicesPicker.Items.Add("Άμεση Ενεργοποίηση");
                 OldDutyChoicesPicker.Items.Add("Μετονομασία");
                 DutyChoicesPicker.Items.Add("Διαγραφή");
                 DutyChoicesPicker.Items.Add("Μετονομασία");
                 DutyChoicesPicker.Items.Add("Απενεργοποίηση");
+                DutyChoicesPicker.Items.Add("Άμεση Ενεργοποίηση");
             }
             catch (Exception e)
             {
@@ -42,14 +48,46 @@ namespace MyItems
         {
             try
             {
+                //App.Indicator.Start();
                 var list = await App.ItemController.GetTasks();
                 myWholeList = new ObservableCollection<Task>(list);
                 DutiesListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(4));
                 OldDutiesListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(6));
+                TodayDutiesListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(9));
+                //App.Indicator.Stop();
             }
             catch (Exception e)
             {
                 await DisplayAlert("OnAppearing", e.Message, "OK");
+            }
+        }
+
+        private async void AddTodayDutyButton_OnClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(ExpenseEntry.Text))
+                {
+                    await DisplayAlert(null, "Γράψτε κάτι!", "OK");
+                    return;
+                }
+
+                var task = new Task
+                {
+                    Text = ExpenseEntry.Text,
+                    Type = 4
+                };
+                myWholeList.Add(task);
+                await App.ItemController.InsertTask(task);
+                TodayDutiesListView.ItemsSource = null;
+                TodayDutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(9));
+                ExpenseEntry.Text = "";
+                await DisplayAlert("Προσθήκη", "Νέα σημερινή υποχρέωση προστέθηκε", "OK");
+
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
             }
         }
 
@@ -108,6 +146,21 @@ namespace MyItems
                 await DisplayAlert("ItemsListView_OnItemTapped", ex.Message, "OK");
             }
         }
+        
+        private async void TodayItemsListView_OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            try
+            {
+                var task = (Task)TodayDutiesListView.SelectedItem;
+                currentTask = task;
+                TodayDutyChoicesPicker.IsVisible = true;
+                TodayDutyChoicesPicker.Focus();
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("TodayItemsListView_OnItemTapped", ex.Message, "OK");
+            }
+        }
 
         private async void ItemsListView_OnItemTapped(object sender, ItemTappedEventArgs e)
         {
@@ -142,6 +195,58 @@ namespace MyItems
             }
         }
 
+        private async void TodayDutyChoicesPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (TodayDutyChoicesPicker.SelectedIndex == 0) // delete task
+                {
+                    if (await DisplayAlert(null, "Διαγραφή Οριστική Υποχρέωσης?", "ΝΑΙ", "ΟΧΙ"))
+                    {
+                        myWholeList.Remove(currentTask);
+                        await App.ItemController.DeleteTask(currentTask);
+                        TodayDutiesListView.ItemsSource = null;
+                        TodayDutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(9));
+                        await DisplayAlert(null, "Επιτυχής Οριστική Διαγραφή!", "OK");
+                    }
+                }
+                else if (TodayDutyChoicesPicker.SelectedIndex == 1) // rename task
+                {
+                    var result = await UserDialogs.Instance.PromptAsync("Μετονομασία", null, "Μετονομασία Υποχρέωσης", "Ακυρο", currentTask.Text, inputType: InputType.Default);
+                    if (string.IsNullOrEmpty(result.Text))
+                    {
+                        await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
+                        return;
+                    }
+                    currentTask.Text = result.Text;
+                    await App.ItemController.UpdateTask(currentTask);
+                    TodayDutiesListView.ItemsSource = null;
+                    TodayDutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(9));
+                    await DisplayAlert(null, "Επιτυχής Μετονομασία!", "OK");
+                }
+                else if (TodayDutyChoicesPicker.SelectedIndex == 2)
+                {
+                    if (await DisplayAlert(null, "Γενική Ενεργοποίηση Υποχρέωσης?", "ΝΑΙ", "ΟΧΙ"))
+                    {
+                        currentTask.Type = 4;
+                        await App.ItemController.UpdateTask(currentTask);
+                        TodayDutiesListView.ItemsSource = null;
+                        DutiesListView.ItemsSource = null;
+                        DutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(4));
+                        TodayDutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(9));
+                        await DisplayAlert(null, "Επιτυχής Γενική Ενεργοποίηση!", "OK");
+                    }
+                }
+                TodayDutyChoicesPicker.Unfocus();
+                TodayDutyChoicesPicker.IsVisible = false;
+                TodayDutyChoicesPicker.SelectedItem = null;
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("TodayDutyChoicesPicker_SelectedIndexChanged Error:", exception.Message, "OK");
+            }
+        }
+        
         private async void OldDutyChoicesPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -159,7 +264,7 @@ namespace MyItems
                 }
                 else if (OldDutyChoicesPicker.SelectedIndex == 1) // enable task
                 {
-                    if (await DisplayAlert(null, "Ενεργοποίηση Υποχρέωσης?", "ΝΑΙ", "ΟΧΙ")) {
+                    if (await DisplayAlert(null, "Γενική Ενεργοποίηση Υποχρέωσης?", "ΝΑΙ", "ΟΧΙ")) {
                         
                         currentTask.Type = 4;
                         await App.ItemController.UpdateTask(currentTask);
@@ -167,7 +272,36 @@ namespace MyItems
                         DutiesListView.ItemsSource = null;
                         OldDutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(6));
                         DutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(4));
-                        await DisplayAlert(null, "Επιτυχής Ενεργοποίηση Μεταφορά!", "OK");
+                        await DisplayAlert(null, "Επιτυχής Γενική Ενεργοποίηση Μεταφορά!", "OK");
+                    }
+                }
+                else if (OldDutyChoicesPicker.SelectedIndex == 2) // immediate enable task
+                {
+                    if (await DisplayAlert(null, "Άμεση Ενεργοποίηση Υποχρέωσης?", "ΝΑΙ", "ΟΧΙ"))
+                    {
+                        currentTask.Type = 9;
+                        await App.ItemController.UpdateTask(currentTask);
+                        DutiesListView.ItemsSource = null;
+                        TodayDutiesListView.ItemsSource = null;
+                        OldDutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(6));
+                        TodayDutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(9));
+                        await DisplayAlert(null, "Επιτυχής Άμεση  Ενεργοποίηση!", "OK");
+                    }
+                }
+                else if (OldDutyChoicesPicker.SelectedIndex == 3) // rename task
+                {
+                    if (await DisplayAlert(null, "Μετονομασία Υποχρέωσης?", "ΝΑΙ", "ΟΧΙ"))
+                    {
+                        var result = await UserDialogs.Instance.PromptAsync("Μετονομασία", null, "Μετονομασία Υποχρέωσης", "Ακυρο", currentTask.Text, inputType: InputType.Default);
+                        if (string.IsNullOrEmpty(result.Text))
+                        {
+                            await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
+                            return;
+                        }
+                        currentTask.Text = result.Text;
+                        await App.ItemController.UpdateTask(currentTask);
+                        OldDutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(6));
+                        await DisplayAlert(null, "Επιτυχής Μετονομασία!", "OK");
                     }
                 }
                 OldDutiesListView.SelectedItem = null;
@@ -216,8 +350,6 @@ namespace MyItems
                 {
                     if (await DisplayAlert(null, "Έγινε η Υποχρέωση?", "ΝΑΙ", "ΟΧΙ"))
                     {
-                        //myDutiesList.Remove(currentTask);
-                        //myOldDutiesList.Add(currentTask);
                         currentTask.Type = 6;
                         await App.ItemController.UpdateTask(currentTask);
                         DutiesListView.ItemsSource = null;
@@ -225,6 +357,19 @@ namespace MyItems
                         DutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(4));                        
                         OldDutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(6));
                         await DisplayAlert(null, "Ολοκληρώθηκε η υποχρέωση!", "OK");
+                    }
+                }
+                else if (DutyChoicesPicker.SelectedIndex == 3) // immediate enable task
+                {
+                    if (await DisplayAlert(null, "Άμεση Ενεργοποίηση Υποχρέωσης?", "ΝΑΙ", "ΟΧΙ"))
+                    {
+                        currentTask.Type = 9;
+                        await App.ItemController.UpdateTask(currentTask);
+                        DutiesListView.ItemsSource = null;
+                        TodayDutiesListView.ItemsSource = null;
+                        DutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(4));
+                        TodayDutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(9));
+                        await DisplayAlert(null, "Ολοκληρώθηκε η Άμεση Ενεργοποίηση!", "OK");
                     }
                 }
                 DutyChoicesPicker.Unfocus();
@@ -236,6 +381,18 @@ namespace MyItems
             catch (Exception exception)
             {
                 await DisplayAlert("DutyChoicesPicker_SelectedIndexChanged", exception.Message, "OK");
+            }
+        }
+
+        private async void TodayDutiesListView_OnUnfocused(object sender, FocusEventArgs e)
+        {
+            try
+            {
+                TodayDutiesListView.SelectedItem = null;
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("TodayDutiesListView_OnUnfocused", exception.Message, "OK");
             }
         }
     }
