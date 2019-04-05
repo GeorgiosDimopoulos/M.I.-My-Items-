@@ -26,12 +26,14 @@ namespace MyItems
                 NavigationPage.SetHasBackButton(this, false);
                 OldProductChoicesPicker.Items.Clear();
                 OldProductChoicesPicker.Items.Add("Διαγραφή");
-                OldProductChoicesPicker.Items.Add("Μετονομασία");
+                OldProductChoicesPicker.Items.Add("Μετονομασία");                
                 OldProductChoicesPicker.Items.Add("Ενεργοποίηση");
+                OldProductChoicesPicker.Items.Add("Αλλαγή τιμής");
                 ProductChoicesPicker.Items.Clear();
                 ProductChoicesPicker.Items.Add("Διαγραφή");
-                ProductChoicesPicker.Items.Add("Μετονομασία");
+                ProductChoicesPicker.Items.Add("Μετονομασία");            
                 ProductChoicesPicker.Items.Add("Αγορά");
+                ProductChoicesPicker.Items.Add("Αλλαγή τιμής");
                 NavigationPage.SetHasNavigationBar(this, true);
             }
             catch (Exception e)
@@ -78,10 +80,16 @@ namespace MyItems
                     await DisplayAlert(null, "Γράψτε κάτι!", "OK");
                     return;
                 }
-
+                var currentPrice = "-";
+                var resultTime = await UserDialogs.Instance.PromptAsync("Τιμή Προϊόντος", null, "Προσθήκη", "Ακυρο", "Προσθέστε Τιμής", inputType: InputType.Default);
+                if (!string.IsNullOrEmpty(resultTime.Text))
+                {
+                    currentPrice = resultTime.Text;
+                }
                 var task = new Task
                 {
                     Text = ProductEntry.Text,
+                    Price = currentPrice,
                     Type = 3
                 };
                 myWholeList.Add(task);
@@ -89,7 +97,6 @@ namespace MyItems
                 MarketListView.ItemsSource = null;
                 MarketListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(3));
                 ProductEntry.Text = "";
-                //await DisplayAlert("DONE", "Νέο Προϊόν προστέθηκε", "OK");
             }
             catch (Exception ex)
             {
@@ -193,8 +200,7 @@ namespace MyItems
                 OldProductChoicesPicker.IsVisible = false;
                 OldProductChoicesPicker.Unfocus();
                 OldMarketListView.SelectedItem = null;
-                //await Navigation.PopAsync();
-                //await Navigation.PushModalAsync(new MainPage(), true);
+                currentTask = null;
             }
             catch (Exception exception)
             {
@@ -204,43 +210,67 @@ namespace MyItems
 
         private async void ProductChoicesPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ProductChoicesPicker.SelectedIndex == 0) // delete task
+            try
             {
-                if (await DisplayAlert(null, "Διαγραφή προϊόντος;", "NAI", "OXI"))
+                if (ProductChoicesPicker.SelectedIndex == 0) // delete task
                 {
-                    myWholeList.Remove(currentTask);
+                    if (await DisplayAlert(null, "Διαγραφή προϊόντος;", "NAI", "OXI"))
+                    {
+                        myWholeList.Remove(currentTask);
+                        await App.ItemController.DeleteTask(currentTask);
+                        MarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(3)); ;
+                    }
+                }
+                else if (ProductChoicesPicker.SelectedIndex == 1) // rename task
+                {
+                    var result = await UserDialogs.Instance.PromptAsync("Μετονομασία", null, "Μετονομασία Προϊόντος", "Ακυρο", currentTask.Text, inputType: InputType.Default);
+                    if (string.IsNullOrEmpty(result.Text))
+                    {
+                        await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
+                        return;
+                    }
+                    currentTask.Text = result.Text;
+                    await App.ItemController.UpdateTask(currentTask);
+                    await DisplayAlert(null, "Επιτυχής Μετονομασία!", "OK");
                     await App.ItemController.DeleteTask(currentTask);
-                    MarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(3)); ;
+                    MarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(3));
                 }
-            }
-            else if (ProductChoicesPicker.SelectedIndex == 1) // rename task
-            {
-                var result = await UserDialogs.Instance.PromptAsync("Μετονομασία", null, "Μετονομασία Προϊόντος", "Ακυρο", currentTask.Text, inputType: InputType.Default);
-                if (string.IsNullOrEmpty(result.Text))
+                else if (ProductChoicesPicker.SelectedIndex == 2) // disable task
                 {
-                    await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
-                    return;
+                    currentTask.Type = 7;
+                    await App.ItemController.UpdateTask(currentTask);
+                    OldMarketListView.ItemsSource = null;
+                    MarketListView.ItemsSource = null;
+                    OldMarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(7));
+                    MarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(3));
+                    await DisplayAlert(null, "Επιτυχής Απενεργοποίηση!", "OK");
                 }
-                currentTask.Text = result.Text;
-                await App.ItemController.UpdateTask(currentTask);
-                await DisplayAlert(null, "Επιτυχής Μετονομασία!", "OK");
-                await App.ItemController.DeleteTask(currentTask);
-                MarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(3));
+                else if (ProductChoicesPicker.SelectedIndex == 3) // change task's price
+                {
+                    int n;
+                    var isNumeric = int.TryParse(currentTask.Price, out n);
+                    if (!isNumeric)
+                    {
+                        currentTask.Price = "0";
+                    }
+                    var result = await UserDialogs.Instance.PromptAsync("Τιμή Προϊόντος", null, "Τιμή Προϊόντος", "Ακυρο", currentTask.Price, inputType: InputType.Default);
+                    currentTask.Price = string.IsNullOrEmpty(result.Text) ? "-" : result.Text;
+                    await App.ItemController.UpdateTask(currentTask);
+                    MarketListView.ItemsSource = null;
+                    MarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(3));
+                    await DisplayAlert(null, "Επιτυχής Προσθήκη Τιμής!", "OK");
+                }
+                ProductChoicesPicker.IsVisible = false;
+                ProductChoicesPicker.Unfocus();
+                ProductChoicesPicker.SelectedItem = null;
+                MarketListView.SelectedItem = null;
+                currentTask = null;
             }
-            else if (ProductChoicesPicker.SelectedIndex == 2) // disable task
+            catch (Exception exception)
             {
-                currentTask.Type = 7;
-                await App.ItemController.UpdateTask(currentTask);
-                OldMarketListView.ItemsSource = null;
-                MarketListView.ItemsSource = null;
-                OldMarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(7));
-                MarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(3));
-                await DisplayAlert(null, "Επιτυχής Απενεργοποίηση!", "OK");
+                await DisplayAlert("ProductChoicesPicker_SelectedIndexChanged error", exception.Message, "OK");
             }
-            ProductChoicesPicker.IsVisible = false;
-            ProductChoicesPicker.Unfocus();
-            ProductChoicesPicker.SelectedItem = null;
-            MarketListView.SelectedItem = null;
+           
         }
 
         private void ProductChoicesPicker_OnUnfocused(object sender, FocusEventArgs e)

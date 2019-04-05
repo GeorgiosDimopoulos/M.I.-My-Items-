@@ -66,7 +66,7 @@ namespace MyItems
         {
             try
             {
-                if (string.IsNullOrEmpty(ExpenseEntry.Text))
+                if (string.IsNullOrEmpty(TodayExpenseEntry.Text))
                 {
                     await DisplayAlert(null, "Γράψτε κάτι!", "OK");
                     return;
@@ -74,14 +74,14 @@ namespace MyItems
 
                 var task = new Task
                 {
-                    Text = ExpenseEntry.Text,
-                    Type = 4
+                    Text = TodayExpenseEntry.Text,
+                    Type = 9
                 };
                 myWholeList.Add(task);
                 await App.ItemController.InsertTask(task);
                 TodayDutiesListView.ItemsSource = null;
                 TodayDutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(9));
-                ExpenseEntry.Text = "";
+                TodayExpenseEntry.Text = "";
                 await DisplayAlert("Προσθήκη", "Νέα σημερινή υποχρέωση προστέθηκε", "OK");
 
             }

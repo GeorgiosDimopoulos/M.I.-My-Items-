@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="My Workout Outs Page"
+             Title="Τα Workout Outs Μου"
              BackgroundColor="#BDBDBD"
              x:Class="MyItems.WodsPage">
     <TabbedPage.ToolbarItems>
-        <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="MenuItem_OnClicked"/>
+        <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
         <!--<ToolbarItem Order="Primary" Icon="infosIcon.png" Clicked="InfosItem_OnClicked"/>-->
     </TabbedPage.ToolbarItems>
     <ContentPage Title="CROSS FIT" BackgroundColor="#F5F5F5">
@@ -57,8 +57,25 @@
     <ContentPage Title="ΑΛΛΑ" BackgroundColor="#F5F5F5">
         <StackLayout Orientation="Vertical">
             <ScrollView Orientation="Vertical">
-                <ListView x:Name="RecordsListView" ItemTapped="RecordsListView_OnItemTapped">
-                <ListView.ItemTemplate>
+                <ListView x:Name="OtherWodsListView" ItemTapped="RecordsListView_OnItemTapped">
+                    <ListView.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="120"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="WoD" FontSize="15" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                <Label Grid.Column="1" Text="Ημέρα" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                            </Grid>
+                            <BoxView Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="1" WidthRequest="Infinity" Color="Black"/>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Label Text="{Binding Text}" FontSize="Medium" FontFamily="Roboto-Light.ttf#Roboto-Light" Margin="10"/>
@@ -72,8 +89,8 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Entry x:Name="RecordEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέο WoD (ΆΛλο)" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
-                <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="NewRecord_OnClicked"/>
+                <Entry x:Name="OtherWodEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέο WoD (ΆΛλο)" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+                <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="NewOtherWoD_OnClicked"/>
             </Grid>
         </StackLayout>
     </ContentPage>

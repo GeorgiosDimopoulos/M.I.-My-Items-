@@ -34,7 +34,7 @@ namespace MyItems
             {
                 var list = await App.ItemController.GetTasks();
                 myList = new ObservableCollection<Task>(list);
-                RecordsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2));
+                OtherWodsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2));
                 ItemsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(1));
                 InfosListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(0));
             }
@@ -91,15 +91,15 @@ namespace MyItems
         {
             try
             {
-                var task = (Task)RecordsListView.SelectedItem;
-                RecordsListView.SelectedItem = null;
+                var task = (Task)OtherWodsListView.SelectedItem;
+                OtherWodsListView.SelectedItem = null;
                 if (await DisplayAlert(null, "Διαγραφή WoD?", "ΟΚ", "Όχι"))
                 {
                     myList.Remove(task);
                     await App.ItemController.DeleteTask(task); //RecordsListView.ItemsSource = myList;
                     await DisplayAlert(null, "Διαγράφηκε το WoD", "ΟΚ");
-                    RecordsListView.ItemsSource = null;
-                    RecordsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2));
+                    OtherWodsListView.ItemsSource = null;
+                    OtherWodsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2));
                 }
             }
             catch (Exception exception)
@@ -166,11 +166,11 @@ namespace MyItems
             }
         }
 
-        private async void NewRecord_OnClicked(object sender, EventArgs e)
+        private async void NewOtherWoD_OnClicked(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrEmpty(RecordEntry.Text))
+                if (string.IsNullOrEmpty(OtherWodEntry.Text))
                 {
                     await DisplayAlert(null, "Γράψτε κάτι για άλλο WoD!", "OK");
                     return;
@@ -178,17 +178,15 @@ namespace MyItems
 
                 var task = new Task
                 {
-                    Text = RecordEntry.Text,
+                    Text = OtherWodEntry.Text + " (" +DateTime.Now.ToString("dd/MM/yyyy")+ ")",
                     Type = 2
                 };
-
                 myList.Add(task);
                 await App.ItemController.InsertTask(task);
-                RecordsListView.ItemsSource = null;
-                RecordsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2));
-                RecordEntry.Text = "";
+                OtherWodsListView.ItemsSource = null;
+                OtherWodsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2));
+                OtherWodEntry.Text = "";
                 await DisplayAlert("DONE", "Νέο άλλο WoD προστέθηκε", "OK");
-                //await Navigation.PopAsync();
             }
             catch (Exception exception)
             {
