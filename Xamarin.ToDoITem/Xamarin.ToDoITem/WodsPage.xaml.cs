@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Acr.UserDialogs;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -37,6 +37,7 @@ namespace MyItems
                 OtherWodsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2));
                 ItemsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(1));
                 InfosListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(0));
+                UserDialogs.Instance.HideLoading();
             }
             catch (Exception exception)
             {

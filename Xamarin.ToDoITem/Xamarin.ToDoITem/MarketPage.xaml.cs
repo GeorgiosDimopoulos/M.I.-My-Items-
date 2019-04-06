@@ -20,10 +20,11 @@ namespace MyItems
         {
             try
             {
-                InitializeComponent();
+                InitializeComponent();              
                 ProductChoicesPicker.IsVisible = false;
                 NavigationPage.SetHasNavigationBar(this, true);
                 NavigationPage.SetHasBackButton(this, false);
+                NavigationPage.SetHasNavigationBar(this, true);
                 OldProductChoicesPicker.Items.Clear();
                 OldProductChoicesPicker.Items.Add("Διαγραφή");
                 OldProductChoicesPicker.Items.Add("Μετονομασία");                
@@ -33,8 +34,7 @@ namespace MyItems
                 ProductChoicesPicker.Items.Add("Διαγραφή");
                 ProductChoicesPicker.Items.Add("Μετονομασία");            
                 ProductChoicesPicker.Items.Add("Αγορά");
-                ProductChoicesPicker.Items.Add("Αλλαγή τιμής");
-                NavigationPage.SetHasNavigationBar(this, true);
+                ProductChoicesPicker.Items.Add("Αλλαγή τιμής");                                
             }
             catch (Exception e)
             {
@@ -46,10 +46,14 @@ namespace MyItems
         {
             try
             {
+                //App.Indicator.Start();
+                ////using (UserDialogs.Instance.Loading("wait...")) { }
                 var marketList = await App.ItemController.GetTasks();
                 myWholeList = new ObservableCollection<Task>(marketList);
                 MarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(3));
                 OldMarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(7));
+                //App.Indicator.Stop();
+                UserDialogs.Instance.HideLoading();
             }
             catch (Exception e)
             {
@@ -205,6 +209,24 @@ namespace MyItems
             catch (Exception exception)
             {
                 await DisplayAlert("OldProductChoicesPicker_SelectedIndexChanged error", exception.Message, "OK");
+            }
+        }
+
+        private void ChangeItemIndex(object sender, EventArgs e)
+        {
+            try
+            {
+                //var currentIndex = listView1.SelectedItems[0].Index;
+                //var item = listView1.Items[index];
+                //if (currentIndex > 0)
+                //{
+                //    listView1.Items.RemoveAt(currentIndex);
+                //    listView1.Items.Insert(currentIndex - 1, item);
+                //}
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
             }
         }
 

@@ -49,11 +49,14 @@ namespace MyItems
             try
             {
                 //App.Indicator.Start();
+                //EnableIndicator_Clicked();
                 var list = await App.ItemController.GetTasks();
                 myWholeList = new ObservableCollection<Task>(list);
                 DutiesListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(4));
                 OldDutiesListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(6));
                 TodayDutiesListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(9));
+                //DisableIndicator_Clicked();
+                UserDialogs.Instance.HideLoading();
                 //App.Indicator.Stop();
             }
             catch (Exception e)
@@ -62,6 +65,20 @@ namespace MyItems
             }
         }
 
+        private void EnableIndicator_Clicked()
+        {
+            ActivityIndicator.IsEnabled = true;
+            ActivityIndicator.IsRunning = true;
+            ActivityIndicator.IsVisible = true;
+        }
+
+        private void DisableIndicator_Clicked()
+        {
+            ActivityIndicator.IsEnabled = false;
+            ActivityIndicator.IsRunning = false;
+            ActivityIndicator.IsVisible = false;
+        }
+        
         private async void AddTodayDutyButton_OnClicked(object sender, EventArgs e)
         {
             try

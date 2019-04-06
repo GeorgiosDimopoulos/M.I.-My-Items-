@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Acr.UserDialogs;
 using Xamarin.Forms;
 using MyItems.SQLite;
+using System.Threading;
 
 namespace MyItems
 {
@@ -27,8 +29,8 @@ namespace MyItems
                 Console.WriteLine(e);
             }
 	    }
-
-	    public static void Init(ISqliteManage sqliteManage, IIndicate indicator)
+        
+        public static void Init(ISqliteManage sqliteManage, IIndicate indicator)
 	    {
             try
             {

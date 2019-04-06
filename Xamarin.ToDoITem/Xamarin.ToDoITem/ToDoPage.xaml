@@ -73,6 +73,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+            <ActivityIndicator x:Name="ActivityIndicator" IsRunning="False" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="False" IsVisible="False" Color="Blue" BackgroundColor="Transparent"/>
             <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="OldDutyChoicesPicker" SelectedIndexChanged="OldDutyChoicesPicker_SelectedIndexChanged" IsVisible="False" />
         </StackLayout>
     </ContentPage>

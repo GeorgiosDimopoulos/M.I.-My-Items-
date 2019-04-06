@@ -6,6 +6,8 @@ using Android.Content.PM;
 using Android.OS;
 using MyItems;
 using MyItems.SQLite;
+using System.Threading;
+using System.Threading.Tasks;
 using ProgressDialog = Android.App.ProgressDialog;
 namespace Xamarin.ToDoITem.Droid
 {
@@ -18,14 +20,16 @@ namespace Xamarin.ToDoITem.Droid
         {
             try
             {                
-                base.OnCreate(bundle);
+                base.OnCreate(bundle);                
                 TabLayoutResource = Resource.Layout.Tabbar;
                 ToolbarResource = Resource.Layout.Toolbar;
                 Forms.Forms.Init(this, bundle);
                 SQLitePCL.Batteries_V2.Init();
                 UserDialogs.Init(this);
                 App.Init(this,this);
+                _dialog = ProgressDialog.Show(this, "", "Παρακαλώ περιμένετε...", true); //_dialog = new ProgressDialog(this);
                 LoadApplication(new App());
+                _dialog.Hide();
             }
             catch (Exception e)
             {
@@ -49,6 +53,12 @@ namespace Xamarin.ToDoITem.Droid
             {
                 Console.WriteLine(e);
             }
+        }
+
+        public void Start(int type)
+        {
+            if (!_dialog.IsShowing)
+                _dialog = ProgressDialog.Show(this, "", "Παρακαλώ περιμένετε...", true);
         }
 
         public void Stop()

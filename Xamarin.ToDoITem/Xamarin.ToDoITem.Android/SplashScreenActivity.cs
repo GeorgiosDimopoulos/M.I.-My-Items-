@@ -8,6 +8,7 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using Android.Content.PM;
@@ -33,7 +34,7 @@ namespace Xamarin.ToDoITem.Droid
 
         async void SimulateStartup()
         {
-            await Task.Delay(2000);
+            await Task.Delay(1000);
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Acr.UserDialogs;
 using Xamarin.Forms;
 
@@ -11,8 +12,16 @@ namespace MyItems
             try
             {
                 InitializeComponent();
+                //UserDialogs.Instance.ShowLoading();
+                //App.Indicator.Start();
                 NavigationPage.SetHasNavigationBar(this, false);
+                //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ");
                 TapRecognizers();
+                //Thread.Sleep(2000);
+                //UserDialogs.Instance.HideLoading();
+                //App.Indicator.Stop();
+                //UserDialogs.Instance.HideLoading();
+                //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Dispose();
             }
             catch (Exception e)
             {
@@ -20,17 +29,14 @@ namespace MyItems
             }
         }
 
-        public void kindsOfIndicators()
-        {
-            //App.Indicator.Start();
-            //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ");
-            //UserDialogs.Instance.ShowLoading();
-
-            //UserDialogs.Instance.Alert("BYE","CLOSE").Dispose(); //dlg.Dispose();
-            //App.Indicator.Stop();
-            //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Dispose();
-            //UserDialogs.Instance.HideLoading();
-        }
+        //void MyMethod()
+        //{
+        //    UserDialogs.Instance.ShowLoading("TEST", MaskType.Black);
+        //    ViewModel.LoadData().ContinueWith((task) =>
+        //    {
+        //        UserDialogs.Instance.HideLoading();
+        //    });
+        //}
 
         private void TapRecognizers()
         {
@@ -43,51 +49,34 @@ namespace MyItems
 
                 expensessTap.Tapped += (object sender, EventArgs e) =>
                 {
-                    //App.Indicator.Start();
                     //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ");
-                    //UserDialogs.Instance.ShowLoading();
+                    UserDialogs.Instance.ShowLoading();
+                    Thread.Sleep(1000);
                     Navigation.PushAsync(new ExpensesPage(), true);
-                    //UserDialogs.Instance.Alert("BYE","CLOSE").Dispose(); //dlg.Dispose();
-                    //App.Indicator.Stop();
-                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Dispose();
+                    //UserDialogs.Instance.Alert("BYE","CLOSE").Dispose();
+                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Hide();
                     //UserDialogs.Instance.HideLoading();
                 };
                 workoutsstap.Tapped += (object sender, EventArgs e) =>
                 {
-                    //App.Indicator.Start();
-                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ");
-                    //UserDialogs.Instance.ShowLoading();
+                    UserDialogs.Instance.ShowLoading();
                     Navigation.PushAsync(new WodsPage(), true);
-                    //App.Indicator.Stop();
-                    //UserDialogs.Instance.HideLoading();
-                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Dispose();
                 };
                 marketsTap.Tapped += (object sender, EventArgs e) =>
                 {
-                    //App.Indicator.Start();
-                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ");
-                    //UserDialogs.Instance.ShowLoading();
+                    UserDialogs.Instance.ShowLoading();
                     Navigation.PushAsync(new MarketPage(), true); //PushModalAsync
-                    //App.Indicator.Stop();
-                    //UserDialogs.Instance.HideLoading();
-                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Dispose();
                 };
                 dutiessTap.Tapped += (object sender, EventArgs e) =>
                 {
-                    //App.Indicator.Start();
-                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ");
-                    //UserDialogs.Instance.ShowLoading();
+                    UserDialogs.Instance.ShowLoading();
                     Navigation.PushAsync(new ToDoPage(), true);
-                    //App.Indicator.Stop();
-                    //UserDialogs.Instance.HideLoading();
-                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Dispose();
                 };
 
                 DutiessGrid.GestureRecognizers.Add(dutiessTap);
                 MarketsGrid.GestureRecognizers.Add(marketsTap);
                 ExpensessGrid.GestureRecognizers.Add(expensessTap);
                 WorkOutsGrid.GestureRecognizers.Add(workoutsstap);
-
             }
             catch (Exception e)
             {
@@ -95,9 +84,31 @@ namespace MyItems
             }
         }
 
+        private ActivityIndicator IndicatorRunning()
+        {
+            var loadingIndicator = new ActivityIndicator
+            {
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.Start,
+                Scale = 2,
+                Color = Color.Silver
+            };
+            loadingIndicator.SetBinding(IsVisibleProperty, "IsLoading");
+            loadingIndicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsLoading");
+            loadingIndicator.IsRunning = true;
+            Thread.Sleep(2000);
+            loadingIndicator.IsRunning = false;
+            return loadingIndicator;
+        }
+
         protected override void OnAppearing()
         {
-            //((MainViewModel)BindingContext).DatabaseService.NetworkConnect();
+            base.OnAppearing();
+            //await((IDataContext)BindingContext).Refresh(null);
+            //Device.BeginInvokeOnMainThread(async () =>
+            //{
+            //
+            //});
         }
 
         protected override bool OnBackButtonPressed()

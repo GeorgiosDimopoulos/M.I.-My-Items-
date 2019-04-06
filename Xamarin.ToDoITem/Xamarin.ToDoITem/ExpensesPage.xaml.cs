@@ -49,6 +49,7 @@ namespace MyItems
                 myExpensesList = new ObservableCollection<Task>(list);
                 ExpensesListView.ItemsSource = myExpensesList.Where(x => x.Type.Equals(5));
                 OldExpensesListView.ItemsSource = myExpensesList.Where(x => x.Type.Equals(8));
+                UserDialogs.Instance.HideLoading();
             }
             catch (Exception e)
             {
