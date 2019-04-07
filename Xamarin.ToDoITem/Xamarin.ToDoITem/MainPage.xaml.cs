@@ -27,16 +27,7 @@ namespace MyItems
             {
                 DisplayAlert("MainPage Constructor", e.Message, "OK");
             }
-        }
-
-        //void MyMethod()
-        //{
-        //    UserDialogs.Instance.ShowLoading("TEST", MaskType.Black);
-        //    ViewModel.LoadData().ContinueWith((task) =>
-        //    {
-        //        UserDialogs.Instance.HideLoading();
-        //    });
-        //}
+        } 
 
         private void TapRecognizers()
         {
@@ -49,13 +40,9 @@ namespace MyItems
 
                 expensessTap.Tapped += (object sender, EventArgs e) =>
                 {
-                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ");
                     UserDialogs.Instance.ShowLoading();
                     Thread.Sleep(1000);
                     Navigation.PushAsync(new ExpensesPage(), true);
-                    //UserDialogs.Instance.Alert("BYE","CLOSE").Dispose();
-                    //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Hide();
-                    //UserDialogs.Instance.HideLoading();
                 };
                 workoutsstap.Tapped += (object sender, EventArgs e) =>
                 {
@@ -83,24 +70,7 @@ namespace MyItems
                 DisplayAlert("TapRecognizers", e.Message, "OK");
             }
         }
-
-        private ActivityIndicator IndicatorRunning()
-        {
-            var loadingIndicator = new ActivityIndicator
-            {
-                HorizontalOptions = LayoutOptions.CenterAndExpand,
-                VerticalOptions = LayoutOptions.Start,
-                Scale = 2,
-                Color = Color.Silver
-            };
-            loadingIndicator.SetBinding(IsVisibleProperty, "IsLoading");
-            loadingIndicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsLoading");
-            loadingIndicator.IsRunning = true;
-            Thread.Sleep(2000);
-            loadingIndicator.IsRunning = false;
-            return loadingIndicator;
-        }
-
+        
         protected override void OnAppearing()
         {
             base.OnAppearing();

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="Super Market"
+             Title="ΑΓΟΡΕΣ"
              x:Class="MyItems.MarketPage">
-    <ContentPage Title="ΝΑ ΑΓΟΡΑΣΩ">
+    <ContentPage Title="Super Market">
         <ContentPage.ToolbarItems>
             <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
         </ContentPage.ToolbarItems>
@@ -19,7 +19,7 @@
                             <Grid Grid.Row="0" Margin="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="ΠΡΟΪΌΝ" FontSize="15" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
                                 <Label Grid.Column="1" Text="ΤΙΜΉ" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
@@ -33,7 +33,7 @@
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
                                     <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Price}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
@@ -56,11 +56,11 @@
             <Picker HorizontalOptions="Center" x:Name="ProductChoicesPicker" VerticalOptions="End" HeightRequest="66" Unfocused="ProductChoicesPicker_OnUnfocused" SelectedIndexChanged="ProductChoicesPicker_SelectedIndexChanged" IsVisible="False" />
         </StackLayout>
     </ContentPage>
-    <ContentPage Title="ΑΓΟΡΑΣΜΕΝΑ">
+    <ContentPage Title="Αγορασμένα">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="MenuItem_OnClicked"/>
+        <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
     </ContentPage.ToolbarItems>
-        <StackLayout BackgroundColor="#CFD8DC">
+        <StackLayout BackgroundColor="#F5F5F5">
             <ListView x:Name="OldMarketListView" ItemTapped="OldItemsListView_OnItemTapped" VerticalOptions="Fill">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -72,6 +72,55 @@
                     </ListView.ItemTemplate>
                 </ListView>
             <Picker HorizontalOptions="Center" x:Name="OldProductChoicesPicker" VerticalOptions="End" HeightRequest="66" Unfocused="OldProductChoicesPicker_OnUnfocused" SelectedIndexChanged="OldProductChoicesPicker_SelectedIndexChanged" IsVisible="False" />
+        </StackLayout>
+    </ContentPage>
+    <ContentPage Title="Άλλα">
+        <ContentPage.ToolbarItems>
+            <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
+        </ContentPage.ToolbarItems>
+        <StackLayout BackgroundColor="#F5F5F5">
+            <ListView x:Name="OtherMarketListView" ItemTapped="OtherItemsListView_OnItemTapped" VerticalOptions="Fill">
+                <ListView.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="1"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="ΠΡΟΪΌΝ" FontSize="15" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
+                            <Label Grid.Column="1" Text="ΤΙΜΉ" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
+                        </Grid>
+                        <BoxView Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="1" WidthRequest="Infinity" Color="Black"/>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Price}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid BackgroundColor="#455A64" HeightRequest="150">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Entry x:Name="OtherProductEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέο Προϊόν" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+                <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="AddOtherProductButton_OnClicked"/>
+            </Grid>
+            <Picker HorizontalOptions="Center" x:Name="OtherProductChoicesPicker" VerticalOptions="End" HeightRequest="66" Unfocused="OtherProductChoicesPicker_OnUnfocused" SelectedIndexChanged="OtherProductChoicesPicker_SelectedIndexChanged" IsVisible="False" />
         </StackLayout>
     </ContentPage>
 </TabbedPage>

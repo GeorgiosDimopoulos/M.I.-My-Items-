@@ -33,7 +33,7 @@
     </ContentPage>
     <ContentPage Title="ΓΕΝΙΚΕΣ" BackgroundColor="#F5F5F5">
         <ContentPage.ToolbarItems>
-            <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="MenuItem_OnClicked"/>
+            <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
         </ContentPage.ToolbarItems>
         <StackLayout BackgroundColor="#F5F5F5">
             <ScrollView Orientation="Vertical">
@@ -61,7 +61,7 @@
     </ContentPage>
     <ContentPage Title="ΠΑΛΙΕΣ" BackgroundColor="#F5F5F5">
         <ContentPage.ToolbarItems>
-            <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="MenuItem_OnClicked"/>
+            <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
         </ContentPage.ToolbarItems>
         <StackLayout BackgroundColor="#CFD8DC">
             <ListView x:Name="OldDutiesListView" ItemTapped="OldItemsListView_OnItemTapped" VerticalOptions="StartAndExpand">
