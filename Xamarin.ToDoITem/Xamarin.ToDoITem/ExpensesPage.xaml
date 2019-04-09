@@ -28,7 +28,7 @@
                 <Entry x:Name="ExpenseEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέο Έξοδο" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="AddExpenseButton_OnClicked"/>
             </Grid>
-            <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="ExpenseChoicesPicker" SelectedIndexChanged="ExpenseChoicesPicker_SelectedIndexChanged" IsVisible="False" />
+            <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="ExpenseChoicesPicker" SelectedIndexChanged="ExpenseChoicesPicker_SelectedIndexChanged" IsVisible="False" Unfocused="ExpenseChoicesPicker_OnUnfocused"/>
         </StackLayout>
     </ContentPage>
     <ContentPage Title="ΠΕΡΑΣΜΕΝΑ" >
@@ -47,7 +47,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </ScrollView>
-            <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="OldExpenseChoicesPicker" SelectedIndexChanged="OldExpenseChoicesPicker_SelectedIndexChanged" IsVisible="False" />
+            <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="OldExpenseChoicesPicker" Unfocused="OldExpenseChoicesPicker_OnUnfocused" SelectedIndexChanged="OldExpenseChoicesPicker_SelectedIndexChanged" IsVisible="False" />
         </StackLayout>
     </ContentPage>
 </TabbedPage>

@@ -216,6 +216,7 @@ namespace MyItems
         {
             OldProductChoicesPicker.IsVisible = false;
             OldProductChoicesPicker.Unfocus();
+            OldMarketListView.SelectedItem = null;
         }
 
         private async void OtherProductChoicesPicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -401,6 +402,7 @@ namespace MyItems
         private void OtherProductChoicesPicker_OnUnfocused(object sender, FocusEventArgs e)
         {
             OtherProductChoicesPicker.IsVisible = false;
+            OtherMarketListView.SelectedItem = null;
             OtherProductChoicesPicker.Unfocus();
         }
         
@@ -408,6 +410,7 @@ namespace MyItems
         {
             ProductChoicesPicker.IsVisible = false;
             ProductChoicesPicker.Unfocus();
+            MarketListView.SelectedItem = null;
         }
     }
 }

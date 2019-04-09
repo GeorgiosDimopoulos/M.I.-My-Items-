@@ -28,7 +28,7 @@
                 <Entry x:Name="TodayExpenseEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέα Σημερινή Υποχρέωση" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="AddTodayDutyButton_OnClicked"/>
             </Grid>
-            <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="TodayDutyChoicesPicker" SelectedIndexChanged="TodayDutyChoicesPicker_SelectedIndexChanged" IsVisible="False" />
+            <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="TodayDutyChoicesPicker" Unfocused="TodayDutyChoicesPicker_OnUnfocused" SelectedIndexChanged="TodayDutyChoicesPicker_SelectedIndexChanged" IsVisible="False" />
         </StackLayout>
     </ContentPage>
     <ContentPage Title="ΓΕΝΙΚΕΣ" BackgroundColor="#F5F5F5">
@@ -56,7 +56,7 @@
                 <Entry x:Name="ExpenseEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέα Υποχρέωση" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="AddDutyButton_OnClicked"/>
             </Grid>
-            <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="DutyChoicesPicker" SelectedIndexChanged="DutyChoicesPicker_SelectedIndexChanged" IsVisible="False" />
+            <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="DutyChoicesPicker" SelectedIndexChanged="DutyChoicesPicker_SelectedIndexChanged" IsVisible="False" Unfocused="DutyChoicesPicker_OnUnfocused"/>
         </StackLayout>
     </ContentPage>
     <ContentPage Title="ΠΑΛΙΕΣ" BackgroundColor="#F5F5F5">
@@ -74,7 +74,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             <ActivityIndicator x:Name="ActivityIndicator" IsRunning="False" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="False" IsVisible="False" Color="Blue" BackgroundColor="Transparent"/>
-            <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="OldDutyChoicesPicker" SelectedIndexChanged="OldDutyChoicesPicker_SelectedIndexChanged" IsVisible="False" />
+            <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="OldDutyChoicesPicker" Unfocused="OldDutyChoicesPicker_OnUnfocused" SelectedIndexChanged="OldDutyChoicesPicker_SelectedIndexChanged" IsVisible="False" />
         </StackLayout>
     </ContentPage>
 </TabbedPage>

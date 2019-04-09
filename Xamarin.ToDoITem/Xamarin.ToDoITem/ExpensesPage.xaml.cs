@@ -243,5 +243,33 @@ namespace MyItems
                 await DisplayAlert("OnBackButtonPressed", ex.Message, "OK");
             }
         }
+
+        private void OldExpenseChoicesPicker_OnUnfocused(object sender, FocusEventArgs e)
+        {
+            try
+            {
+                OldExpensesListView.SelectedItem = null;
+                OldExpenseChoicesPicker.Unfocus();
+                OldExpenseChoicesPicker.IsVisible = false;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+        }
+
+        private void ExpenseChoicesPicker_OnUnfocused(object sender, FocusEventArgs e)
+        {
+            try
+            {
+                ExpenseChoicesPicker.IsVisible = false;
+                ExpenseChoicesPicker.Unfocus();
+                ExpensesListView.SelectedItem = null;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+        }
     }
 }

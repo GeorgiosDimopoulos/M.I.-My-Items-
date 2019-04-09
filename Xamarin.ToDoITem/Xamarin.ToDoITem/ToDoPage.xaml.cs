@@ -412,5 +412,33 @@ namespace MyItems
                 await DisplayAlert("TodayDutiesListView_OnUnfocused", exception.Message, "OK");
             }
         }
+
+        private void TodayDutyChoicesPicker_OnUnfocused(object sender, FocusEventArgs e)
+        {
+            try
+            {
+                TodayDutiesListView.SelectedItem = null;
+                TodayDutyChoicesPicker.IsVisible = false;
+                TodayDutyChoicesPicker.Unfocus();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+        }
+
+        private void DutyChoicesPicker_OnUnfocused(object sender, FocusEventArgs e)
+        {
+            DutiesListView.SelectedItem = null;
+            DutyChoicesPicker.IsVisible = false;
+            DutyChoicesPicker.Unfocus();
+        }
+
+        private void OldDutyChoicesPicker_OnUnfocused(object sender, FocusEventArgs e)
+        {
+            OldDutiesListView.SelectedItem = null;
+            OldDutyChoicesPicker.IsVisible = false;
+            OldDutyChoicesPicker.Unfocus();
+        }
     }
 }
