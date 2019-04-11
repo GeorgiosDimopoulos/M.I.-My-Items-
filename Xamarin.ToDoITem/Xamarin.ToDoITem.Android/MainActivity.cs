@@ -9,6 +9,7 @@ using MyItems.SQLite;
 using System.Threading;
 using System.Threading.Tasks;
 using ProgressDialog = Android.App.ProgressDialog;
+
 namespace Xamarin.ToDoITem.Droid
 {
     [Activity(Label = "Mi", Icon = "@drawable/todo",  MainLauncher = false, Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]

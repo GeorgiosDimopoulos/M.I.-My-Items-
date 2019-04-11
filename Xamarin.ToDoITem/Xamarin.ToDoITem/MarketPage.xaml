@@ -19,10 +19,12 @@
                             <Grid Grid.Row="0" Margin="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="80"/>
                                     <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="ΠΡΟΪΌΝ" FontSize="15" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
                                 <Label Grid.Column="1" Text="ΤΙΜΉ" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="2" Text="ΕΠΙΛΟΓΕΣ" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
                             </Grid>
                             <BoxView Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="1" WidthRequest="Infinity" Color="Black"/>
                         </Grid>
@@ -33,11 +35,12 @@
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="80"/>
                                         <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
                                     <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Price}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
-                                <!--<Button x:Name="MarketProduct" Text="{Binding Text}" FontSize="Medium" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>-->
+                                    <ImageButton Grid.Column="2" x:Name="MarketProduct" Source="edit" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" Clicked="MarketProduct_OnClicked"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

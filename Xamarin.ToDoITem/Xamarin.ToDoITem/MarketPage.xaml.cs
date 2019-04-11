@@ -51,7 +51,6 @@ namespace MyItems
             try
             {
                 //App.Indicator.Start();
-                ////using (UserDialogs.Instance.Loading("wait...")) { }
                 var marketList = await App.ItemController.GetTasks();
                 myWholeList = new ObservableCollection<Task>(marketList);
                 MarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(3));
@@ -184,9 +183,17 @@ namespace MyItems
             {
                 var task = (Task)MarketListView.SelectedItem;
                 currentTask = task;
-                MarketListView.SelectedItem = null;
-                ProductChoicesPicker.IsVisible = true;
-                ProductChoicesPicker.Focus();
+                currentTask.Type = 7;
+                await App.ItemController.UpdateTask(currentTask);
+                MarketListView.ItemsSource = null;
+                OldMarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(7));
+                MarketListView.ItemsSource = myWholeList.Where(x => x.Type.Equals(3));
+                await DisplayAlert(null, "Επιτυχής Αγορά!", "OK");
+                //var task = (Task)MarketListView.SelectedItem;
+                //currentTask = task;
+                //MarketListView.SelectedItem = null;
+                //ProductChoicesPicker.IsVisible = true;
+                //ProductChoicesPicker.Focus();
             }
             catch (Exception ex)
             {
@@ -411,6 +418,30 @@ namespace MyItems
             ProductChoicesPicker.IsVisible = false;
             ProductChoicesPicker.Unfocus();
             MarketListView.SelectedItem = null;
+        }
+
+        private async void MarketProduct_OnClicked(object sender, EventArgs e)
+        {
+            try
+            {                
+                ImageButton cbutton = (ImageButton)sender; //var task = (Task)MarketListView.SelectedItem;
+                MarketListView.SelectedItem = null;
+                Grid listViewItem = (Grid)cbutton.Parent;
+                Label clabel = (Label)listViewItem.Children[0];
+                foreach (Task product in MarketListView.ItemsSource)
+                {
+                    if (product.Text.Equals(clabel.Text))
+                    {
+                        currentTask = product;
+                    }
+                }
+                ProductChoicesPicker.IsVisible = true;
+                ProductChoicesPicker.Focus();
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("MarketProduct_OnClicked error", exception.Message, "OK");
+            }
         }
     }
 }
