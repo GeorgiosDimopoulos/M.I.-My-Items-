@@ -38,8 +38,8 @@
                                         <ColumnDefinition Width="100"/>
                                         <!--<ColumnDefinition Width="100"/>-->
                                     </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
-                                    <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Price}" FontSize="Medium" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                    <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                    <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Price}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
                                     <!--<Label Grid.Column="2" x:Name="MarketProductDate" Text="{Binding Date}" FontSize="Medium" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>-->
                                 </Grid>
                             </ViewCell>

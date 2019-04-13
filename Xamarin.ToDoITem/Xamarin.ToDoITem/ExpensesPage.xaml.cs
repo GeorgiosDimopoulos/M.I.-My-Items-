@@ -23,8 +23,8 @@ namespace MyItems
             {
                 InitializeComponent();
                 NavigationPage.SetHasNavigationBar(this, true);
-                //BarBackgroundColor = Color.FromHex("#ff3030"); 
                 NavigationPage.SetHasBackButton(this, false);
+                //BarBackgroundColor = Color.FromHex("#ff3030"); 
                 OldExpenseChoicesPicker.Items.Clear();
                 OldExpenseChoicesPicker.Items.Add("Διαγραφή");
                 OldExpenseChoicesPicker.Items.Add("Μετονομασία");
@@ -33,6 +33,7 @@ namespace MyItems
                 ExpenseChoicesPicker.Items.Add("Διαγραφή");
                 ExpenseChoicesPicker.Items.Add("Μετονομασία");
                 ExpenseChoicesPicker.Items.Add("Απενεργοποίηση");
+                ExpenseChoicesPicker.Items.Add("Αλλαγή Τιμής");
                 NavigationPage.SetHasNavigationBar(this, true);
             }
             catch (Exception e)
@@ -86,7 +87,6 @@ namespace MyItems
             {
                 Console.WriteLine(exception);
             }
-
         }
         
         private async void OldItemsListView_OnItemTapped(object sender, ItemTappedEventArgs e)
@@ -241,6 +241,22 @@ namespace MyItems
                     OldExpensesListView.ItemsSource = null;
                     ExpensesListView.ItemsSource = null;
                     OldExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(8));
+                    ExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(5));
+                    UserDialogs.Instance.HideLoading();
+                    await DisplayAlert(null, "Επιτυχής Απενεργοποίηση!", "OK");
+                }
+                else if (ExpenseChoicesPicker.SelectedIndex == 3) // change price of task
+                {
+                    var result = await UserDialogs.Instance.PromptAsync("Αλλαγή Τιμής", null, "Αλλαγή", "Ακυρο", currentTask.Price, inputType: InputType.Number);
+                    if (string.IsNullOrEmpty(result.Text))
+                    {
+                        await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
+                        return;
+                    }
+                    UserDialogs.Instance.ShowLoading();
+                    currentTask.Price = result.Text;
+                    await App.ItemController.UpdateTask(currentTask);
+                    //ExpensesListView.ItemsSource = null;
                     ExpensesListView.ItemsSource = myExpensesList.ToList().Where(x => x.Type.Equals(5));
                     UserDialogs.Instance.HideLoading();
                     await DisplayAlert(null, "Επιτυχής Απενεργοποίηση!", "OK");

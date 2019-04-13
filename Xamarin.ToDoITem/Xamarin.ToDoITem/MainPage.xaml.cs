@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Acr.UserDialogs;
+using MyItems.Views;
 using Xamarin.Forms;
 
 namespace MyItems
@@ -12,15 +13,10 @@ namespace MyItems
             try
             {
                 InitializeComponent();
-                //UserDialogs.Instance.ShowLoading();
                 //App.Indicator.Start();
                 NavigationPage.SetHasNavigationBar(this, false);
-                //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ");
                 TapRecognizers();
-                //Thread.Sleep(2000);
-                //UserDialogs.Instance.HideLoading();
                 //App.Indicator.Stop();
-                //UserDialogs.Instance.HideLoading();
                 //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Dispose();
             }
             catch (Exception e)
@@ -41,8 +37,7 @@ namespace MyItems
                 expensessTap.Tapped += (object sender, EventArgs e) =>
                 {
                     UserDialogs.Instance.ShowLoading();
-                    Thread.Sleep(1000);
-                    Navigation.PushAsync(new ExpensesPage(), true);
+                    Navigation.PushAsync(new AthensPage(), true); //ExpensesPage
                 };
                 workoutsstap.Tapped += (object sender, EventArgs e) =>
                 {
