@@ -24,7 +24,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Entry x:Name="ExpenseEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέο Έξοδο" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+            <Entry x:Name="ExpenseEntry" Grid.Row="0" PlaceholderColor="Wheat"  Placeholder="Νέο Έξοδο" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
             <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="AddExpenseButton_OnClicked"/>
         </Grid>
         <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="ExpenseChoicesPicker" SelectedIndexChanged="ExpenseChoicesPicker_SelectedIndexChanged" IsVisible="False" />

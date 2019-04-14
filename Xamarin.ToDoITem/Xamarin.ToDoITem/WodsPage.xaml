@@ -26,7 +26,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Entry Grid.Row="0" x:Name="TaskEntry" PlaceholderColor="White" Placeholder="Νέο Πρόγραμμα" FontSize="Medium" VerticalOptions="Center" HorizontalTextAlignment="Center" BackgroundColor="#607D8B" TextColor="White" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                <Entry Grid.Row="0" x:Name="TaskEntry" PlaceholderColor="Wheat" Placeholder="Νέο Πρόγραμμα" FontSize="Medium" VerticalOptions="Center" HorizontalTextAlignment="Center" BackgroundColor="#607D8B" TextColor="White" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" VerticalOptions="Center" Margin="10" BackgroundColor="Transparent" Clicked="NewWoD_OnClicked"/>
             </Grid>
         </StackLayout>
@@ -49,7 +49,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Entry Grid.Row="0" x:Name="InfoTaskEntry" PlaceholderColor="White" Placeholder="Νέα Πληροφορία" FontSize="Medium" VerticalOptions="Center" HorizontalTextAlignment="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" BackgroundColor="#607D8B"/>
+                <Entry Grid.Row="0" x:Name="InfoTaskEntry" PlaceholderColor="Wheat" Placeholder="Νέα Πληροφορία" FontSize="Medium" VerticalOptions="Center" HorizontalTextAlignment="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" BackgroundColor="#607D8B"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" VerticalOptions="Center" Margin="10" BackgroundColor="Transparent" Clicked="NewInfo_OnClicked"/>
             </Grid>
         </StackLayout>
@@ -89,7 +89,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Entry x:Name="OtherWodEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέο WoD (ΆΛλο)" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+                <Entry x:Name="OtherWodEntry" Grid.Row="0" PlaceholderColor="Wheat" Placeholder="Νέο WoD (ΆΛλο)" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="NewOtherWoD_OnClicked"/>
             </Grid>
         </StackLayout>

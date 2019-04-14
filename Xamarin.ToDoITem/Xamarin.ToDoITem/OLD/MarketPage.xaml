@@ -25,7 +25,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Entry x:Name="ProductEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέο Προϊόν" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+            <Entry x:Name="ProductEntry" Grid.Row="0" PlaceholderColor="Wheat"  Placeholder="Νέο Προϊόν" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
             <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="AddProductButton_OnClicked"/>
         </Grid>
         <Picker HorizontalOptions="Center" x:Name="ProductChoicesPicker" VerticalOptions="End" HeightRequest="66" Unfocused="ProductChoicesPicker_OnUnfocused" SelectedIndexChanged="ProductChoicesPicker_SelectedIndexChanged" IsVisible="False" />

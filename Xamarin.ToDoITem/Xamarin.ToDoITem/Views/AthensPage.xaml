@@ -50,7 +50,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Entry x:Name="AthensToDoEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέα Υποχρέωση" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
-                <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="ImageButton_Clicked"/>
+                <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="ToDoImageButton_Clicked"/>
             </Grid>
             <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="AthensToDoChoicesPicker" SelectedIndexChanged="AthensToDoChoicesPicker_SelectedIndexChanged" IsVisible="False" Unfocused="AthensToDoChoicesPicker_Unfocused"/>
             <DatePicker x:Name="ToDoDatePicker" MinimumDate="01/01/2019" MaximumDate="01/01/2020" Format="D" HorizontalOptions="Center" VerticalOptions="Center" DateSelected="ToDoDatePicker_OnDateSelected" IsVisible="False"/>

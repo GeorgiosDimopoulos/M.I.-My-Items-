@@ -53,7 +53,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Entry x:Name="ExpenseEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέο Έξοδο" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+                <Entry x:Name="ExpenseEntry" Grid.Row="0" PlaceholderColor="Wheat"  Placeholder="Νέο Έξοδο" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="AddExpenseButton_OnClicked"/>
             </Grid>
             <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="ExpenseChoicesPicker" SelectedIndexChanged="ExpenseChoicesPicker_SelectedIndexChanged" IsVisible="False" Unfocused="ExpenseChoicesPicker_OnUnfocused"/>
@@ -66,15 +66,43 @@
         <StackLayout BackgroundColor="#CFD8DC">
             <ScrollView Orientation="Vertical">
                 <ListView x:Name="OldExpensesListView" ItemTapped="OldItemsListView_OnItemTapped" VerticalOptions="StartAndExpand">
+                    <ListView.Header>
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="ΠΡΟΪΌΝ" FontSize="15" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="1" Text="ΤΙΜΉ" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
+                            </Grid>
+                            <BoxView Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="1" WidthRequest="Infinity" Color="Black"/>
+                        </Grid>
+                    </ListView.Header>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Label Text="{Binding Text}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                <Grid Margin="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                    <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Price}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </ScrollView>
+            <StackLayout Orientation="Vertical" BackgroundColor="#455A64" HeightRequest="80">
+                <Label x:Name="AllCostsLabelTitle" Text="Συνολικά Κόστη" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontSize="Large" TextColor="Wheat" Margin="0,10,0,0"/>
+                <Label x:Name="AllCostsLabel" HorizontalTextAlignment="Center" FontSize="Large" TextColor="Wheat" FontAttributes="Bold" Margin="0,0,0,10"/>
+            </StackLayout>
             <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="OldExpenseChoicesPicker" Unfocused="OldExpenseChoicesPicker_OnUnfocused" SelectedIndexChanged="OldExpenseChoicesPicker_SelectedIndexChanged" IsVisible="False" />
         </StackLayout>
     </ContentPage>

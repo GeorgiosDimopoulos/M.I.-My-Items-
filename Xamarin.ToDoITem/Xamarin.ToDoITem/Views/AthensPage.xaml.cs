@@ -51,13 +51,6 @@ namespace MyItems.Views
                 myList = new ObservableCollection<Task>(list);
                 AthensToDoListView.ItemsSource = myList.Where(x => x.Type.Equals(15));
                 AthensExodusListView.ItemsSource = myList.Where(x => x.Type.Equals(14));                
-                //datePicker = new DatePicker
-                //{
-                //    MinimumDate = new DateTime(2018, 1, 1),
-                //    MaximumDate = new DateTime(2018, 12, 31),
-                //    Date = DateTime.Now.Date
-                //};
-                //datePicker.IsVisible = false;
                 UserDialogs.Instance.HideLoading();
             }
             catch (Exception e)
@@ -121,7 +114,7 @@ namespace MyItems.Views
             }
         }
 
-        private async void ImageButton_Clicked(object sender, EventArgs e)
+        private async void ToDoImageButton_Clicked(object sender, EventArgs e)
         {
             try
             {
@@ -130,8 +123,26 @@ namespace MyItems.Views
                     await DisplayAlert(null, "Γράψτε κάτι για προσθήκη!", "OK");
                     return;
                 }
-                ToDoDatePicker.IsVisible = true;
-                ToDoDatePicker.Focus();
+                if (await DisplayAlert("Προσθήκη", "Προσθήκη Ημερομηνίας", "ΟΚ","OXI"))
+                {
+                    ToDoDatePicker.IsVisible = true;
+                    ToDoDatePicker.Focus();
+                }
+                else
+                {
+                    UserDialogs.Instance.ShowLoading();
+                    var task = new Task
+                    {
+                        Text = AthensToDoEntry.Text, Type = 15, Date = DateTime.Today
+                    };
+                    await App.ItemController.InsertTask(task);
+                    AthensToDoListView.ItemsSource = null;
+                    AthensToDoListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(14));
+                    AthensToDoEntry.Text = "";
+                    AthensToDoListView.SelectedItem = null;
+                    UserDialogs.Instance.HideLoading();
+                    await DisplayAlert(null, "Επιτυχής Προσθήκη!", "OK");
+                }                
             }
             catch (Exception ex)
             {
@@ -192,7 +203,7 @@ namespace MyItems.Views
                     myList.Remove(currentTask);
                     await App.ItemController.DeleteTask(currentTask);
                     AthensExodusListView.ItemsSource = null;
-                    AthensExodusListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(5));
+                    AthensExodusListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(14));
                     UserDialogs.Instance.HideLoading();
                     await DisplayAlert(null, "Επιτυχής Διαγραφή!", "OK");
                 }
@@ -214,7 +225,6 @@ namespace MyItems.Views
                 }
                 else if (AthensExodusChoicesPicker.SelectedIndex == 2) // date of task
                 {
-                    //await DisplayAlert(null, "NOT YET", "OK");
                     datePicker.IsVisible = true;
                     datePicker.Focus();
                     datePicker.DateSelected += DatePicker_DateSelected;
@@ -224,7 +234,7 @@ namespace MyItems.Views
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                await DisplayAlert(null, exception.Message, "OK");
             }
         }
 

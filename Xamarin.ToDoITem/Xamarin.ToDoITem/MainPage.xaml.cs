@@ -17,7 +17,6 @@ namespace MyItems
                 NavigationPage.SetHasNavigationBar(this, false);
                 TapRecognizers();
                 //App.Indicator.Stop();
-                //UserDialogs.Instance.Progress("ΠΕΡΙΜΕΝΕΤΕ").Dispose();
             }
             catch (Exception e)
             {
@@ -37,7 +36,7 @@ namespace MyItems
                 expensessTap.Tapped += (object sender, EventArgs e) =>
                 {
                     UserDialogs.Instance.ShowLoading();
-                    Navigation.PushAsync(new AthensPage(), true); //ExpensesPage
+                    Navigation.PushAsync(new ExpensesPage(), true); //AthensPage
                 };
                 workoutsstap.Tapped += (object sender, EventArgs e) =>
                 {
