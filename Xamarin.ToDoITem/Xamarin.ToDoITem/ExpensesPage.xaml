@@ -36,18 +36,15 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="100"/>
-                                        <!--<ColumnDefinition Width="100"/>-->
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
                                     <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Price}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
-                                    <!--<Label Grid.Column="2" x:Name="MarketProductDate" Text="{Binding Date}" FontSize="Medium" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>-->
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </ScrollView>
-            <!--<Button Grid.Row="1" Clicked="AddExpenseButton_OnClicked" Text="+" HeightRequest="80" VerticalOptions="End" FontSize="40" BackgroundColor="#455A64" TextColor="#FFFFFF" FontFamily="Roboto-Light.ttf#Roboto-Light"/>-->
             <Grid BackgroundColor="#455A64" HeightRequest="150">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>

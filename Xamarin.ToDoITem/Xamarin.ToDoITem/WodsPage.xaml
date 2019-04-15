@@ -6,16 +6,40 @@
              x:Class="MyItems.WodsPage">
     <TabbedPage.ToolbarItems>
         <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
-        <!--<ToolbarItem Order="Primary" Icon="infosIcon.png" Clicked="InfosItem_OnClicked"/>-->
+        <!--<ToolbarItem Order="Primary" Icon="trophy.png" x:Name="TrophiesToolbarItem" Clicked="TrophiesToolbarItem_OnClicked"/>-->
     </TabbedPage.ToolbarItems>
     <ContentPage Title="CROSS FIT" BackgroundColor="#F5F5F5">
         <StackLayout Orientation="Vertical">
             <ScrollView Orientation="Vertical">
                 <ListView x:Name="ItemsListView" ItemTapped="ItemsListView_OnItemTapped">
+                    <ListView.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="WoD" FontSize="15" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                <Label Grid.Column="1" Text="Ημέρα" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                            </Grid>
+                            <BoxView Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="1" WidthRequest="Infinity" Color="Black"/>
+                        </Grid>
+                    </ListView.Header>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Label Text="{Binding Text}" FontSize="Medium" FontFamily="Roboto-Light.ttf#Roboto-Light" Margin="10"/>
+                                <Grid Margin="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalTextAlignment="Start" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                    <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Date}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -29,6 +53,8 @@
                 <Entry Grid.Row="0" x:Name="TaskEntry" PlaceholderColor="Wheat" Placeholder="Νέο Πρόγραμμα" FontSize="Medium" VerticalOptions="Center" HorizontalTextAlignment="Center" BackgroundColor="#607D8B" TextColor="White" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" VerticalOptions="Center" Margin="10" BackgroundColor="Transparent" Clicked="NewWoD_OnClicked"/>
             </Grid>
+            <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="WoDChoicesPicker" SelectedIndexChanged="WoDChoicesPicker_OnSelectedIndexChanged" IsVisible="False" Unfocused="WoDChoicesPicker_OnUnfocused"/>
+            <DatePicker x:Name="WoDDatePicker" MinimumDate="01/01/2019" MaximumDate="01/01/2020" Format="D" HorizontalOptions="Center" VerticalOptions="Center" DateSelected="WoDDatePicker_OnDateSelected" IsVisible="False"/>
         </StackLayout>
     </ContentPage>
     <ContentPage Title="Infos" BackgroundColor="#F5F5F5">
@@ -54,6 +80,54 @@
             </Grid>
         </StackLayout>
     </ContentPage>
+    <ContentPage Title="ΡΕΚΟΡ" BackgroundColor="#F5F5F5">
+        <StackLayout Orientation="Vertical">
+            <ScrollView Orientation="Vertical">
+                <ListView x:Name="RecordsListView" ItemTapped="RecordsListView_OnItemTapped">
+                    <ListView.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="120"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="ΡΕΚΟΡ" FontSize="15" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                <Label Grid.Column="1" Text="Ημέρα" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalOptions="End"/>
+                            </Grid>
+                            <BoxView Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="1" WidthRequest="Infinity" Color="Black"/>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Margin="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalTextAlignment="Start" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                    <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Date}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+            <Grid HeightRequest="150" BackgroundColor="#455A64">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Entry Grid.Row="0" x:Name="RecordTaskEntry" PlaceholderColor="Wheat" Placeholder="Νέο Record" FontSize="Medium" VerticalOptions="Center" HorizontalTextAlignment="Center" BackgroundColor="#607D8B" TextColor="White" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" VerticalOptions="Center" Margin="10" BackgroundColor="Transparent" Clicked="NewRecord_OnClicked"/>
+            </Grid>
+            <DatePicker IsVisible="False" x:Name="RecordDatePicker" DateSelected="RecordDatePicker_OnDateSelected" MinimumDate="01/01/2019" MaximumDate="01/01/2020" Format="D" HorizontalOptions="Center" VerticalOptions="Center" />
+        </StackLayout>
+    </ContentPage>
     <ContentPage Title="ΑΛΛΑ" BackgroundColor="#F5F5F5">
         <StackLayout Orientation="Vertical">
             <ScrollView Orientation="Vertical">
@@ -70,7 +144,7 @@
                                     <ColumnDefinition Width="120"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="WoD" FontSize="15" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
-                                <Label Grid.Column="1" Text="Ημέρα" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                <Label Grid.Column="1" Text="Ημέρα" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalOptions="End"/>
                             </Grid>
                             <BoxView Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="1" WidthRequest="Infinity" Color="Black"/>
                         </Grid>
@@ -78,8 +152,15 @@
                     <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Label Text="{Binding Text}" FontSize="Medium" FontFamily="Roboto-Light.ttf#Roboto-Light" Margin="10"/>
-                        </ViewCell>
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalTextAlignment="Start" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Date}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                            </Grid>
+                            </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

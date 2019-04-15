@@ -43,7 +43,6 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </ScrollView>
-            <!--<Button Grid.Row="1" Clicked="AddExpenseButton_OnClicked" Text="+" HeightRequest="80" VerticalOptions="End" FontSize="40" BackgroundColor="#455A64" TextColor="#FFFFFF" FontFamily="Roboto-Light.ttf#Roboto-Light"/>-->
             <Grid BackgroundColor="#455A64" HeightRequest="150">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>

@@ -14,6 +14,7 @@ namespace MyItems
     public partial class WodsPage : TabbedPage
     {
         public ObservableCollection<Task> myList;
+        private Task cTask;
 
         public WodsPage()
         {
@@ -34,9 +35,14 @@ namespace MyItems
             {
                 var list = await App.ItemController.GetTasks();
                 myList = new ObservableCollection<Task>(list);
+                WoDChoicesPicker.Items.Clear();
+                WoDChoicesPicker.Items.Add("Διαγραφή WoD");
+                WoDChoicesPicker.Items.Add("Μετονομασία WoD");
+                WoDChoicesPicker.Items.Add("Επεξεργασία Ημερομηνίας");
                 OtherWodsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2));
                 ItemsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(1));
                 InfosListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(0));
+                RecordsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(16));
                 UserDialogs.Instance.HideLoading();
             }
             catch (Exception exception)
@@ -49,17 +55,9 @@ namespace MyItems
         {
             try
             {
-                var task = (Task)ItemsListView.SelectedItem;
-                ItemsListView.SelectedItem = null;
-
-                if (await DisplayAlert(null, "Διαγραφή WoD?", "ΟΚ", "Όχι"))
-                {
-                    myList.Remove(task);
-                    await App.ItemController.DeleteTask(task);                    
-                    await DisplayAlert(null, "Διαγράφηκε το WoD", "ΟΚ");
-                    ItemsListView.ItemsSource = null;
-                    ItemsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(0));
-                }
+                cTask = (Task)ItemsListView.SelectedItem;
+                WoDChoicesPicker.IsVisible = true;
+                WoDChoicesPicker.Focus();
             }
             catch (Exception exception)
             {
@@ -92,15 +90,16 @@ namespace MyItems
         {
             try
             {
-                var task = (Task)OtherWodsListView.SelectedItem;
-                OtherWodsListView.SelectedItem = null;
-                if (await DisplayAlert(null, "Διαγραφή WoD?", "ΟΚ", "Όχι"))
+                cTask = (Task)RecordsListView.SelectedItem;
+                RecordsListView.SelectedItem = null;
+                if (await DisplayAlert(null, "Διαγραφή Ρεκορ?", "ΟΚ", "Όχι"))
                 {
-                    myList.Remove(task);
-                    await App.ItemController.DeleteTask(task); //RecordsListView.ItemsSource = myList;
-                    await DisplayAlert(null, "Διαγράφηκε το WoD", "ΟΚ");
-                    OtherWodsListView.ItemsSource = null;
-                    OtherWodsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(2));
+                    myList.Remove(cTask);
+                    await App.ItemController.DeleteTask(cTask);
+                    RecordsListView.ItemsSource = null;
+                    RecordsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(16));
+                    await DisplayAlert(null, "Διαγράφηκε το Ρεκορ", "ΟΚ");
+                    RecordsListView.SelectedItem = null;
                 }
             }
             catch (Exception exception)
@@ -108,7 +107,41 @@ namespace MyItems
                 await DisplayAlert("RecordsListView_OnItemTapped Error", exception.Message, "Yes");
             }
         }
-
+        
+        private async void NewRecord_OnClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(RecordTaskEntry.Text))
+                {
+                    await DisplayAlert(null, "Γράψτε κάτι για Record!", "OK");
+                    return;
+                }
+                if (await DisplayAlert(null, "Προσθήκη και ημερομηνίας?", "OK", "Όχι"))
+                {
+                    RecordDatePicker.IsVisible = true;
+                    RecordDatePicker.Focus();
+                }
+                else
+                {
+                    var task = new Task
+                    {
+                        Text = RecordTaskEntry.Text,
+                        Type = 16
+                    };
+                    myList.Add(task);
+                    await App.ItemController.InsertTask(task);
+                    ItemsListView.ItemsSource = null;
+                    ItemsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(16));
+                    TaskEntry.Text = "";
+                    await DisplayAlert("DONE", "Νέο Record προστέθηκε", "OK");
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+        }
         private async void NewWoD_OnClicked(object sender, EventArgs e)
         {
             try
@@ -118,19 +151,8 @@ namespace MyItems
                     await DisplayAlert(null, "Γράψτε κάτι για WoD!", "OK");
                     return;
                 }
-
-                var task = new Task
-                {
-                    Text = TaskEntry.Text,Type = 1
-                };
-                myList.Add(task);
-                await App.ItemController.InsertTask(task);
-                ItemsListView.ItemsSource = null;
-                ItemsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(1));
-                TaskEntry.Text = "";
-                await DisplayAlert("DONE", "Νέο WoD προστέθηκε", "OK");
-                //ItemsListView.ItemsSource = null;
-                //ItemsListView.ItemsSource = myList;
+                WoDDatePicker.IsVisible = true;
+                WoDDatePicker.Focus();
             }
             catch (Exception exception)
             {
@@ -147,13 +169,11 @@ namespace MyItems
                     await DisplayAlert(null, "Γράψτε κάτι για Info!", "OK");
                     return;
                 }
-
                 var task = new Task
                 {
                     Text = InfoTaskEntry.Text,
                     Type = 0
                 };
-
                 myList.Add(task);
                 await App.ItemController.InsertTask(task);
                 InfosListView.ItemsSource = null;
@@ -204,8 +224,113 @@ namespace MyItems
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                await DisplayAlert("MenuItem_OnClicked", exception.Message, "OK");
             }            
+        }
+
+        private async void WoDChoicesPicker_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (WoDChoicesPicker.SelectedIndex == 0) // delete task
+                {
+                    UserDialogs.Instance.ShowLoading();
+                    myList.Remove(cTask);
+                    await App.ItemController.DeleteTask(cTask);
+                    ItemsListView.ItemsSource = null;
+                    ItemsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(5));
+                    UserDialogs.Instance.HideLoading();
+                    await DisplayAlert(null, "Επιτυχής Διαγραφή!", "OK");
+                } else if (WoDChoicesPicker.SelectedIndex == 1) // rename task
+                {
+                    var result = await UserDialogs.Instance.PromptAsync("Μετονομασία", null, "Μετονομασία Εξόδου", "Ακυρο", cTask.Text, inputType: InputType.Default);
+                    if (string.IsNullOrEmpty(result.Text))
+                    {
+                        await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
+                        return;
+                    }
+                    UserDialogs.Instance.ShowLoading();
+                    cTask.Text = result.Text;
+                    await App.ItemController.UpdateTask(cTask);
+                    ItemsListView.ItemsSource = null;
+                    ItemsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(1));
+                    UserDialogs.Instance.HideLoading();
+                    await DisplayAlert(null, "Επιτυχής Μετονομασία!", "OK");
+                }
+                else if (WoDChoicesPicker.SelectedIndex == 2) // rename task
+                {
+                    WoDDatePicker.IsVisible = true;
+                    WoDDatePicker.Focus();
+                }
+                WoDChoicesPicker.SelectedItem = null;
+                //WoDChoicesPicker.Unfocus();
+                ItemsListView.SelectedItem = null;
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("WoDChoicesPicker_OnSelectedIndexChanged: ", exception.Message, "OK");
+            }
+        }
+
+        private async void WoDChoicesPicker_OnUnfocused(object sender, FocusEventArgs e)
+        {
+            try
+            {
+                ItemsListView.SelectedItem = null;
+                WoDChoicesPicker.IsVisible = false;
+                WoDChoicesPicker.SelectedItem = null;
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("WoDChoicesPicker_OnUnfocused: ", exception.Message, "OK");
+            }
+        }
+
+        private async void WoDDatePicker_OnDateSelected(object sender, DateChangedEventArgs e)
+        {
+            try
+            {
+                UserDialogs.Instance.ShowLoading();                
+                cTask.Date = WoDDatePicker.Date;
+                await App.ItemController.UpdateTask(cTask);
+                ItemsListView.ItemsSource = null;
+                ItemsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(1));
+                ItemsListView.SelectedItem = null;
+                WoDDatePicker.Unfocus();
+                WoDDatePicker.IsVisible = false;
+                UserDialogs.Instance.HideLoading();
+                await DisplayAlert("Προσθήκη", "Νέα υποχρέωση προστέθηκε", "OK");
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("WoDChoicesPicker_OnUnfocused: ", exception.Message, "OK");
+            }
+        }
+        
+        private async void RecordDatePicker_OnDateSelected(object sender, DateChangedEventArgs e)
+        {
+            try
+            {
+                UserDialogs.Instance.ShowLoading();
+                var task = new Task
+                {
+                    Text = RecordTaskEntry.Text, Type = 0, Date = RecordDatePicker.Date
+                };
+                myList.Add(task);
+                await App.ItemController.InsertTask(task);
+                RecordsListView.ItemsSource = null;
+                RecordTaskEntry.Text = "";
+                RecordsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(16));
+                RecordsListView.SelectedItem = null;
+                RecordDatePicker.Unfocus();
+                RecordDatePicker.IsVisible = false;
+                UserDialogs.Instance.HideLoading();
+                await DisplayAlert("Προσθήκη", "Νέο ρεκόρ προστέθηκε", "OK");
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("RecordDatePicker_OnDateSelected: ", exception.Message, "OK");
+            }
         }
     }
 }
