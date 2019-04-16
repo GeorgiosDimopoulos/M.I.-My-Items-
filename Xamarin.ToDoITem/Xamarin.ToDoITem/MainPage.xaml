@@ -15,6 +15,10 @@
             <Image Source="todo.png" WidthRequest="33" HeightRequest="33" VerticalOptions="Center" HorizontalOptions="Center"/>
             <Label TextColor="White" Text="Υποχρεώσεις" VerticalOptions="End"  HorizontalOptions="CenterAndExpand" Margin="0,0,0,10" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
         </Grid>
+        <Grid x:Name="ExpensessGrid" Grid.Row="0" Grid.Column="1" BackgroundColor="#455A64">
+            <Image Source="a.png"  WidthRequest="33" HeightRequest="33" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Label TextColor="White" Text="Αθήνα" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Margin="0,0,0,10" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+        </Grid>
         <Grid x:Name="MarketsGrid" Grid.Row="1" Grid.Column="0" BackgroundColor="#455A64">
             <Image Source="shoppingcart.png"  WidthRequest="33" HeightRequest="33" VerticalOptions="Center" HorizontalOptions="Center"/>
             <Label TextColor="White" Text="Ψώνια" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Margin="0,0,0,10" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
@@ -22,10 +26,6 @@
         <Grid x:Name="WorkOutsGrid" Grid.Row="1" Grid.Column="1" BackgroundColor="#455A64">
             <Image Source="workout.png"  WidthRequest="33" HeightRequest="33" VerticalOptions="Center" HorizontalOptions="Center"/>
             <Label TextColor="White" Text="Γυμναστική" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Margin="0,0,0,10" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
-        </Grid>
-        <Grid x:Name="ExpensessGrid" Grid.Row="0" Grid.Column="1" BackgroundColor="#455A64">
-            <Image Source="euro.png"  WidthRequest="33" HeightRequest="33" VerticalOptions="Center" HorizontalOptions="Center"/>
-            <Label TextColor="White" Text="Έξοδα" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Margin="0,0,0,10" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
         </Grid>
     </Grid>
 </ContentPage>

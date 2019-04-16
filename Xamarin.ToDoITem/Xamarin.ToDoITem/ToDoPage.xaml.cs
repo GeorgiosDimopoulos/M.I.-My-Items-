@@ -29,6 +29,7 @@ namespace MyItems
                 TodayDutyChoicesPicker.Items.Add("Διαγραφή");
                 TodayDutyChoicesPicker.Items.Add("Μετονομασία");
                 TodayDutyChoicesPicker.Items.Add("Γενική Ενεργοποίηση");
+                TodayDutyChoicesPicker.Items.Add("Απενεργοποίηση");
                 OldDutyChoicesPicker.Items.Add("Διαγραφή");
                 OldDutyChoicesPicker.Items.Add("Γενική Ενεργοποίηση");                
                 OldDutyChoicesPicker.Items.Add("Άμεση Ενεργοποίηση");
@@ -248,6 +249,21 @@ namespace MyItems
                         await DisplayAlert(null, "Επιτυχής Γενική Ενεργοποίηση!", "OK");
                     }
                 }
+                else if (TodayDutyChoicesPicker.SelectedIndex == 3)
+                {
+                    if (await DisplayAlert(null, "Απενεργοποίηση Υποχρέωσης?", "ΝΑΙ", "ΟΧΙ"))
+                    {
+                        UserDialogs.Instance.ShowLoading();
+                        currentTask.Type = 6;
+                        await App.ItemController.UpdateTask(currentTask);
+                        TodayDutiesListView.ItemsSource = null;
+                        OldDutiesListView.ItemsSource = null;
+                        OldDutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(6));
+                        TodayDutiesListView.ItemsSource = myWholeList.ToList().Where(x => x.Type.Equals(9));
+                        UserDialogs.Instance.HideLoading();
+                        await DisplayAlert(null, "Επιτυχής Απενεργοποίηση!", "OK");
+                    }
+                }
                 TodayDutyChoicesPicker.Unfocus();
                 TodayDutyChoicesPicker.IsVisible = false;
                 TodayDutyChoicesPicker.SelectedItem = null;
@@ -325,8 +341,6 @@ namespace MyItems
                 OldDutiesListView.SelectedItem = null;
                 OldDutyChoicesPicker.Unfocus();
                 OldDutyChoicesPicker.IsVisible = false;
-                //await Navigation.PopAsync();
-                //await Navigation.PushModalAsync(new MainPage(), true);
             }
             catch (Exception exception)
             {

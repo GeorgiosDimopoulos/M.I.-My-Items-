@@ -5,6 +5,7 @@ using Acr.UserDialogs;
 using Xamarin.Forms;
 using MyItems.SQLite;
 using System.Threading;
+using MyItems.Views;
 
 namespace MyItems
 {
@@ -22,7 +23,7 @@ namespace MyItems
                 InitializeComponent();
                 ItemDatabase = new ItemDatabase(SqliteManage.DatabaseFolder());
                 ItemController = new ItemController();
-                MainPage = new NavigationPage(new MainPage());
+                MainPage = new NavigationPage(new AthensPage()); //MainPage
             }
             catch (Exception e)
             {

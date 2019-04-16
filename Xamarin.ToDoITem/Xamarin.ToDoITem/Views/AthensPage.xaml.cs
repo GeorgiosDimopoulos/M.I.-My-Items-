@@ -18,6 +18,7 @@ namespace MyItems.Views
         public ObservableCollection<Task> myList;
         private Task currentTask;
         private DatePicker datePicker;
+        private DatePicker exodusdatePicker;
         private DateTime selectedDate;
 
         public AthensPage ()
@@ -25,13 +26,19 @@ namespace MyItems.Views
             try
             {
                 InitializeComponent();
+                datePicker = new DatePicker();
+                exodusdatePicker = new DatePicker();
                 NavigationPage.SetHasNavigationBar(this, true);
-                NavigationPage.SetHasBackButton(this, false);
-                AthensToDoChoicesPicker.Items.Clear();
+                NavigationPage.SetHasBackButton(this, false);                
                 AthensExodusChoicesPicker.Items.Clear();
+                AthensToDoChoicesPicker.Items.Clear();
                 AthensToDoChoicesPicker.Items.Add("Διαγραφή");
                 AthensToDoChoicesPicker.Items.Add("Μετονομασία");
                 AthensToDoChoicesPicker.Items.Add("Αλλαγή Ημερομηνίας");
+                AthensCostChoicesPicker.Items.Clear();
+                AthensCostChoicesPicker.Items.Add("Διαγραφή");
+                AthensCostChoicesPicker.Items.Add("Μετονομασία");
+                AthensCostChoicesPicker.Items.Add("Αλλαγή Τιμής");
                 AthensExodusChoicesPicker.Items.Add("Διαγραφή");
                 AthensExodusChoicesPicker.Items.Add("Μετονομασία");
                 AthensExodusChoicesPicker.Items.Add("Αλλαγή Ημερομηνίας");
@@ -50,7 +57,8 @@ namespace MyItems.Views
                 var list = await App.ItemController.GetTasks();
                 myList = new ObservableCollection<Task>(list);
                 AthensToDoListView.ItemsSource = myList.Where(x => x.Type.Equals(15));
-                AthensExodusListView.ItemsSource = myList.Where(x => x.Type.Equals(14));                
+                AthensExodusListView.ItemsSource = myList.Where(x => x.Type.Equals(14));
+                AthensCostsListView.ItemsSource = myList.Where(x => x.Type.Equals(17));                
                 UserDialogs.Instance.HideLoading();
             }
             catch (Exception e)
@@ -91,8 +99,13 @@ namespace MyItems.Views
                 }
                 else if (AthensToDoChoicesPicker.SelectedIndex == 2)
                 {
-                    await DisplayAlert(null, "NOT YET!", "OK");
+                    ToDoDatePicker.IsVisible = true;
+                    ToDoDatePicker.Focus();
                 }
+                //AthensToDoChoicesPicker.Unfocus();
+                //AthensToDoChoicesPicker.IsVisible = false;
+                //AthensToDoListView.SelectedItem = null;
+                //AthensToDoChoicesPicker.SelectedItem = null;
             }
             catch (Exception ex)
             {
@@ -104,9 +117,10 @@ namespace MyItems.Views
         {
             try
             {
-                AthensToDoChoicesPicker.IsVisible = true;
-                AthensToDoChoicesPicker.Focus();
+                AthensToDoChoicesPicker.IsVisible = false;
+                AthensToDoChoicesPicker.Unfocus();
                 AthensToDoListView.SelectedItem = null;
+                AthensToDoChoicesPicker.SelectedItem = null;
             }
             catch (Exception ex)
             {
@@ -165,12 +179,13 @@ namespace MyItems.Views
             }
         }
 
-        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             try
             {
-                await Navigation.PopAsync();
-                await Navigation.PushAsync(new MainPage(), true);
+                Environment.Exit(0);
+                //await Navigation.PopAsync();
+                //await Navigation.PushAsync(new MainPage(), true);
             }
             catch (Exception exception)
             {
@@ -225,9 +240,9 @@ namespace MyItems.Views
                 }
                 else if (AthensExodusChoicesPicker.SelectedIndex == 2) // date of task
                 {
-                    datePicker.IsVisible = true;
-                    datePicker.Focus();
-                    datePicker.DateSelected += DatePicker_DateSelected;
+                    ExodusDatePicker.IsVisible = true;
+                    ExodusDatePicker.Focus();
+                    ExodusDatePicker.DateSelected += ExodusDatePicker_OnDateSelected;
                 }
                 AthensExodusChoicesPicker.IsVisible = false;
                 AthensExodusChoicesPicker.IsVisible = false;
@@ -237,32 +252,19 @@ namespace MyItems.Views
                 await DisplayAlert(null, exception.Message, "OK");
             }
         }
-
-        private async void DatePicker_DateSelected(object sender, DateChangedEventArgs e)
-        {
-            try
-            {
-                selectedDate = datePicker.Date; // TimeSpan timeSpan =datePicker.Date - startDatePicker.Date + (includeSwitch.IsToggled ? TimeSpan.FromDays(1) : TimeSpan.Zero);
-                await DisplayAlert(null, selectedDate.ToString(CultureInfo.InvariantCulture), "OK");
-                //resultLabel.Text = String.Format("{0} day{1} between dates",timeSpan.Days, timeSpan.Days == 1 ? "" : "s");
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-            }
-        }
-
-        private void AthensExodusChoicesPicker_OnUnfocused(object sender, FocusEventArgs e)
+        
+        private async void AthensExodusChoicesPicker_OnUnfocused(object sender, FocusEventArgs e)
         {
             try
             {
                 AthensExodusChoicesPicker.IsVisible = false;
                 AthensExodusChoicesPicker.Unfocus();
+                AthensExodusChoicesPicker.SelectedItem = null;
                 AthensExodusListView.SelectedItem = null;
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                await DisplayAlert("AthensExodusChoicesPicker_OnUnfocused", exception.Message, "OK");
             }
         }
 
@@ -275,30 +277,12 @@ namespace MyItems.Views
                     await DisplayAlert(null, "Γράψτε κάτι για προσθήκη!", "OK");
                     return;
                 }
-                var currentDate = "-";
-                var resultTime = await UserDialogs.Instance.PromptAsync("Ημερομηνία Εξόδου", null, "Προσθήκη Ημερομηνίας", "Ακυρο", "Προσθέστε Ημερομηνία", inputType: InputType.Default);
-                if (!string.IsNullOrEmpty(resultTime.Text))
-                {
-                    currentDate = resultTime.Text;
-                }
-                UserDialogs.Instance.ShowLoading();
-                var task = new Task
-                {
-                    Text = AthensExodusEntry.Text,
-                    Date = DateTime.Parse(currentDate),
-                    Type = 14
-                };
-                myList.Add(task);
-                await App.ItemController.InsertTask(task);
-                AthensExodusListView.ItemsSource = null;
-                AthensExodusListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(14));
-                AthensExodusEntry.Text = "";
-                AthensExodusListView.SelectedItem = null;
-                UserDialogs.Instance.HideLoading();
+                ExodusDatePicker.IsVisible = true;
+                ExodusDatePicker.Focus();
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                await DisplayAlert("ExodusButton_OnClicked", exception.Message, "OK");
             }
         }
 
@@ -306,8 +290,8 @@ namespace MyItems.Views
         {
             try
             {
-                selectedDate = ToDoDatePicker.Date;
                 UserDialogs.Instance.ShowLoading();
+                selectedDate = ToDoDatePicker.Date;
                 var task = new Task
                 {
                     Text = AthensToDoEntry.Text,
@@ -324,11 +308,184 @@ namespace MyItems.Views
                 await DisplayAlert("Προσθήκη", "Νέα υποχρέωση προστέθηκε", "OK");
                 ToDoDatePicker.Unfocus();
                 ToDoDatePicker.IsVisible = false;
-                //await DisplayAlert(null, ToDoDatePicker.Date.ToString(CultureInfo.InvariantCulture), "OK");
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                await DisplayAlert(null, exception.Message, "OK");
+            }
+        }
+
+        private async void AthensCostChoicesPicker_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                AthensCostChoicesPicker.Unfocus();                
+                if (AthensCostChoicesPicker.SelectedIndex == 0) // delete
+                {
+                    UserDialogs.Instance.ShowLoading();
+                    myList.Remove(currentTask);
+                    await App.ItemController.DeleteTask(currentTask);
+                    AthensCostsListView.ItemsSource = null;
+                    AthensCostsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(17));
+                    UserDialogs.Instance.HideLoading();
+                    await DisplayAlert(null, "Επιτυχής Διαγραφή!", "OK");
+                }
+                else if(AthensCostChoicesPicker.SelectedIndex == 1) // rename
+                {
+
+                }
+                else if (AthensCostChoicesPicker.SelectedIndex == 2) // edit price
+                {
+                    
+                }
+                else if (AthensCostChoicesPicker.SelectedIndex == 3) // edit date
+                {
+                    AthensCostDatepicker.IsVisible = true;
+                    AthensCostDatepicker.Focus();
+                }
+                AthensCostChoicesPicker.IsVisible = false;
+                AthensCostsListView.SelectedItem = null;
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("AthensCostChoicesPicker_OnSelectedIndexChanged", exception.Message, "OK");
+            }
+        }
+
+        private async void AthensCostChoicesPicker_OnUnfocused(object sender, FocusEventArgs e)
+        {
+            try
+            {
+                AthensCostChoicesPicker.Unfocus();
+                AthensCostChoicesPicker.IsVisible = false;
+                AthensCostChoicesPicker.SelectedItem = null;
+                AthensExodusListView.SelectedItem = null;
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("AthensCostChoicesPicker_OnUnfocused", exception.Message, "OK");
+            }
+        }
+
+        private async void AthensCostsListView_OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            try
+            {
+                var task = (Task)AthensCostsListView.SelectedItem;
+                currentTask = task;
+                AthensCostChoicesPicker.IsVisible = true;
+                AthensCostChoicesPicker.Focus();
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("AthensCostsListView_OnItemTapped", exception.Message, "OK");
+            }
+        }
+
+        private async void ExodusDatePicker_OnDateSelected(object sender, DateChangedEventArgs e)
+        {
+            UserDialogs.Instance.ShowLoading();
+            selectedDate = ExodusDatePicker.Date;
+            var task = new Task
+            {
+                Text = AthensExodusEntry.Text,
+                Date = selectedDate.Date,
+                Type = 14
+            };
+            myList.Add(task);
+            await App.ItemController.InsertTask(task);
+            AthensExodusListView.ItemsSource = null;
+            AthensExodusListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(14));
+            AthensExodusEntry.Text = "";
+            AthensExodusListView.SelectedItem = null;
+            UserDialogs.Instance.HideLoading();
+        }
+
+        private async void AthensCostDatepicker_OnDateSelected(object sender, DateChangedEventArgs e)
+        {
+            try
+            {
+                UserDialogs.Instance.ShowLoading();
+                selectedDate = AthensCostDatepicker.Date;
+                var task = new Task
+                {
+                    Text = AthensCostEntry.Text,
+                    Date = selectedDate.Date,
+                    Type = 14
+                };
+                myList.Add(task);
+                await App.ItemController.InsertTask(task);
+                AthensCostsListView.ItemsSource = null;
+                AthensCostsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(17));
+                AthensCostEntry.Text = "";
+                AthensCostsListView.SelectedItem = null;
+                UserDialogs.Instance.HideLoading();
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("AthensCostDatepicker_OnDateSelected", exception.Message, "OK");
+            }
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            try
+            {
+                Environment.Exit(0);
+                //Device.BeginInvokeOnMainThread(async () =>
+                //{
+                //    await Navigation.PopAsync();
+                //    await Navigation.PushModalAsync(new MainPage(), true);
+                //});
+                return true;
+            }
+            catch (Exception e)
+            {
+                DisplayAlert("OnBackButtonPressed", e.Message, "OK");
+                return false;
+            }
+        }
+
+        private void ExodusDatePicker_OnUnfocused(object sender, FocusEventArgs e)
+        {
+            ExodusDatePicker.Unfocus();
+            ExodusDatePicker.IsVisible = false;
+        }
+
+        private async void CostButton_OnClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(AthensCostEntry.Text))
+                {
+                    await DisplayAlert(null, "Γράψτε κάτι για προσθήκη!", "OK");
+                    return;
+                }
+                var result = await UserDialogs.Instance.PromptAsync("Τιμή", null, "Προσθήκη", "Ακυρο", "Προσθήκη Τιμής", inputType: InputType.Number);
+                if (string.IsNullOrEmpty(result.Text))
+                {
+                    await DisplayAlert(null, "Πληκτρολόγησε κάτι για τη τιμή!", "OK");
+                    return;
+                }
+                UserDialogs.Instance.ShowLoading();
+                var task = new Task
+                {
+                    Text = AthensCostEntry.Text,
+                    Type = 17,
+                    Price = result.Text
+                };
+                myList.Add(task);
+                await App.ItemController.InsertTask(task);
+                AthensCostsListView.ItemsSource = null;
+                AthensCostsListView.ItemsSource = myList.ToList().Where(x => x.Type.Equals(17));
+                AthensCostEntry.Text = "";
+                UserDialogs.Instance.HideLoading();
+                await DisplayAlert("Προσθήκη", "Νέο Έξοδο προστέθηκε", "OK");
+
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("CostButton_OnClicked", exception.Message, "OK");
             }
         }
     }

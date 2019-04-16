@@ -5,7 +5,7 @@
              x:Class="MyItems.Views.AthensPage">
     <ContentPage Title="ΥΠΟΧΡΕΩΣΕΙΣ">
         <ContentPage.ToolbarItems>
-            <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="ToolbarItem_Clicked"/>
+            <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="ToolbarItem_Clicked"/>
         </ContentPage.ToolbarItems>
         <StackLayout BackgroundColor="#F5F5F5">
             <ScrollView Orientation="Vertical">
@@ -35,7 +35,9 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                    <ScrollView Orientation="Horizontal" Grid.Column="0">
+                                        <Label x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                    </ScrollView>
                                     <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Date}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
                                 </Grid>
                             </ViewCell>
@@ -48,7 +50,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Entry x:Name="AthensToDoEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέα Υποχρέωση" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+                <Entry x:Name="AthensToDoEntry" Grid.Row="0" PlaceholderColor="Wheat"  Placeholder="Νέα Υποχρέωση" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="ToDoImageButton_Clicked"/>
             </Grid>
             <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="AthensToDoChoicesPicker" SelectedIndexChanged="AthensToDoChoicesPicker_SelectedIndexChanged" IsVisible="False" Unfocused="AthensToDoChoicesPicker_Unfocused"/>
@@ -57,7 +59,7 @@
     </ContentPage>
     <ContentPage Title="ΕΞΟΔΟΙ">
         <ContentPage.ToolbarItems>
-            <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="ToolbarItem_Clicked"/>
+            <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="ToolbarItem_Clicked"/>
         </ContentPage.ToolbarItems>
         <StackLayout>
         <ScrollView Orientation="Vertical">
@@ -100,10 +102,63 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Entry x:Name="AthensExodusEntry" Grid.Row="0" PlaceholderColor="White"  Placeholder="Νέα Έξοδος" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+                <Entry x:Name="AthensExodusEntry" Grid.Row="0" PlaceholderColor="Wheat"  Placeholder="Νέα Έξοδος" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" x:Name="ExodusButton" BackgroundColor="Transparent" Margin="10" Clicked="ExodusButton_OnClicked"/>
             </Grid>
             <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="AthensExodusChoicesPicker" SelectedIndexChanged="AthensExodusChoicesPicker_OnSelectedIndexChanged" IsVisible="False" Unfocused="AthensExodusChoicesPicker_OnUnfocused"/>
+            <DatePicker x:Name="ExodusDatePicker" Unfocused="ExodusDatePicker_OnUnfocused" MinimumDate="01/01/2019" MaximumDate="01/01/2020" Format="D" HorizontalOptions="Center" VerticalOptions="Center" DateSelected="ExodusDatePicker_OnDateSelected" IsVisible="False"/>
+        </StackLayout>
+    </ContentPage>
+    <ContentPage Title="Έξοδα">
+        <ContentPage.ToolbarItems>
+            <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="ToolbarItem_Clicked"/>
+        </ContentPage.ToolbarItems>
+        <StackLayout>
+            <ScrollView>
+                <ListView x:Name="AthensCostsListView" ItemTapped="AthensCostsListView_OnItemTapped" VerticalOptions="StartAndExpand">
+                    <ListView.Header>
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="ΤΙ" FontSize="15" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="1" Text="ΠΟΣΟ" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
+                            </Grid>
+                            <BoxView Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="1" WidthRequest="Infinity" Color="Black"/>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Margin="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                    <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Price}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+            <Grid BackgroundColor="#455A64" HeightRequest="150">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Entry x:Name="AthensCostEntry" Grid.Row="0" PlaceholderColor="Wheat" Placeholder="Νέο Έξοδο" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+                <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" x:Name="CostButton" BackgroundColor="Transparent" Margin="10" Clicked="CostButton_OnClicked"/>
+            </Grid>
+            <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="AthensCostChoicesPicker" SelectedIndexChanged="AthensCostChoicesPicker_OnSelectedIndexChanged" IsVisible="False" Unfocused="AthensCostChoicesPicker_OnUnfocused"/>
+            <DatePicker x:Name="AthensCostDatepicker" MinimumDate="01/01/2019" MaximumDate="01/01/2020" Format="D" HorizontalOptions="Center" VerticalOptions="Center" DateSelected="AthensCostDatepicker_OnDateSelected" IsVisible="False"/>
         </StackLayout>
     </ContentPage>
 </TabbedPage>

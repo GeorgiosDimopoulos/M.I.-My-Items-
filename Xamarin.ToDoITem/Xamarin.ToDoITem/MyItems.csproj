@@ -42,7 +42,7 @@
     <EmbeddedResource Update="OLD\ExpensesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="TESTPage.xaml">
+    <EmbeddedResource Update="OLD\TESTPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="ToDoPage.xaml">

@@ -36,7 +36,7 @@ namespace MyItems
                 expensessTap.Tapped += (object sender, EventArgs e) =>
                 {
                     UserDialogs.Instance.ShowLoading();
-                    Navigation.PushAsync(new ExpensesPage(), true); //AthensPage
+                    Navigation.PushAsync(new AthensPage(), true); //ExpensesPage
                 };
                 workoutsstap.Tapped += (object sender, EventArgs e) =>
                 {

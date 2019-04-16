@@ -22,9 +22,11 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="WoD" FontSize="15" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
-                                <Label Grid.Column="1" Text="Ημέρα" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                <Label Grid.Column="1" Text="More" FontSize="15" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                <Label Grid.Column="2" Text="Ημέρα" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
                             </Grid>
                             <BoxView Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="1" WidthRequest="Infinity" Color="Black"/>
                         </Grid>
@@ -36,9 +38,11 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalTextAlignment="Start" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
-                                    <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Date}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                    <Label Grid.Column="1" x:Name="MarketProductDetails" Text="{Binding Details}" FontSize="Medium" HorizontalTextAlignment="Start" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                                    <Label Grid.Column="2" x:Name="MarketProductPrice" Text="{Binding Date}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

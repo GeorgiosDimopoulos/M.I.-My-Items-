@@ -4,7 +4,7 @@
              Title="ΥΠΟΧΡΕΩΣΕΙΣ"
              BackgroundColor="#BDBDBD"
              x:Class="MyItems.ToDoPage">
-    <ContentPage Title="ΣΑΜΟΣ" BackgroundColor="#F5F5F5">
+    <ContentPage Title="ΆΜΕΣΕΣ" BackgroundColor="#F5F5F5">
         <ContentPage.ToolbarItems>
             <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
         </ContentPage.ToolbarItems>
@@ -31,7 +31,7 @@
             <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="TodayDutyChoicesPicker" Unfocused="TodayDutyChoicesPicker_OnUnfocused" SelectedIndexChanged="TodayDutyChoicesPicker_SelectedIndexChanged" IsVisible="False" />
         </StackLayout>
     </ContentPage>
-    <ContentPage Title="ΑΘΗΝΑ" BackgroundColor="#F5F5F5">
+    <ContentPage Title="ΓΕΝΙΚΈΣ" BackgroundColor="#F5F5F5">
         <ContentPage.ToolbarItems>
             <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
         </ContentPage.ToolbarItems>
