@@ -32,9 +32,9 @@ namespace Xamarin.ToDoITem.Droid
             startupWork.Start();
         }
 
-        async void SimulateStartup()
+        private void SimulateStartup()
         {
-            await Task.Delay(1000);
+            //await Task.Delay(1000);
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
     }
