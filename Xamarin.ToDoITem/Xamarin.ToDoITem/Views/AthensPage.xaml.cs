@@ -27,6 +27,18 @@ namespace MyItems.Views
                 InitializeComponent();
                 NavigationPage.SetHasNavigationBar(this, true);
                 NavigationPage.SetHasBackButton(this, false);                
+                FillPickers();
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("AthensPage", ex.Message, "OK");
+            }
+        }
+
+        protected async void FillPickers()
+        {
+            try
+            {
                 AthensExodusChoicesPicker.Items.Clear();
                 AthensToDoChoicesPicker.Items.Clear();
                 AthensToDoChoicesPicker.Items.Add("Διαγραφή");
@@ -39,12 +51,11 @@ namespace MyItems.Views
                 AthensExodusChoicesPicker.Items.Add("Διαγραφή");
                 AthensExodusChoicesPicker.Items.Add("Μετονομασία");
                 AthensExodusChoicesPicker.Items.Add("Αλλαγή Ημερομηνίας");
-
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                DisplayAlert("AthensPage", ex.Message, "OK");
-            }
+                await DisplayAlert("FillPickers Error: ", e.Message, "OK");
+            }            
         }
 
         protected override async void OnAppearing()
@@ -52,16 +63,34 @@ namespace MyItems.Views
             try
             {
                 var list = await App.ItemController.GetTasks();
-                myList = new ObservableCollection<Task>(list);
-                AthensToDoListView.ItemsSource = myList.Where(x => x.Type.Equals(15));
-                AthensExodusListView.ItemsSource = myList.Where(x => x.Type.Equals(14));
-                AthensCostsListView.ItemsSource = myList.Where(x => x.Type.Equals(17));                
+                myList = new ObservableCollection<Task>(list);                
+                IOrderedEnumerable<Task> sortedTasks = from cTask in list orderby cTask.Date, cTask.Date select cTask; //IEnumerable
+                AthensToDoListView.ItemsSource = sortedTasks.Where(x => x.Type.Equals(15)); //instead of myList
+                AthensExodusListView.ItemsSource = sortedTasks.Where(x => x.Type.Equals(14)); //instead of myList
+                AthensCostsListView.ItemsSource = myList.Where(x => x.Type.Equals(17));
+                CountGeneralCosts();
                 UserDialogs.Instance.HideLoading();
             }
             catch (Exception e)
             {
                 await DisplayAlert("OnAppearing", e.Message, "OK");
             }
+        }
+
+        private void CountGeneralCosts()
+        {
+            double allCosts = 0.0;
+            foreach (var expense in myList)
+            {
+                if (expense.Type == 17)
+                {
+                    allCosts += double.Parse(expense.Price);
+                }
+            };
+            var stringCosts = allCosts.ToString(CultureInfo.InvariantCulture);
+            var stringCostsFinal = stringCosts.Remove(stringCosts.Length - 1);
+            AllCostsLabel.Text = "Σύνολo: " + stringCostsFinal + " €";            
+            //AllCostsLabel.Text = stringCostsFinal + " €";
         }
 
         private async void AthensToDoChoicesPicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -525,5 +554,19 @@ namespace MyItems.Views
                 await DisplayAlert("CostButton_OnClicked", exception.Message, "OK");
             }
         }
+
+        private async void AllCostsLabel_OnClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                //UserDialogs.Instance.ShowLoading("ΑΝΑΝΈΩΣΗ");
+                CountGeneralCosts();
+                //UserDialogs.Instance.HideLoading();
+            }
+            catch (Exception exception)
+            {
+                await DisplayAlert("AllCostsLabel_OnClicked", exception.Message, "OK");
+            }
+        }       
     }
 }

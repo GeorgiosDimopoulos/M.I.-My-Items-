@@ -111,7 +111,8 @@
     </ContentPage>
     <ContentPage Title="Έξοδα">
         <ContentPage.ToolbarItems>
-            <ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="ToolbarItem_Clicked"/>
+            <!--<ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="ToolbarItem_Clicked"/>-->
+            <ToolbarItem Order="Primary" x:Name="AllCostsLabel" Clicked="AllCostsLabel_OnClicked"/>
         </ContentPage.ToolbarItems>
         <StackLayout>
             <ScrollView>
@@ -149,6 +150,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </ScrollView>
+            <!--<Label BackgroundColor="#455A64" x:Name="AllCostsLabel" HorizontalTextAlignment="Center" FontSize="Large" TextColor="Wheat" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>-->
             <Grid BackgroundColor="#455A64" HeightRequest="150">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
