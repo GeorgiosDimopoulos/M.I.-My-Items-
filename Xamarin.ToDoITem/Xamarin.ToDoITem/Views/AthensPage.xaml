@@ -114,7 +114,28 @@
             <!--<ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="ToolbarItem_Clicked"/>-->
             <ToolbarItem Order="Primary" x:Name="AllCostsLabel" Clicked="AllCostsLabel_OnClicked"/>
         </ContentPage.ToolbarItems>
-        <StackLayout>
+        <StackLayout Orientation="Vertical">
+            <!--<Grid  HeightRequest="40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Text="ΑΠΌ" FontSize="Medium" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
+                <Label Grid.Column="1" Text="ΜΕΧΡΙ" FontSize="Medium" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
+                <Label Grid.Column="2" Text="ΠΟΣΟ" TextColor="Black" FontSize="Medium" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
+            </Grid>-->
+            <Grid x:Name="GeneralCostGird" HeightRequest="44" Margin="10">
+                <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" TextColor="Black" Text=" 04/18/2019" FontSize="Large" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                    <Label Grid.Column="1" TextColor="Black" x:Name="LastDayCostLabel" FontSize="Large" Text="{Binding Text}" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                    <Label TextColor="Black" Grid.Column="2" x:Name="GeneralCostPriceLabel" FontSize="Large" Text="{Binding Price}" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+            </Grid>
+            <!--<BoxView VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="1" WidthRequest="Infinity" Color="Black"/>-->
             <ScrollView>
                 <ListView x:Name="AthensCostsListView" ItemTapped="AthensCostsListView_OnItemTapped" VerticalOptions="StartAndExpand">
                     <ListView.Header>
@@ -126,10 +147,10 @@
                             <Grid Grid.Row="0" Margin="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="80"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="ΤΙ" FontSize="15" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
-                                <Label Grid.Column="1" Text="ΠΟΣΟ" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="0" Text="ΕΞΤΡΑ ΑΓΟΡΈΣ" FontSize="Medium" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="1" Text="ΠΟΣΟ" TextColor="Black" FontSize="Medium" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
                             </Grid>
                             <BoxView Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="1" WidthRequest="Infinity" Color="Black"/>
                         </Grid>
@@ -140,7 +161,7 @@
                                 <Grid Margin="10">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="80"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Column="0" x:Name="MarketProductName" Text="{Binding Text}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
                                     <Label Grid.Column="1" x:Name="MarketProductPrice" Text="{Binding Price}" FontSize="Medium" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#212121" FontFamily="Roboto-Light.ttf#Roboto-Light"/>

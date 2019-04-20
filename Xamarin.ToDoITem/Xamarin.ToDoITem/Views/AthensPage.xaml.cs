@@ -19,6 +19,7 @@ namespace MyItems.Views
         private bool editOption;
         private IOrderedEnumerable<Task> _sortedList;
         private Task currentTask;
+        private Task mainTask;
         private DateTime selectedDate;
 
         public AthensPage ()
@@ -66,7 +67,7 @@ namespace MyItems.Views
                 AthensExodusChoicesPicker.Items.Add("Αλλαγή Ημερομηνίας");
             }
             catch (Exception e)
-            {
+            {                
                 await DisplayAlert("FillPickers Error: ", e.Message, "OK");
             }            
         }
@@ -96,12 +97,70 @@ namespace MyItems.Views
                 AthensToDoListView.ItemsSource = _sortedList.Where(x => x.Type.Equals(15)); //instead of myList
                 AthensExodusListView.ItemsSource = _sortedList.Where(x => x.Type.Equals(14)); //instead of myList
                 AthensCostsListView.ItemsSource = _sortedList.Where(x => x.Type.Equals(17)); //instead of myList                
+                foreach (var t in generalList)
+                {
+                    if (t.Type == 22)
+                    {
+                        mainTask = t;
+                        LastDayCostLabel.Text = t.Date.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture); ;
+                        GeneralCostPriceLabel.Text = t.Price + "€";
+                    }
+                }
                 CountGeneralCosts();
+                //await App.ItemController.InsertTask(new Task { Price = GeneralCostPriceLabel.Text, Type = 22});
+                TapGestureRecognizers();                
                 UserDialogs.Instance.HideLoading();
             }
             catch (Exception e)
             {
                 await DisplayAlert("OnAppearing", e.Message, "OK");
+            }
+        }
+
+        private void TapGestureRecognizers()
+        {
+            try
+            {
+                TapGestureRecognizer generalCostPriceTap = new TapGestureRecognizer();
+                TapGestureRecognizer generalCostLabelTap = new TapGestureRecognizer();
+                foreach (Task t in generalList)
+                {
+                    if (t.Type == 22)
+                    {
+                        LastDayCostLabel.Text = t.Date.ToString("MM/dd/yyyy",CultureInfo.InvariantCulture);
+                    }
+                }
+                generalCostLabelTap.Tapped += (sender, e) =>
+                {
+                    AthensCostDatepicker.IsVisible = true;
+                    AthensCostDatepicker.Focus();
+                };
+                generalCostPriceTap.Tapped += async (sender, e) =>
+                {
+                    var result = await UserDialogs.Instance.PromptAsync("Τιμή", null, "Τιμή Εξόδου", "Ακυρο", inputType: InputType.Number);
+                    if (string.IsNullOrEmpty(result.Text))
+                    {
+                        await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
+                        return;
+                    }
+                    //UserDialogs.Instance.ShowLoading();
+                    foreach (Task t in generalList)
+                    {
+                        if (t.Type == 22)
+                        {
+                            t.Price = result.Text;
+                            await App.ItemController.UpdateTask(t);
+                            GeneralCostPriceLabel.Text = result.Text + "€";
+                        }
+                    }
+                };
+                GeneralCostPriceLabel.GestureRecognizers.Add(generalCostPriceTap);
+                LastDayCostLabel.GestureRecognizers.Add(generalCostLabelTap);
+                //UserDialogs.Instance.HideLoading();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
         }
 
@@ -127,19 +186,35 @@ namespace MyItems.Views
 
         private void CountGeneralCosts()
         {
-            UserDialogs.Instance.ShowLoading();
-            double allCosts = 0.0;
-            foreach (var expense in _sortedList) // myList
+            try
             {
-                if (expense.Type == 17)
+                //UserDialogs.Instance.ShowLoading();
+                double allCosts = 0.0;
+                foreach (var expense in _sortedList) // myList
                 {
-                    allCosts += double.Parse(expense.Price);
-                }
-            };
-            var stringCosts = allCosts.ToString(CultureInfo.InvariantCulture);
-            var stringCostsFinal = stringCosts.Remove(stringCosts.Length - 1);
-            AllCostsLabel.Text = "Σύνολo: " + stringCostsFinal + " €";
-            UserDialogs.Instance.HideLoading();
+                    if (expense.Type == 17)
+                    {
+                        allCosts += double.Parse(expense.Price); // eg 700
+                    }
+                };
+                var stringCosts = allCosts.ToString(CultureInfo.InvariantCulture); // "700"
+                var stringCostsFinal = stringCosts.Remove(stringCosts.Length - 1); // "70"
+                double almostFinalDouble = double.Parse(stringCostsFinal); // 70
+
+                double mainTaskPrice = double.Parse(mainTask.Price); // eg 400
+                var mainTaskPriceString = mainTaskPrice.ToString(CultureInfo.InvariantCulture); // "400"
+                var mainTaskPriceStringFinal = mainTaskPriceString.Remove(mainTaskPriceString.Length - 1); //"40"                                
+                double almostFinalMainTaskDouble = double.Parse(mainTaskPriceStringFinal); //40
+
+                almostFinalDouble += almostFinalMainTaskDouble;//integerGeneralCost; // 70 + 40 = 110
+                stringCosts = almostFinalDouble.ToString(CultureInfo.InvariantCulture); // "110"
+                AllCostsLabel.Text = "Σύνολo: " + stringCosts+ " €"; //stringCostsFinal 
+                //UserDialogs.Instance.HideLoading();
+            }
+            catch (Exception e)
+            {
+                DisplayAlert("CountGeneralCosts", e.Message, "OK");
+            }
         }
 
         private async void AthensToDoChoicesPicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -531,7 +606,7 @@ namespace MyItems.Views
             generalList.Add(task);
             await App.ItemController.InsertTask(task);
             AthensExodusListView.ItemsSource = null;
-            AthensExodusListView.ItemsSource = generalList.ToList().Where(x => x.Type.Equals(14));
+            AthensExodusListView.ItemsSource = _sortedList.Where(x => x.Type.Equals(14)); //generalList.ToList()
             AthensExodusEntry.Text = "";
             AthensExodusListView.SelectedItem = null;
             UserDialogs.Instance.HideLoading();
@@ -542,19 +617,9 @@ namespace MyItems.Views
             try
             {
                 UserDialogs.Instance.ShowLoading();
-                selectedDate = AthensCostDatepicker.Date;
-                var task = new Task
-                {
-                    Text = AthensCostEntry.Text,
-                    Date = selectedDate.Date,
-                    Type = 14
-                };
-                generalList.Add(task);
-                await App.ItemController.InsertTask(task);
-                AthensCostsListView.ItemsSource = null;
-                AthensCostsListView.ItemsSource = _sortedList.ToList().Where(x => x.Type.Equals(17));
-                AthensCostEntry.Text = "";
-                AthensCostsListView.SelectedItem = null;
+                mainTask.Date = AthensCostDatepicker.Date;
+                await App.ItemController.UpdateTask(mainTask);
+                LastDayCostLabel.Text = mainTask.Date.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
                 UserDialogs.Instance.HideLoading();
             }
             catch (Exception exception)
