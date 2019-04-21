@@ -111,31 +111,21 @@
     </ContentPage>
     <ContentPage Title="Έξοδα">
         <ContentPage.ToolbarItems>
-            <!--<ToolbarItem Order="Primary" Icon="baseline_back.png" Clicked="ToolbarItem_Clicked"/>-->
-            <ToolbarItem Order="Primary" x:Name="AllCostsLabel" Clicked="AllCostsLabel_OnClicked"/>
+            <ToolbarItem Order="Primary" x:Name="AllCostsLabel"/>
         </ContentPage.ToolbarItems>
         <StackLayout Orientation="Vertical">
-            <!--<Grid  HeightRequest="40">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="80"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Text="ΑΠΌ" FontSize="Medium" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
-                <Label Grid.Column="1" Text="ΜΕΧΡΙ" FontSize="Medium" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
-                <Label Grid.Column="2" Text="ΠΟΣΟ" TextColor="Black" FontSize="Medium" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
-            </Grid>-->
             <Grid x:Name="GeneralCostGird" HeightRequest="44" Margin="10">
                 <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="80"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" TextColor="Black" Text=" 04/18/2019" FontSize="Large" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
-                    <Label Grid.Column="1" TextColor="Black" x:Name="LastDayCostLabel" FontSize="Large" Text="{Binding Text}" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
-                    <Label TextColor="Black" Grid.Column="2" x:Name="GeneralCostPriceLabel" FontSize="Large" Text="{Binding Price}" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" TextColor="Black" Text=" 04/18/2019" FontSize="Medium" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                <Label Grid.Column="1" TextColor="Black" x:Name="LastDayCostLabel" FontSize="Medium" Text="{Binding Text}" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                <Label TextColor="Black" Grid.Column="2" x:Name="GeneralCostPriceLabel" FontSize="Medium" Text="{Binding Price}" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                <ImageButton Grid.Column="3" Source="right_arrow" BackgroundColor="Transparent" x:Name="EditGeneralCost" Clicked="EditGeneralCost_OnClicked"/>
             </Grid>
-            <!--<BoxView VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="1" WidthRequest="Infinity" Color="Black"/>-->
             <ScrollView>
                 <ListView x:Name="AthensCostsListView" ItemTapped="AthensCostsListView_OnItemTapped" VerticalOptions="StartAndExpand">
                     <ListView.Header>
@@ -180,8 +170,9 @@
                 <Entry x:Name="AthensCostEntry" Grid.Row="0" PlaceholderColor="Wheat" Placeholder="Νέο Έξοδο" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" x:Name="CostButton" BackgroundColor="Transparent" Margin="10" Clicked="CostButton_OnClicked"/>
             </Grid>
+            <Picker HorizontalOptions="Center" VerticalOptions="Center" IsVisible="False" x:Name="EditGeneralCostPicker" SelectedIndexChanged="EditGeneralCostPicker_OnSelectedIndexChanged" Unfocused="EditGeneralCostPicker_OnUnfocused"/>
             <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="AthensCostChoicesPicker" SelectedIndexChanged="AthensCostChoicesPicker_OnSelectedIndexChanged" IsVisible="False" Unfocused="AthensCostChoicesPicker_OnUnfocused"/>
-            <DatePicker x:Name="AthensCostDatepicker" MinimumDate="01/01/2019" MaximumDate="01/01/2020" Format="D" HorizontalOptions="Center" VerticalOptions="Center" DateSelected="AthensCostDatepicker_OnDateSelected" IsVisible="False"/>
+            <DatePicker x:Name="AthensGeneralCostDatepicker" MinimumDate="01/01/2019" MaximumDate="01/01/2020" Format="D" HorizontalOptions="Center" VerticalOptions="Center" DateSelected="AthensGeneralCostDatepicker_OnDateSelected" IsVisible="False"/>
         </StackLayout>
     </ContentPage>
 </TabbedPage>
