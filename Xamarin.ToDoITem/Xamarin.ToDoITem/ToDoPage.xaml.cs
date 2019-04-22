@@ -65,7 +65,27 @@ namespace MyItems
                 await DisplayAlert("OnAppearing", e.Message, "OK");
             }
         }
-        
+
+        private bool CheckDuplicates(string possibleText, int taskType)
+        {
+            try
+            {
+                foreach (var item in myWholeList.Where(x => x.Type == taskType)) // myList
+                {
+                    if (possibleText == item.Text)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                DisplayAlert("CheckDuplicates", e.Message, "OK");
+                return false;
+            }
+        }
+
         private async void AddTodayDutyButton_OnClicked(object sender, EventArgs e)
         {
             try

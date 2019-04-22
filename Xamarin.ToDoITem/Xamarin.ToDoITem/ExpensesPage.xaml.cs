@@ -79,6 +79,26 @@ namespace MyItems
             AllCostsLabel.Text = stringCostsFinal + " €"; //AllCostsLabel.Text = allcosts + "," + remainder + " €"; 
         }
 
+        private bool CheckDuplicates(string possibleText, int taskType)
+        {
+            try
+            {
+                foreach (var item in myExpensesList.Where(x => x.Type == taskType)) // myList
+                {
+                    if (possibleText == item.Text)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                DisplayAlert("CheckDuplicates", e.Message, "OK");
+                return false;
+            }
+        }
+
         private async void AddExpenseButton_OnClicked(object sender, EventArgs e)
         {
             try

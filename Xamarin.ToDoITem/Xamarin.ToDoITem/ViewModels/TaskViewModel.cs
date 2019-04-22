@@ -45,6 +45,6 @@ namespace MyItems.ViewModels
             {
                 Console.WriteLine(e.Message);
             }
-        }
+        }        
     }
 }
