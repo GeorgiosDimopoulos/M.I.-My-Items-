@@ -48,7 +48,7 @@ namespace MyItems.Views
                 await DisplayAlert("AddNewItem: ", exception.Message, "OK");
             }
         }
-
+        
         protected async void FillPickers()
         {
             try
@@ -90,12 +90,11 @@ namespace MyItems.Views
                     if (t.Type == 22)
                     {
                         mainTask = t;
-                        LastDayCostLabel.Text = mainTask.Date.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture); ;
+                        LastDayCostLabel.Text = mainTask.Date.ToString("dd/MM", CultureInfo.InvariantCulture); ; //MM/dd/yyyy
                         GeneralCostPriceLabel.Text = mainTask.Price + "€";
                     }
                 }
-                CountGeneralCosts();
-                //TapGestureRecognizers();                
+                //CountGeneralCosts();
                 UserDialogs.Instance.HideLoading();
             }
             catch (Exception e)
@@ -188,7 +187,6 @@ namespace MyItems.Views
                     ToDoDatePicker.Focus();
                     editOption = true;
                 }
-                
             }
             catch (Exception ex)
             {
@@ -436,8 +434,7 @@ namespace MyItems.Views
         private async void AthensCostChoicesPicker_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             try
-            {
-                //AthensCostChoicesPicker.Unfocus();                
+            {        
                 if (AthensCostChoicesPicker.SelectedIndex == 0) // delete
                 {
                     UserDialogs.Instance.ShowLoading();
@@ -445,6 +442,7 @@ namespace MyItems.Views
                     await App.ItemController.DeleteTask(currentTask);
                     AthensCostsListView.ItemsSource = null;
                     AthensCostsListView.ItemsSource = _sortedList.ToList().Where(x => x.Type.Equals(17));
+                    //CountGeneralCosts();
                     UserDialogs.Instance.HideLoading();
                     await DisplayAlert(null, "Επιτυχής Διαγραφή!", "OK");
                 }
@@ -475,7 +473,7 @@ namespace MyItems.Views
                     UserDialogs.Instance.ShowLoading();
                     currentTask.Price = result.Text;
                     await App.ItemController.UpdateTask(currentTask);
-                    CountGeneralCosts();
+                    //CountGeneralCosts();
                     AthensCostsListView.ItemsSource = null;
                     AthensCostsListView.ItemsSource = _sortedList.ToList().Where(x => x.Type.Equals(17));
                     UserDialogs.Instance.HideLoading();
@@ -598,10 +596,10 @@ namespace MyItems.Views
                 };
                 generalList.Add(task);
                 await App.ItemController.InsertTask(task);
-                CountGeneralCosts();
                 AthensCostsListView.ItemsSource = null;
                 AthensCostsListView.ItemsSource = _sortedList.ToList().Where(x => x.Type.Equals(17));
                 AthensCostEntry.Text = "";
+                //CountGeneralCosts();
                 UserDialogs.Instance.HideLoading();
                 await DisplayAlert("Προσθήκη", "Νέο Έξοδο προστέθηκε", "OK");
 
@@ -695,7 +693,7 @@ namespace MyItems.Views
                     return;
                 }
                 await App.ItemController.UpdateTask(mainTask);
-                LastDayCostLabel.Text = mainTask.Date.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+                LastDayCostLabel.Text = mainTask.Date.ToString("MM/dd", CultureInfo.InvariantCulture); //MM/dd/yyyy
                 AthensGeneralCostDatepicker.IsVisible = false;
                 AthensGeneralCostDatepicker.Unfocus();                
                 UserDialogs.Instance.HideLoading();

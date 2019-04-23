@@ -118,10 +118,10 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" TextColor="Black" Text=" 04/18/2019" FontSize="Medium" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                <Label Grid.Column="0" TextColor="Black" Text=" 17/04" FontSize="Medium" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
                 <Label Grid.Column="1" TextColor="Black" x:Name="LastDayCostLabel" FontSize="Medium" Text="{Binding Text}" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
                 <Label TextColor="Black" Grid.Column="2" x:Name="GeneralCostPriceLabel" FontSize="Medium" Text="{Binding Price}" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
                 <ImageButton Grid.Column="3" Source="right_arrow" BackgroundColor="Transparent" x:Name="EditGeneralCost" Clicked="EditGeneralCost_OnClicked"/>
@@ -161,7 +161,6 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </ScrollView>
-            <!--<Label BackgroundColor="#455A64" x:Name="AllCostsLabel" HorizontalTextAlignment="Center" FontSize="Large" TextColor="Wheat" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>-->
             <Grid BackgroundColor="#455A64" HeightRequest="150">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>

@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Threading;
 using Acr.UserDialogs;
+using MyItems.ViewModels;
 using MyItems.Views;
 using Xamarin.Forms;
 
 namespace MyItems
 {
 	public partial class MainPage : ContentPage
-	{
+    {
+        private MainPageViewModel _mainPageViewModel;
+
         public MainPage()
         {
             try
             {
                 InitializeComponent();
-                //App.Indicator.Start();
+                _mainPageViewModel =(MainPageViewModel) BindingContext;
                 NavigationPage.SetHasNavigationBar(this, false);
                 TapRecognizers();
-                //App.Indicator.Stop();
             }
             catch (Exception e)
             {
@@ -63,16 +65,6 @@ namespace MyItems
             {
                 DisplayAlert("TapRecognizers", e.Message, "OK");
             }
-        }
-        
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            //await((IDataContext)BindingContext).Refresh(null);
-            //Device.BeginInvokeOnMainThread(async () =>
-            //{
-            //
-            //});
         }
 
         protected override bool OnBackButtonPressed()
