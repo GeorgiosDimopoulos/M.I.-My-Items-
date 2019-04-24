@@ -18,6 +18,7 @@ namespace MyItems.Views
         private List<Task> generalList;        
         private bool editOption;
         private IOrderedEnumerable<Task> _sortedList;
+        //private int wholeCost;
         private Task currentTask;
         private Task mainTask;
         private DateTime selectedDate;
@@ -79,22 +80,22 @@ namespace MyItems.Views
         {
             try
             {
-                generalList = await App.ItemController.GetTasks(); // var
-                //myList = new ObservableCollection<Task>(generalList);
-                _sortedList = from cTask in generalList orderby cTask.Date, cTask.Date select cTask; //IEnumerable
-                AthensToDoListView.ItemsSource = _sortedList.Where(x => x.Type.Equals(15)); //instead of myList
-                AthensExodusListView.ItemsSource = _sortedList.Where(x => x.Type.Equals(14)); //instead of myList
-                AthensCostsListView.ItemsSource = _sortedList.Where(x => x.Type.Equals(17)); //instead of myList                
+                generalList = await App.ItemController.GetTasks(); // myList = new ObservableCollection<Task>(generalList);
+                _sortedList = from cTask in generalList orderby cTask.Date, cTask.Date select cTask;
+                AthensToDoListView.ItemsSource = _sortedList.Where(x => x.Type.Equals(15));
+                AthensExodusListView.ItemsSource = _sortedList.Where(x => x.Type.Equals(14));
+                AthensCostsListView.ItemsSource = _sortedList.Where(x => x.Type.Equals(17)); 
+                //AthensGeneralCostDatepicker.Date = DateTime.Today.AddDays(-1);
                 foreach (var t in generalList)
                 {
                     if (t.Type == 22)
                     {
                         mainTask = t;
-                        LastDayCostLabel.Text = mainTask.Date.ToString("dd/MM", CultureInfo.InvariantCulture); ; //MM/dd/yyyy
+                        LastDayCostLabel.Text = mainTask.Date.ToString("dd/MM", CultureInfo.InvariantCulture); ;
                         GeneralCostPriceLabel.Text = mainTask.Price + "€";
                     }
                 }
-                //CountGeneralCosts();
+                CountGeneralCosts();
                 UserDialogs.Instance.HideLoading();
             }
             catch (Exception e)
@@ -141,6 +142,7 @@ namespace MyItems.Views
                 double mainTaskPrice = double.Parse(mainTask.Price.Remove(mainTask.Price.Length-1)); // eg 40
                 almostFinalDouble += mainTaskPrice;// 70 + 40 = 110
                 AllCostsLabel.Text = "Σύνολo: " + almostFinalDouble + " €";
+                //wholeCost = Convert.ToInt32(almostFinalDouble);
             }
             catch (Exception e)
             {
@@ -437,12 +439,12 @@ namespace MyItems.Views
             {        
                 if (AthensCostChoicesPicker.SelectedIndex == 0) // delete
                 {
-                    UserDialogs.Instance.ShowLoading();
+                    UserDialogs.Instance.ShowLoading();                    
                     generalList.Remove(currentTask);
                     await App.ItemController.DeleteTask(currentTask);
+                    CountGeneralCosts();
                     AthensCostsListView.ItemsSource = null;
                     AthensCostsListView.ItemsSource = _sortedList.ToList().Where(x => x.Type.Equals(17));
-                    //CountGeneralCosts();
                     UserDialogs.Instance.HideLoading();
                     await DisplayAlert(null, "Επιτυχής Διαγραφή!", "OK");
                 }
@@ -471,9 +473,9 @@ namespace MyItems.Views
                         return;
                     }
                     UserDialogs.Instance.ShowLoading();
-                    currentTask.Price = result.Text;
+                    currentTask.Price = result.Text + ".0";
                     await App.ItemController.UpdateTask(currentTask);
-                    //CountGeneralCosts();
+                    CountGeneralCosts();
                     AthensCostsListView.ItemsSource = null;
                     AthensCostsListView.ItemsSource = _sortedList.ToList().Where(x => x.Type.Equals(17));
                     UserDialogs.Instance.HideLoading();
