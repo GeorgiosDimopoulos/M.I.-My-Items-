@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using Xamarin.Forms;
 
 namespace MyItems.ViewModels
@@ -12,6 +13,8 @@ namespace MyItems.ViewModels
     {
         private ObservableCollection<Task> _tasks;
         public ICommand ListCommand { private set; get; }
+        private List<Task> generalList;
+        private IOrderedEnumerable<Task> _sortedList;
 
         public ObservableCollection<Task> Tasks
         {
@@ -69,11 +72,18 @@ namespace MyItems.ViewModels
             }
         }
 
-        protected async void AddNewItem(Task thisTask, Type thisType, DateTime thisDate)
+        protected async void AddNewItem(string newTaskText, string newTaskPrice, int newTaskType, DateTime thisDate)
         {
             try
             {
-
+                var task = new Task
+                {
+                    Text = newTaskText,
+                    Type = newTaskType,
+                    Price = newTaskPrice
+                };
+                generalList.Add(task);
+                await App.ItemController.InsertTask(task);
             }
             catch (Exception e)
             {
