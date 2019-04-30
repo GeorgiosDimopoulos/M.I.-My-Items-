@@ -30,7 +30,9 @@ namespace MyItems.Views
                 InitializeComponent();
                 NavigationPage.SetHasNavigationBar(this, true);
                 NavigationPage.SetHasBackButton(this, false);                
-                FillPickers();
+                //FillPickers();
+                //FillingListViews();
+                //CleaningEntries();
             }
             catch (Exception ex)
             {
@@ -67,16 +69,14 @@ namespace MyItems.Views
         protected async void FillingListViews()
         {
             try
-            {
-                generalList = await App.ItemController.GetTasks(); // myList = new ObservableCollection<Task>(generalList);
-                _sortedList = from cTask in generalList orderby cTask.Date, cTask.Date select cTask;
+            {                
                 AthensToDoListView.ItemsSource = _sortedList.Where(x => x.Type.Equals(15));
                 AthensExodusListView.ItemsSource = _sortedList.Where(x => x.Type.Equals(14));
                 AthensCostsListView.ItemsSource = _sortedList.Where(x => x.Type.Equals(17));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                await DisplayAlert("FillingListViews Error: ", e.Message, "OK");
             }
         }
 
@@ -98,9 +98,10 @@ namespace MyItems.Views
         {
             try
             {
-                FillingListViews();
-                CleaningEntries();
                 editOption = false;
+                generalList = new List<Task>();
+                generalList = await App.ItemController.GetTasks(); // myList = new ObservableCollection<Task>(generalList);
+                _sortedList = from cTask in generalList orderby cTask.Date, cTask.Date select cTask;
                 foreach (var t in generalList)
                 {
                     if (t.Type != 22) continue;
@@ -108,6 +109,9 @@ namespace MyItems.Views
                     LastDayCostLabel.Text = mainTask.Date.ToString("dd/MM", CultureInfo.InvariantCulture); ;
                     GeneralCostPriceLabel.Text = mainTask.Price + "€";
                 }
+                FillPickers();
+                FillingListViews();
+                CleaningEntries();
                 CountGeneralCosts();
                 UserDialogs.Instance.HideLoading();
             }
