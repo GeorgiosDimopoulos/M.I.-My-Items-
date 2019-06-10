@@ -5,7 +5,7 @@ using MyItems.ViewModels;
 using MyItems.Views;
 using Xamarin.Forms;
 
-namespace MyItems
+namespace MyItems.Views
 {
 	public partial class MainPage : ContentPage
     {

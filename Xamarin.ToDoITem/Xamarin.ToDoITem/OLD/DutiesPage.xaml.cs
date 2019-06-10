@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using MyItems.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

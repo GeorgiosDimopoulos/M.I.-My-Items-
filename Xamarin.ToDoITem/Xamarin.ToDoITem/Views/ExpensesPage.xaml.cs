@@ -4,13 +4,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
+using MyItems.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MyItems
+namespace MyItems.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ExpensesPage : TabbedPage
@@ -52,6 +51,7 @@ namespace MyItems
                 ExpensesListView.ItemsSource = myExpensesList.Where(x => x.Type.Equals(5));
                 OldExpensesListView.ItemsSource = myExpensesList.Where(x => x.Type.Equals(8));
                 CountGeneralCosts();
+                CountCurrentCosts();
                 UserDialogs.Instance.HideLoading();
             }
             catch (Exception e)
@@ -60,23 +60,45 @@ namespace MyItems
             }
         }
 
-        private void CountGeneralCosts()
+        private async void CountCurrentCosts()
         {
-            double allcosts = 0.0;
-            foreach (var oldExpense in myExpensesList)
+            try
             {
-                if (oldExpense.Type == 8)
+                double currentCosts = 0;
+                foreach (var cost in myExpensesList.Where(x => x.Type.Equals(5)))
                 {
-                    allcosts += double.Parse(oldExpense.Price);
+                    currentCosts += double.Parse(cost.Price);
                 }
-            };
-            var stringCosts = allcosts.ToString();
-            var stringCostsFinal = stringCosts.Remove(stringCosts.Length - 1);
-            //string s = allcosts.ToString("0.0", CultureInfo.InvariantCulture);
-            //string[] parts = s.Split('.');
-            //int i1 = int.Parse(parts[0]);
-            //int i2 = int.Parse(parts[1]);
-            AllCostsLabel.Text = stringCostsFinal + " €"; //AllCostsLabel.Text = allcosts + "," + remainder + " €"; 
+                var stringCosts = currentCosts.ToString(CultureInfo.InvariantCulture);
+                var stringCostsFinal = stringCosts.Remove(stringCosts.Length - 1);
+                CurrentCostsToolbarItem.Text = "Συνολικά: " + stringCostsFinal + " €";
+            }
+            catch (Exception e)
+            {
+                await DisplayAlert("CountCurrentCosts", e.Message, "OK");
+            }
+        }
+
+        private async void CountGeneralCosts()
+        {
+            try
+            {
+                var allCosts = 0.0;
+                foreach (var oldExpense in myExpensesList)
+                {
+                    if (oldExpense.Type == 8)
+                    {
+                        allCosts += double.Parse(oldExpense.Price);
+                    }
+                };
+                var stringCosts = allCosts.ToString(CultureInfo.InvariantCulture);
+                var stringCostsFinal = stringCosts.Remove(stringCosts.Length - 1);
+                AllCostsLabel.Text = "Παλιά Κέρδη: "+ stringCostsFinal + " €"; 
+            }
+            catch (Exception e)
+            {
+                await DisplayAlert("CountGeneralCosts", e.Message, "OK");
+            }
         }
 
         private bool CheckDuplicates(string possibleText, int taskType)

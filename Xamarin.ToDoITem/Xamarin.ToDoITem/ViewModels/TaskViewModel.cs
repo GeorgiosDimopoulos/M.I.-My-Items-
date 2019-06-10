@@ -16,8 +16,9 @@ namespace MyItems.ViewModels
 
         public TaskViewModel(Task currentTask)
         {
+            // TO DO
             generalList = new List<Task>();
-            generalList = App.ItemController.GetTasks();
+            //generalList = App.ItemController.GetTasks();
             //myList = new ObservableCollection<Task>(generalList);
             _sortedList = from cTask in generalList orderby cTask.Date, cTask.Date select cTask;
         }

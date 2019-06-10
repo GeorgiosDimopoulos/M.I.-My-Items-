@@ -2,11 +2,8 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="ΑΓΟΡΕΣ"
-             x:Class="MyItems.MarketPage">
+             x:Class="MyItems.Views.MarketPage">
     <ContentPage Title="Super Market">
-        <ContentPage.ToolbarItems>
-            <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
-        </ContentPage.ToolbarItems>
         <StackLayout BackgroundColor="#F5F5F5">
             <ScrollView Orientation="Vertical">
                 <ListView x:Name="MarketListView" ItemTapped="ItemsListView_OnItemTapped" VerticalOptions="Fill">

@@ -3,11 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Τα Workout Outs Μου"
              BackgroundColor="#BDBDBD"
-             x:Class="MyItems.WodsPage">
-    <TabbedPage.ToolbarItems>
-        <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
-        <!--<ToolbarItem Order="Primary" Icon="trophy.png" x:Name="TrophiesToolbarItem" Clicked="TrophiesToolbarItem_OnClicked"/>-->
-    </TabbedPage.ToolbarItems>
+             x:Class="MyItems.Views.WodsPage">
     <ContentPage Title="CROSS FIT" BackgroundColor="#F5F5F5">
         <StackLayout Orientation="Vertical">
             <ScrollView Orientation="Vertical">

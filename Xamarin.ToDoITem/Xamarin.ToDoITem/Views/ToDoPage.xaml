@@ -3,11 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="ΥΠΟΧΡΕΩΣΕΙΣ"
              BackgroundColor="#BDBDBD"
-             x:Class="MyItems.ToDoPage">
+             x:Class="MyItems.Views.ToDoPage">
     <ContentPage Title="ΆΜΕΣΕΣ" BackgroundColor="#F5F5F5">
-        <ContentPage.ToolbarItems>
-            <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
-        </ContentPage.ToolbarItems>
         <StackLayout BackgroundColor="#F5F5F5">
             <ScrollView Orientation="Vertical">
                 <ListView x:Name="TodayDutiesListView" ItemTapped="TodayItemsListView_OnItemTapped" VerticalOptions="StartAndExpand" Unfocused="TodayDutiesListView_OnUnfocused">

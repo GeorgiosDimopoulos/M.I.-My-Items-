@@ -2,10 +2,10 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="ΕΞΟΔΑ"
-             x:Class="MyItems.ExpensesPage">
+             x:Class="MyItems.Views.ExpensesPage">
     <ContentPage Title="ΤΩΡΙΝΑ">
         <ContentPage.ToolbarItems>
-            <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
+            <ToolbarItem Text="Συνολικά:" x:Name="CurrentCostsToolbarItem"/>
         </ContentPage.ToolbarItems>
         <StackLayout BackgroundColor="#F5F5F5">
             <ScrollView Orientation="Vertical">
@@ -58,9 +58,9 @@
     </ContentPage>
     <ContentPage Title="ΠΕΡΑΣΜΕΝΑ" >
         <ContentPage.ToolbarItems>
-            <ToolbarItem Order="Primary" Icon="icon_back.png" Clicked="MenuItem_OnClicked"/>
+            <ToolbarItem x:Name="AllCostsLabel"/>
         </ContentPage.ToolbarItems>
-        <StackLayout BackgroundColor="#CFD8DC">
+        <StackLayout BackgroundColor="#F5F5F5">
             <ScrollView Orientation="Vertical">
                 <ListView x:Name="OldExpensesListView" ItemTapped="OldItemsListView_OnItemTapped" VerticalOptions="StartAndExpand">
                     <ListView.Header>
@@ -96,10 +96,10 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </ScrollView>
-            <StackLayout Orientation="Vertical" BackgroundColor="#455A64" HeightRequest="80">
-                <Label x:Name="AllCostsLabelTitle" Text="Συνολικά Κόστη" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontSize="Large" TextColor="Wheat" Margin="0,10,0,0"/>
+            <!--<StackLayout Orientation="Vertical" BackgroundColor="#455A64" HeightRequest="80">
+                <Label x:Name="AllCostsLabelTitle" Text="Συνολικά Παλιά Κόστη" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" FontSize="Large" TextColor="Wheat" Margin="0,10,0,0"/>
                 <Label x:Name="AllCostsLabel" HorizontalTextAlignment="Center" FontSize="Large" TextColor="Wheat" FontAttributes="Bold" Margin="0,0,0,10"/>
-            </StackLayout>
+            </StackLayout>-->
             <Picker HorizontalOptions="Center" VerticalOptions="Center" x:Name="OldExpenseChoicesPicker" Unfocused="OldExpenseChoicesPicker_OnUnfocused" SelectedIndexChanged="OldExpenseChoicesPicker_SelectedIndexChanged" IsVisible="False" />
         </StackLayout>
     </ContentPage>

@@ -8,7 +8,7 @@ using Acr.UserDialogs;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MyItems
+namespace MyItems.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MarketPage : TabbedPage
