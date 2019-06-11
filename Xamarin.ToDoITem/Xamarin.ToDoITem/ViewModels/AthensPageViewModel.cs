@@ -90,5 +90,30 @@ namespace MyItems.ViewModels
                 Console.WriteLine(e.Message);
             }
         }
+
+        protected async void DeleteItem(Task currentTask)
+        {
+            try
+            {
+                generalList.Remove(currentTask);
+                await App.ItemController.DeleteTask(currentTask);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        protected async void UpdateItem(Task currentTask)
+        {
+            try
+            {
+                await App.ItemController.UpdateTask(currentTask);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
     }
 }
