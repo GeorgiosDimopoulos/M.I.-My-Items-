@@ -8,23 +8,30 @@
             <ToolbarItem Text="Συνολικά:" x:Name="CurrentCostsToolbarItem"/>
         </ContentPage.ToolbarItems>
         <StackLayout BackgroundColor="#F5F5F5">
+            <Grid VerticalOptions="StartAndExpand" Margin="10" x:Name="OtherCostsGrid" HeightRequest="100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="OtherCostsLabelTitle" FontAttributes="Bold" Grid.Column="0" FontSize="20" VerticalOptions="Start" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
+                <Label x:Name="OtherCostsLabel" FontAttributes="Bold" FontSize="20" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" VerticalOptions="Start" HorizontalTextAlignment="Center" Grid.Column="1"/>
+            </Grid>
+            <Label HorizontalOptions="Center" FontSize="20" Margin="0,0,0,10" Text="Διάφορα Έξοδα" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
             <ScrollView Orientation="Vertical">
-                <ListView x:Name="ExpensesListView" ItemTapped="ItemsListView_OnItemTapped" VerticalOptions="StartAndExpand">
+                <ListView x:Name="ExpensesListView" ItemTapped="ItemsListView_OnItemTapped">
                     <ListView.Header>
-                        <Grid >
+                        <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="1"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" Margin="10">
+                            <Grid Grid.Row="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="100"/>
-                                    <!--<ColumnDefinition Width="100"/>-->
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="ΠΡΟΪΌΝ" FontSize="15" TextColor="Black" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
                                 <Label Grid.Column="1" Text="ΤΙΜΉ" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>
-                                <!--<Label Grid.Column="2" Text="ΠΌΤΕ" TextColor="Black" FontSize="15" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center"/>-->
                             </Grid>
                             <BoxView Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="1" WidthRequest="Infinity" Color="Black"/>
                         </Grid>

@@ -46,12 +46,40 @@ namespace MyItems.Views
         {
             try
             {
+                TapGestureRecognizer otherCostsTap = new TapGestureRecognizer();
                 var list = await App.ItemController.GetTasks();                
                 myExpensesList = new ObservableCollection<Task>(list);
+                Task otherCostsTask = null;
+                foreach (var task in myExpensesList)
+                {
+                    if (!task.Type.Equals(25)) continue;
+                    otherCostsTask = task;
+                    break;
+                }
                 ExpensesListView.ItemsSource = myExpensesList.Where(x => x.Type.Equals(5));
                 OldExpensesListView.ItemsSource = myExpensesList.Where(x => x.Type.Equals(8));
+                if (otherCostsTask != null)
+                {
+                    OtherCostsLabel.Text = otherCostsTask.Price;
+                    OtherCostsLabelTitle.Text = otherCostsTask.Text;
+                }
                 CountGeneralCosts();
                 CountCurrentCosts();
+                otherCostsTap.Tapped += async (object sender, EventArgs e) =>
+                {
+                    var result = await UserDialogs.Instance.PromptAsync("Τιμή", null, "Αλλαγή", "Ακυρο", "Αλλαγή Τιμής", inputType: InputType.Number);
+                    if (!string.IsNullOrEmpty(result.Text))
+                    {
+                        if (otherCostsTask == null) return;
+                        otherCostsTask.Price = result.Text;
+                        await App.ItemController.UpdateTask(otherCostsTask);
+                    }
+                    else
+                    {
+                        await DisplayAlert(null, "Πληκτρολόγησε κάτι για τη τιμή!", "OK");
+                    }
+                };
+                OtherCostsGrid.GestureRecognizers.Add(otherCostsTap);
                 UserDialogs.Instance.HideLoading();
             }
             catch (Exception e)
