@@ -24,7 +24,6 @@ namespace MyItems.Views
                 ProductChoicesPicker.IsVisible = false;
                 NavigationPage.SetHasNavigationBar(this, true);
                 NavigationPage.SetHasBackButton(this, false);
-                NavigationPage.SetHasNavigationBar(this, true);
                 OldProductChoicesPicker.Items.Clear();
                 OldProductChoicesPicker.Items.Add("Διαγραφή");
                 OldProductChoicesPicker.Items.Add("Μετονομασία");                

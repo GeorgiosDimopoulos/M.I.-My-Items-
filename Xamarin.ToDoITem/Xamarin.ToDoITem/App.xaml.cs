@@ -23,7 +23,7 @@ namespace MyItems
                 InitializeComponent();
                 ItemDatabase = new ItemDatabase(SqliteManage.DatabaseFolder());
                 ItemController = new ItemController();
-                MainPage = new NavigationPage(new MainPage());
+                MainPage = new NavigationPage(new TypetPage()); //MainPage
             }
             catch (Exception e)
             {
