@@ -27,6 +27,7 @@
                 <Entry x:Name="ToDoItemEntry" Grid.Row="0" PlaceholderColor="Wheat"  Placeholder="Νέα Υποχρέωση" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="ToDoItemButton_OnClicked"/>
             </Grid>
+            <Picker x:Name="TodoPicker" IsVisible="False" VerticalOptions="Center" HorizontalOptions="Center" SelectedIndexChanged="TodoPicker_OnSelectedIndexChanged" Unfocused="TodoPicker_OnUnfocused"/>
         </StackLayout>
     </ContentPage>
     <ContentPage Title="ΚΑΤΑΣΚΗΝΩΤΕΣ">
@@ -53,6 +54,7 @@
                 <Entry x:Name="KidItemEntry" Grid.Row="0" PlaceholderColor="Wheat"  Placeholder="Νέα Υποχρέωση" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="KidItemButton_OnClicked"/>
             </Grid>
+            <Picker x:Name="KidsPicker" IsVisible="False" VerticalOptions="Center" HorizontalOptions="Center" SelectedIndexChanged="KidsPicker_OnSelectedIndexChanged" Unfocused="KidsPicker_OnUnfocused"/>
         </StackLayout>
     </ContentPage>
     <ContentPage Title="ΟΜΑΔΑΡΧΕΣ">
@@ -76,6 +78,7 @@
                 <Entry x:Name="StaffItemEntry" Grid.Row="0" PlaceholderColor="Wheat"  Placeholder="Νέα Υποχρέωση" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
                 <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="StaffItemEntryButton_OnClicked"/>
             </Grid>
+            <Picker x:Name="StaffPicker" IsVisible="False" VerticalOptions="Center" HorizontalOptions="Center" SelectedIndexChanged="StuffPicker_OnSelectedIndexChanged" Unfocused="StuffPicker_OnUnfocused"/>
         </StackLayout>
     </ContentPage>
 </TabbedPage>
