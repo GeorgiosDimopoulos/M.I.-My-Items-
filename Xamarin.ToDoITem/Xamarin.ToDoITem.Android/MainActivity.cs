@@ -6,8 +6,6 @@ using Android.Content.PM;
 using Android.OS;
 using MyItems;
 using MyItems.SQLite;
-using System.Threading;
-using System.Threading.Tasks;
 using ProgressDialog = Android.App.ProgressDialog;
 
 namespace Xamarin.ToDoITem.Droid
@@ -24,6 +22,7 @@ namespace Xamarin.ToDoITem.Droid
                 base.OnCreate(bundle);                
                 TabLayoutResource = Resource.Layout.Tabbar;
                 ToolbarResource = Resource.Layout.Toolbar;
+                Rg.Plugins.Popup.Popup.Init(this,bundle);
                 Forms.Forms.Init(this, bundle);
                 SQLitePCL.Batteries_V2.Init();
                 UserDialogs.Init(this);

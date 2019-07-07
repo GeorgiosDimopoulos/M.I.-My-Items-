@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="ΥΠΟΧΡΕΩΣΕΙΣ"
+             xmlns:pages="clr-namespace:Rg;assembly=Rg.Plugins.Popup"
+             x:Class="MyItems.Views.TYPET.TodoPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Secondary" Text="Μετονομασία Σελίδας" Clicked="EditTitleToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout BackgroundColor="#F5F5F5">
+        <ScrollView Orientation="Vertical">
+            <ListView x:Name="TodoDutiesListView" ItemTapped="TodoDutiesListView_OnItemTapped" VerticalOptions="StartAndExpand" Unfocused="TodoDutiesListView_OnUnfocused">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding Text}" FontSize="Medium" TextColor="#212121" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+        <Grid BackgroundColor="#455A64" HeightRequest="150">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Entry x:Name="ToDoItemEntry" Grid.Row="0" PlaceholderColor="Wheat"  Placeholder="Νέα Υποχρέωση" FontSize="Medium" VerticalOptions="Center" FontFamily="Roboto-Light.ttf#Roboto-Light" HorizontalTextAlignment="Center" BackgroundColor="#607D8B"/>
+            <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="ToDoItemButton_OnClicked"/>
+        </Grid>
+        <Picker x:Name="TodoPicker" IsVisible="False" VerticalOptions="Center" HorizontalOptions="Center" SelectedIndexChanged="TodoPicker_OnSelectedIndexChanged" Unfocused="TodoPicker_OnUnfocused"/>
+    </StackLayout>
+</ContentPage>

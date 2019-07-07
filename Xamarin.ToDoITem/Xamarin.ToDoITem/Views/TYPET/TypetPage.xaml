@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:typet="clr-namespace:MyItems.Views.TYPET"
+             Title="ΣΤΕΛΕΧΑΡΑΣ"
+             x:Class="MyItems.Views.TYPET.TypetPage">
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Order="Secondary" Text="Νέα Σελίδα" Clicked="AddToolbarItem_Clicked"/>
+    </TabbedPage.ToolbarItems>
+    <TabbedPage.Children>
+        <typet:TodoPage x:Name="TodoPage"/>
+        <typet:KidsPage x:Name="KidsPage"/>
+        <typet:StaffPage x:Name="StaffPage"/>
+    </TabbedPage.Children>
+</TabbedPage>

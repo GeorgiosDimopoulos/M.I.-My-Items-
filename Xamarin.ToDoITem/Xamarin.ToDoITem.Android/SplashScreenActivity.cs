@@ -16,13 +16,13 @@ using Android.Util;
 
 namespace Xamarin.ToDoITem.Droid
 {
-    [Activity(Icon = "@drawable/todo", Label = "MI", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Icon = "@drawable/download", Label = "MI", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class SplashScreenActivity: Activity
     {
         public override void OnCreate(Bundle savedInstanceState, PersistableBundle persistentState)
         {
             base.OnCreate(savedInstanceState, persistentState);
-            //UserDialogs.Init(this);
+            //Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
         }
 
         protected override void OnResume()
@@ -34,7 +34,6 @@ namespace Xamarin.ToDoITem.Droid
 
         private void SimulateStartup()
         {
-            //await Task.Delay(1000);
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
     }
