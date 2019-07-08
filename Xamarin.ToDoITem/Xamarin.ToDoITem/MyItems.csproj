@@ -58,7 +58,7 @@
     <EmbeddedResource Update="Views\TYPET\KidsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\TYPET\PopUpPage.xaml">
+    <EmbeddedResource Update="Views\TYPET\PopUpView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\TYPET\StaffPage.xaml">

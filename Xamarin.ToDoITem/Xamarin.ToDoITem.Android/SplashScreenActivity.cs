@@ -16,7 +16,7 @@ using Android.Util;
 
 namespace Xamarin.ToDoITem.Droid
 {
-    [Activity(Icon = "@drawable/download", Label = "MI", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Icon = "@drawable/todo", Label = "Stelexaras", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class SplashScreenActivity: Activity
     {
         public override void OnCreate(Bundle savedInstanceState, PersistableBundle persistentState)

@@ -54,15 +54,16 @@ namespace MyItems.Views.TYPET
         {
             try
             {
-                var result = await UserDialogs.Instance.PromptAsync("Νέα Σελίδα", null, "Τίτλος Νέας Σελίδας", "Ακυρο", currentTask.Text, inputType: InputType.Default);
+                //var result = await UserDialogs.Instance.PromptAsync("Νέα Σελίδα", null, "Τίτλος Νέας Σελίδας", "Ακυρο", currentTask.Text, inputType: InputType.Default);
                 UserDialogs.Instance.ShowLoading();
-                if (string.IsNullOrEmpty(result.Text))
-                {
-                    await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
-                    return;
-                }
-                this.Children.Add(new ContentPage());
-                await Navigation.PushAsync(this);
+                Children.Add(new ContentPage());
+                //if (string.IsNullOrEmpty(result.Text))
+                //{
+                //    await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
+                //    return;
+                //}
+                //this.Children.Add(new ContentPage());
+                //await Navigation.PushAsync(this);
                 UserDialogs.Instance.HideLoading();
             }
             catch (Exception exception)

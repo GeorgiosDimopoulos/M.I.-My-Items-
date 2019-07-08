@@ -12,7 +12,8 @@ namespace MyItems.Views.TYPET
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TodoPage : ContentPage
-	{
+    {
+        public static string PageTitle;
         private List<Task> generalList;
         private bool editOption;
         private IOrderedEnumerable<Task> _sortedList;
@@ -150,21 +151,27 @@ namespace MyItems.Views.TYPET
         {
             try
             {
-                await PopupNavigation.Instance.PushAsync(new PopupPage());
-                //var result = await UserDialogs.Instance.PromptAsync("Μετονομασία", null, "Μετονομασία Τίτλου", "Ακυρο", currentTask.Text, inputType: InputType.Default);
-                //UserDialogs.Instance.ShowLoading();
-                //if (string.IsNullOrEmpty(result.Text))
-                //{
-                //    await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
-                //    return;
-                //}
-                //Title = result.Text;
-                //UserDialogs.Instance.HideLoading();
+                //PopUpLayout.IsVisible = true;
+                //MainLayout.IsVisible = false;
+                PopUpView.KindOfPage = 3;
+                await PopupNavigation.Instance.PushAsync(page: new PopUpView());
             }
             catch (Exception exception)
             {
                 await DisplayAlert("EditTitleToolbarItem_Clicked", exception.Message, "OK");
             }
         }
+
+        //private void SubmitButton_OnClicked(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        Title = NewItemEntry.Text;
+        //    }
+        //    catch (Exception exception)
+        //    {
+        //        Console.WriteLine(exception);
+        //    }
+        //}
     }
 }

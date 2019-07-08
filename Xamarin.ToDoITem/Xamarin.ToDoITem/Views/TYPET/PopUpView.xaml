@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="MyItems.Views.TYPET.PopUpView">
+    <StackLayout Orientation="Vertical" HeightRequest="120" BackgroundColor="White" WidthRequest="250" VerticalOptions="Center" HorizontalOptions="Center">
+        <Entry VerticalOptions="Center" HorizontalOptions="Center" x:Name="NewItemEntry" BackgroundColor="White" PlaceholderColor="Black" TextColor="Black" Placeholder="Νέο Όνομα Σελίδας"/>
+        <Button x:Name="SubmitButton" HorizontalOptions="Center" TextColor="Wheat" Text="OK" WidthRequest="200" BackgroundColor="CadetBlue" VerticalOptions="Center" Clicked="SubmitButton_OnClicked"/>
+    </StackLayout>
+</pages:PopupPage>

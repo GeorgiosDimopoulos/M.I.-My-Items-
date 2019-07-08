@@ -2,12 +2,18 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="ΥΠΟΧΡΕΩΣΕΙΣ"
+             xmlns:typet="clr-namespace:MyItems.Views.TYPET"
              xmlns:pages="clr-namespace:Rg;assembly=Rg.Plugins.Popup"
              x:Class="MyItems.Views.TYPET.TodoPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Secondary" Text="Μετονομασία Σελίδας" Clicked="EditTitleToolbarItem_Clicked"/>
+        <!--<ToolbarItem Order="Secondary" Text="Μετονομασία Σελίδας" Clicked="EditTitleToolbarItem_Clicked"/>-->
     </ContentPage.ToolbarItems>
     <StackLayout BackgroundColor="#F5F5F5">
+        <!--<StackLayout Orientation="Vertical" IsVisible="False" x:Name="PopUpLayout" HeightRequest="120" BackgroundColor="White" WidthRequest="250" VerticalOptions="Center" HorizontalOptions="Center">
+            <Entry VerticalOptions="Center" HorizontalOptions="Center" x:Name="NewItemEntry" BackgroundColor="White" PlaceholderColor="Black" TextColor="Black" Placeholder="Νέο Όνομα Σελίδας"/>
+            <Button x:Name="SubmitButton" HorizontalOptions="Center" TextColor="Wheat" Text="OK" WidthRequest="200" BackgroundColor="CadetBlue" VerticalOptions="Center" Clicked="SubmitButton_OnClicked"/>
+        </StackLayout>-->
+        <StackLayout IsVisible="True" x:Name="MainLayout">
         <ScrollView Orientation="Vertical">
             <ListView x:Name="TodoDutiesListView" ItemTapped="TodoDutiesListView_OnItemTapped" VerticalOptions="StartAndExpand" Unfocused="TodoDutiesListView_OnUnfocused">
                 <ListView.ItemTemplate>
@@ -28,5 +34,6 @@
             <ImageButton Grid.Row="1" Source="newIcon.png" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10" Clicked="ToDoItemButton_OnClicked"/>
         </Grid>
         <Picker x:Name="TodoPicker" IsVisible="False" VerticalOptions="Center" HorizontalOptions="Center" SelectedIndexChanged="TodoPicker_OnSelectedIndexChanged" Unfocused="TodoPicker_OnUnfocused"/>
+        </StackLayout>
     </StackLayout>
 </ContentPage>

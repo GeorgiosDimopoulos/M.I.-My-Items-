@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,6 +16,7 @@ namespace MyItems.Views.TYPET
 	{
         private List<Task> generalList;
         private bool editOption;
+        public static string PageTitle;
         private IOrderedEnumerable<Task> _sortedList;
         public ObservableCollection<Task> myWholeList;
         private Task currentTask;
@@ -69,15 +71,10 @@ namespace MyItems.Views.TYPET
         {
             try
             {
-                var result = await UserDialogs.Instance.PromptAsync("Μετονομασία", null, "Μετονομασία Τίτλου", "Ακυρο", currentTask.Text, inputType: InputType.Default);
-                UserDialogs.Instance.ShowLoading();
-                if (string.IsNullOrEmpty(result.Text))
-                {
-                    await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
-                    return;
-                }
-                Title = result.Text;
-                UserDialogs.Instance.HideLoading();
+                PopUpView.KindOfPage = 2;
+                await PopupNavigation.Instance.PushAsync(page: new PopUpView());
+                //PopUpLayout.IsVisible = true;
+                //MainLayout.IsVisible = false;
             }
             catch (Exception exception)
             {
@@ -151,7 +148,7 @@ namespace MyItems.Views.TYPET
                 await DisplayAlert("StaffDutiesListView_OnUnfocused", ex.Message, "OK");
             }
         }
-
+        
         private void StaffDutiesListView_OnItemTapped(object sender, ItemTappedEventArgs e)
         {
             try

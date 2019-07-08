@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,6 +20,7 @@ namespace MyItems.Views.TYPET
         public ObservableCollection<Task> myWholeList;
         private Task currentTask;
         private Task mainTask;
+        public static string PageTitle;
 
         public KidsPage ()
 		{
@@ -39,14 +41,9 @@ namespace MyItems.Views.TYPET
         {
             try
             {
-                var result = await UserDialogs.Instance.PromptAsync("Μετονομασία", null, "Μετονομασία Τίτλου", "Ακυρο", currentTask.Text, inputType: InputType.Default);
                 UserDialogs.Instance.ShowLoading();
-                if (string.IsNullOrEmpty(result.Text))
-                {
-                    await DisplayAlert(null, "Πληκτρολόγησε κάτι!", "OK");
-                    return;
-                }
-                Title = result.Text;
+                PopUpView.KindOfPage = 1;
+                await PopupNavigation.Instance.PushAsync(page: new PopUpView());
                 UserDialogs.Instance.HideLoading();
             }
             catch (Exception exception)

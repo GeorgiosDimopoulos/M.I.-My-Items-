@@ -4,7 +4,7 @@
              Title="ΚΑΤΑΣΚΗΝΩΤΕΣ"
              x:Class="MyItems.Views.TYPET.KidsPage">
         <ContentPage.ToolbarItems>
-            <ToolbarItem Order="Secondary" Text="Μετονομασία Σελίδας" Clicked="EditTitleToolbarItem_Clicked"/>
+            <!--<ToolbarItem Order="Secondary" Text="Μετονομασία Σελίδας" Clicked="EditTitleToolbarItem_Clicked"/>-->
         </ContentPage.ToolbarItems>
         <StackLayout BackgroundColor="#F5F5F5">
             <ScrollView Orientation="Vertical">
